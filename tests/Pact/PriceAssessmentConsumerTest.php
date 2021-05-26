@@ -26,6 +26,7 @@ abstract class PriceAssessmentConsumerTest extends TestCase
 
     protected $method;
     protected $path;
+    protected $query;
 
     protected $requestHeaders;
     protected $responseHeaders;
@@ -124,7 +125,7 @@ abstract class PriceAssessmentConsumerTest extends TestCase
         array $requestBody = []
     ): ConsumerRequest {
         $request = new ConsumerRequest();
-        $request->setMethod($method)->setPath($path);
+        $request->setMethod($method)->setPath($path)->setQuery($this->query);
         foreach ($requestHeaders as $header => $value) {
             $request->addHeader($header, $value);
         }

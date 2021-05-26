@@ -36,7 +36,8 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         ];
 
         $this->skuId = 'skuId_test';
-        $this->path = '/price/' . $this->skuId;
+        $this->path = '/price';
+        $this->query = 'filter[skuId]=' . $this->skuId;
 
         $this->requestData = [];
         $this->responseData = [
@@ -62,7 +63,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'Exactly one Price exists for the requested skuId, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
-            ->uponReceiving('Successful GET request to /price/{skuId}');
+            ->uponReceiving('Successful GET request to /price');
 
         $this->beginTest();
     }
@@ -73,7 +74,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessMultiplePrices()
     {
         $this->skuId = 'skuId_test_multiple';
-        $this->path = '/price/' . $this->skuId;
+        $this->query = 'filter[skuId]=' . $this->skuId;
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
@@ -94,7 +95,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'Multiple Prices exist for the requested skuId, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
-            ->uponReceiving('Successful GET request to /price/{skuId}');
+            ->uponReceiving('Successful GET request to /price');
 
         $this->beginTest();
     }
@@ -102,7 +103,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessNull()
     {
         $this->skuId = 'skuId_test_null';
-        $this->path = '/price/' . $this->skuId;
+        $this->query = 'filter[skuId]=' . $this->skuId;
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
@@ -118,7 +119,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'The Price "null" (SKU not billable) exists for the requested skuId, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
-            ->uponReceiving('Successful GET request to /price/{skuId}');
+            ->uponReceiving('Successful GET request to /price');
 
         $this->beginTest();
     }
@@ -134,7 +135,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->builder
             ->given('The token is invalid')
-            ->uponReceiving('Unauthorized PUT request to /price/{skuId}');
+            ->uponReceiving('Unauthorized PUT request to /price');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -151,7 +152,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->builder
             ->given('The token is valid with an invalid scope')
-            ->uponReceiving('Forbidden POST request to to /price/{skuId}');
+            ->uponReceiving('Forbidden POST request to to /price');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -160,14 +161,14 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceNotFound(): void
     {
         $this->skuId = 'skuId_test_not_found';
-        $this->path = '/price/' . $this->skuId;
+        $this->query = 'filter[skuId]=' . $this->skuId;
 
         $this->expectedStatusCode = '404';
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('No Prices exist for the requested skuId')
-            ->uponReceiving('Not Found GET request to to /price/{skuId}');
+            ->uponReceiving('Not Found GET request to to /price');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -182,9 +183,9 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $client = new Client(['base_uri' => $this->config->getBaseUri()]);
         $options = [
             'headers' => $this->requestHeaders,
+            'query' => $this->query,
             'http_errors' => false,
         ];
-
         return $client->get($this->path, $options);
     }
 }
