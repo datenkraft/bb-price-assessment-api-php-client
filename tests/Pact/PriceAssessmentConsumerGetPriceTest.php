@@ -44,7 +44,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             [
                 'skuId' => $this->skuId,
                 'organizationId' => 'organizationId_test1',
-                'price' => $this->matcher->like(999.99)
+                'price' => 999.99
             ]
         ];
     }
