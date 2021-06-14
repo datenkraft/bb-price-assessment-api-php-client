@@ -43,8 +43,8 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test',
-                'price' => $this->matcher->like(999.99),
+                'organizationId' => 'organizationId_test1',
+                'price' => 999.99
             ]
         ];
     }
@@ -56,7 +56,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     public function testGetPriceSuccessOnePrice()
     {
-        $this->expectedStatusCode = '201';
+        $this->expectedStatusCode = '200';
 
         $this->builder
             ->given(
@@ -78,17 +78,17 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test',
-                'price' => $this->matcher->like(999.99),
+                'organizationId' => 'organizationId_test2',
+                'price' => 999.99
             ],
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test',
-                'price' => $this->matcher->like(999.99),
+                'organizationId' => 'organizationId_test3',
+                'price' => 999.99
             ]
         ];
 
-        $this->expectedStatusCode = '201';
+        $this->expectedStatusCode = '200';
 
         $this->builder
             ->given(
@@ -107,12 +107,12 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test',
-                'price' => null,
+                'organizationId' => 'organizationId_test4',
+                'price' => null
             ]
         ];
 
-        $this->expectedStatusCode = '201';
+        $this->expectedStatusCode = '200';
 
         $this->builder
             ->given(
@@ -143,7 +143,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     public function testGetPriceForbidden()
     {
-        $this->token = getenv('VALID_TOKEN_SKU_USAGE_ADD');
+        $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         $this->expectedStatusCode = '403';
@@ -153,22 +153,6 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->builder
             ->given('The token is valid with an invalid scope')
             ->uponReceiving('Forbidden POST request to to /price');
-
-        $this->responseData = $this->errorResponse;
-        $this->beginTest();
-    }
-
-    public function testGetPriceNotFound(): void
-    {
-        $this->skuId = 'skuId_test_not_found';
-        $this->query = 'filter[skuId]=' . $this->skuId;
-
-        $this->expectedStatusCode = '404';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
-
-        $this->builder
-            ->given('No Prices exist for the requested skuId')
-            ->uponReceiving('Not Found GET request to to /price');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
