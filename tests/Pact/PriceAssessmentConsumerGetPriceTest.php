@@ -39,7 +39,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->skuId = 'skuId_test';
         $this->path = '/price';
-        $this->queryParams = ['filter[skuId]' => $this->skuId];
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
 
         $this->requestData = [];
         $this->responseData = [
@@ -76,7 +76,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessMultiplePrices()
     {
         $this->skuId = 'skuId_test_multiple';
-        $this->queryParams = ['filter[skuId]' => $this->skuId];
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
@@ -105,7 +105,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessNull()
     {
         $this->skuId = 'skuId_test_null';
-        $this->queryParams = ['filter[skuId]' => $this->skuId];
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,

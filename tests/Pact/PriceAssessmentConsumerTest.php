@@ -128,6 +128,9 @@ abstract class PriceAssessmentConsumerTest extends TestCase
         $request->setMethod($method)->setPath($path);
         if (is_array($this->queryParams)) {
             foreach ($this->queryParams as $queryParam => $value) {
+                if (is_array($value)) {
+                    $value = implode(',', $value);
+                }
                 $request->addQueryParameter($queryParam, $value);
             }
         }

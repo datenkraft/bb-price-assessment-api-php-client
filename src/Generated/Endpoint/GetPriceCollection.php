@@ -8,7 +8,7 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
      * Get Price
      *
      * @param array $queryParameters {
-     *     @var string $filter[skuId] SkuId filter, multiple skuIds should be separated by commas
+     *     @var array $filter[skuId] SkuId filter
      * }
      */
     public function __construct(array $queryParameters = array())
@@ -38,7 +38,7 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
         $optionsResolver->setDefined(array('filter[skuId]'));
         $optionsResolver->setRequired(array());
         $optionsResolver->setDefaults(array());
-        $optionsResolver->setAllowedTypes('filter[skuId]', array('string'));
+        $optionsResolver->setAllowedTypes('filter[skuId]', array('array'));
         return $optionsResolver;
     }
     /**
