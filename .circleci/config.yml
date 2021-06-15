@@ -31,7 +31,7 @@ workflows:
   version: 2
   *workflow-name-mirroring :
     jobs:
-      - *job-name-mirror:
+      - *job-name-mirror :
           context: *context-cloud
           filters:
             branches:
