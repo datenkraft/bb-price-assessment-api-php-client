@@ -32,12 +32,29 @@ The Client also is auto generated with jane-php using an openapi.json file.
 
 ### Creating a client
 ~~~~ php
-//TODO
+require 'path/to/vendor/autoload.php';
+
+// Valid clientId, clientSecret and requested scopes
+$clientId = '1234';
+$clientSecret = 'abcd';
+$oAuthScopes = ['price:get'];
+
+$config['clientId'] = $clientId;
+$config['clientSecret'] = $clientSecret;
+$config['oAuthScopes'] = $oAuthScopes;
+
+$factory = new ClientFactory($config);
+$client = Client::createWithFactory($factory);
 ~~~~
 
-### Example Endpoint: Get prices for a skuId
+### Example Endpoint: Get Price Collection
 ~~~~ php
-//TODO
+$skuIds = "sku1,sku2,sku3";  // string (multiple values separated by commas)
+$queryParams = ['filter[skuId]' => $skuIds]; // array
+
+$response = $client->getPriceCollection($queryParams);
+
+$response; // price
 ~~~~
 
 ## Licence

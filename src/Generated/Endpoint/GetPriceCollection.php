@@ -8,7 +8,7 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
      * Get Price
      *
      * @param array $queryParameters {
-     *     @var string $filter[skuId] SkuId filter
+     *     @var string $filter[skuId] SkuId filter, multiple skuIds should be separated by commas
      * }
      */
     public function __construct(array $queryParameters = array())

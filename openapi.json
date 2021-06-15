@@ -117,12 +117,13 @@
           {
             "name": "filter[skuId]",
             "in": "query",
-            "description": "SkuId filter",
+            "description": "SkuId filter, multiple skuIds should be separated by commas",
             "style": "form",
             "allowReserved": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "skuId1,skuId2,skuId3"
           }
         ],
         "responses": {
