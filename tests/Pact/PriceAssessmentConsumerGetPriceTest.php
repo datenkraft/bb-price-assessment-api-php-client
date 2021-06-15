@@ -2,9 +2,11 @@
 
 namespace Pact;
 
+use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -37,7 +39,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->skuId = 'skuId_test';
         $this->path = '/price';
-        $this->query = 'filter[skuId]=' . $this->skuId;
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
 
         $this->requestData = [];
         $this->responseData = [
@@ -74,7 +76,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessMultiplePrices()
     {
         $this->skuId = 'skuId_test_multiple';
-        $this->query = 'filter[skuId]=' . $this->skuId;
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
@@ -103,7 +105,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessNull()
     {
         $this->skuId = 'skuId_test_null';
-        $this->query = 'filter[skuId]=' . $this->skuId;
+        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
@@ -160,16 +162,17 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     /**
      * @return ResponseInterface
-     * @throws GuzzleException
+     * @throws AuthException
+     * @throws ConfigException
      */
     protected function doClientRequest(): ResponseInterface
     {
-        $client = new Client(['base_uri' => $this->config->getBaseUri()]);
-        $options = [
-            'headers' => $this->requestHeaders,
-            'query' => $this->query,
-            'http_errors' => false,
-        ];
-        return $client->get($this->path, $options);
+        $factory = new ClientFactory(
+            ['clientId' => 'test', 'clientSecret' => 'test', 'oAuthTokenUrl' => 'test', 'oAuthScopes' => ['test']]
+        );
+        $factory->setToken($this->token);
+        $client = Client::createWithFactory($factory, $this->config->getBaseUri());
+
+        return $client->getPriceCollection($this->queryParams, Client::FETCH_RESPONSE);
     }
 }

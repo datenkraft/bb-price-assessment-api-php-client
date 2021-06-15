@@ -1,0 +1,282 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Backbone Price Assessment API",
+    "description": "Backbone Price Assessment API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "UNDEFINED",
+      "description": "Production server"
+    },
+    {
+      "url": "UNDEFINED",
+      "description": "Staging server"
+    },
+    {
+      "url": "https://localhost:30290",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/docs": {
+      "get": {
+        "tags": [
+          "docs"
+        ],
+        "summary": "Get the openapi documentation as json",
+        "description": "Get the openapi documentation as json",
+        "operationId": "getOpenApi",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/docs/openapi.{format}": {
+      "get": {
+        "tags": [
+          "docs"
+        ],
+        "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+        "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+        "operationId": "getOpenApiInFormat",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Openapi file format",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "yaml",
+                "json"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/price": {
+      "get": {
+        "tags": [
+          "price"
+        ],
+        "summary": "Get Price",
+        "description": "Get Price",
+        "operationId": "getPriceCollection",
+        "parameters": [
+          {
+            "name": "filter[skuId]",
+            "in": "query",
+            "description": "SkuId filter",
+            "style": "form",
+            "explode": false,
+            "allowReserved": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getPriceCollectionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuthAuthorization": [
+              "price:get"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "errorResponse": {
+        "properties": {
+          "errors": {
+            "description": "errors",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/error"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "error": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "description": "Code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Message",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "price": {
+        "required": [
+          "skuId",
+          "organizationId",
+          "price"
+        ],
+        "properties": {
+          "skuId": {
+            "description": "SKU Id",
+            "type": "string"
+          },
+          "organizationId": {
+            "description": "Organization Id",
+            "type": "string"
+          },
+          "price": {
+            "description": "Price",
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "type": "object"
+      },
+      "getPriceCollectionResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/price"
+        }
+      }
+    },
+    "securitySchemes": {
+      "oAuthAuthorization": {
+        "type": "oauth2",
+        "description": "OAuth2 Authorization",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://localhost:30250/oauth/token",
+            "refreshUrl": "UNDEFINED",
+            "scopes": {
+              "price:get": "Get Prices from the Price Assessment API"
+            }
+          }
+        }
+      }
+    }
+  }
+}
