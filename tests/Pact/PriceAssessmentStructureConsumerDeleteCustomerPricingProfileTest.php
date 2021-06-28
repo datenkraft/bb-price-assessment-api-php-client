@@ -33,22 +33,20 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
         ];
-        $this->responseHeaders = [
-            'Content-Type' => 'application/json'
-        ];
+        $this->responseHeaders = [];
 
-        $this->customerPricingProfileId = '7372e896-4a43-4d7c-b15a-70ff98e302f8';
+        $this->customerPricingProfileId = '442a75a2-67ab-4b4c-abb7-7264f4ae77d4';
         $this->invalidCustomerPricingProfileId = '0f83f15c-3fb1-44bf-9aab-b974918cc22f';
 
         $this->requestData = [];
-        $this->responseData = [];
+        $this->responseData = null;
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
     }
 
-    public function testDeleteCustomerSuccess(): void
+    public function testDeleteCustomerPricingProfileSuccess(): void
     {
-        $this->expectedStatusCode = '200';
+        $this->expectedStatusCode = '204';
 
         $this->builder
             ->given(
@@ -60,7 +58,7 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
         $this->beginTest();
     }
 
-    public function testDeleteCustomerUnauthorized(): void
+    public function testDeleteCustomerPricingProfileUnauthorized(): void
     {
         $this->token = 'invalid_token';
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
@@ -77,7 +75,7 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
         $this->beginTest();
     }
 
-    public function testDeleteCustomerForbidden(): void
+    public function testDeleteCustomerPricingProfileForbidden(): void
     {
         // Token with invalid scope
         $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
@@ -95,7 +93,7 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
         $this->beginTest();
     }
 
-    public function testDeleteCustomerNotFound(): void
+    public function testDeleteCustomerPricingProfileNotFound(): void
     {
         // Path with id for non existent customer pricing profile
         $this->path = '/customer-pricing-profile/' . $this->invalidCustomerPricingProfileId;

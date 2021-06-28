@@ -47,7 +47,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->requestData = [
             'customerId' =>  $this->validCustomerIdLabelHair,
             'skuId' =>  $this->validSkuId,
-            'price' =>  123,
+            'price' =>  50000,
             'currency' =>  'EUR',
         ];
         $this->responseData = [
@@ -76,12 +76,12 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 
     public function testPostCustomerPricingProfileUnprocessable(): void
     {
-        $this->requestData['customerId'] = 'thisCustomerIdIsInvalid';
+        $this->requestData['customerId'] = '4a5e1650-8ca6-4f2e-8c61-669de5c71516';
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
         $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the project is invalid'
+            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
         )->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - invalid customer');
 
         $this->responseData = $this->errorResponse;
@@ -126,11 +126,22 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
     public function testPostCustomerBadRequest(): void
     {
         // name is not defined
-        $this->requestData['customerId'] = '';
+        $this->requestData['customerId'] = 'asdf';
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+        $this->errorResponse = [
+            'errors' => [
+                [
+                    'code' => '400',
+                    'message' => $this->matcher->like('Example error message'),
+                ],
+                [
+                    'code' => '422',
+                    'message' => $this->matcher->like('Example error message'),
+                ],
+            ]
+        ];
 
         $this->builder
             ->given('The request body is invalid or missing')
