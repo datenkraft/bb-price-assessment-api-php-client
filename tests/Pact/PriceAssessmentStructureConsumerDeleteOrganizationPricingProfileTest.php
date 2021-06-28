@@ -33,22 +33,20 @@ class PriceAssessmentStructureConsumerDeleteOrganizationPricingProfileTest exten
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
         ];
-        $this->responseHeaders = [
-            'Content-Type' => 'application/json'
-        ];
+        $this->responseHeaders = [];
 
         $this->organizationPricingProfileId = '4b58d804-bcf0-4a31-8621-12141141137e';
         $this->invalidOrganizationPricingProfileId = 'e4d5c24c-81e2-4a4a-9362-4c439b8f6f2d';
 
         $this->requestData = [];
-        $this->responseData = [];
+        $this->responseData = null;
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
     }
 
     public function testDeleteOrganizationSuccess(): void
     {
-        $this->expectedStatusCode = '200';
+        $this->expectedStatusCode = '204';
 
         $this->builder
             ->given(

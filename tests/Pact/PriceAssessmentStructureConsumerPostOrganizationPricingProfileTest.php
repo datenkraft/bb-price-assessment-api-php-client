@@ -32,7 +32,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
         $this->method = 'POST';
 
-        $this->token = getenv('VALID_TOKEN_CUSTOMER_PRICING_PROFILE_POST');
+        $this->token = getenv('VALID_TOKEN_ORGANIZATION_PRICING_PROFILE_POST');
 
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token,
@@ -40,7 +40,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuId = 'callone-call_inbound';
+        $this->validSkuId = 'freshdesk-ticket_answers';
         $this->validOrganizationIdDatenkraft = '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4';
         $this->validOrganizationIdNiceshops = 'c3486847-6d5e-4c41-aeb9-740c8089d428';
 
@@ -76,7 +76,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
     public function testPostOrganizationPricingProfileUnprocessable(): void
     {
-        $this->requestData['organizationId'] = 'thisOrganizationIdIsInvalid';
+        $this->requestData['organizationId'] = '734af8b8-d9a3-48bc-a060-d1dd4a4c8ed1';
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
@@ -126,11 +126,22 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
     public function testPostOrganizationBadRequest(): void
     {
         // name is not defined
-        $this->requestData['organizationId'] = '';
+        $this->requestData['organizationId'] = 'asdf';
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+        $this->errorResponse = [
+            'errors' => [
+                [
+                    'code' => '400',
+                    'message' => $this->matcher->like('Example error message'),
+                ],
+                [
+                    'code' => '422',
+                    'message' => $this->matcher->like('Example error message'),
+                ],
+            ]
+        ];
 
         $this->builder
             ->given('The request body is invalid or missing')

@@ -43,8 +43,8 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->requestData = [];
         $this->responseData = [
             'organizationPricingProfileId' => $this->organizationPricingProfileId,
-            'organizationId' => '569e4b86-af23-4f73-8c12-3a3e56f148e7',
-            'skuId' => 'someSkuId',
+            'organizationId' => '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4', //Datenkraft
+            'skuId' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => 123,
             'currency' => 'EUR',
         ];
@@ -52,7 +52,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
     }
 
-    public function testGetOrganizationSuccess(): void
+    public function testGetOrganizationPricingProfileSuccess(): void
     {
         $this->expectedStatusCode = '200';
 
@@ -66,7 +66,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->beginTest();
     }
 
-    public function testGetOrganizationUnauthorized(): void
+    public function testGetOrganizationPricingProfileUnauthorized(): void
     {
         $this->token = 'invalid_token';
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
@@ -83,7 +83,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->beginTest();
     }
 
-    public function testGetOrganizationForbidden(): void
+    public function testGetOrganizationPricingProfileForbidden(): void
     {
         // Token with invalid scope
         $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
@@ -101,7 +101,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->beginTest();
     }
 
-    public function testGetOrganizationNotFound(): void
+    public function testGetOrganizationPricingProfileNotFound(): void
     {
         // Path with id for non existent organization pricing profile
         $this->path = '/organization-pricing-profile/' . $this->invalidOrganizationPricingProfileId;

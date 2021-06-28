@@ -52,7 +52,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
     }
 
-    public function testGetCustomerSuccess(): void
+    public function testGetCustomerPricingProfileSuccess(): void
     {
         $this->expectedStatusCode = '200';
 
@@ -66,7 +66,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->beginTest();
     }
 
-    public function testGetCustomerUnauthorized(): void
+    public function testGetCustomerPricingProfileUnauthorized(): void
     {
         $this->token = 'invalid_token';
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
@@ -83,7 +83,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->beginTest();
     }
 
-    public function testGetCustomerForbidden(): void
+    public function testGetCustomerPricingProfileForbidden(): void
     {
         // Token with invalid scope
         $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
@@ -101,7 +101,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->beginTest();
     }
 
-    public function testGetCustomerNotFound(): void
+    public function testGetCustomerPricingProfileNotFound(): void
     {
         // Path with id for non existent customer pricing profile
         $this->path = '/customer-pricing-profile/' . $this->invalidCustomerPricingProfileId;
