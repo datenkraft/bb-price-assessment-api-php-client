@@ -1,282 +1,1163 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Backbone Price Assessment API",
-    "description": "Backbone Price Assessment API",
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "UNDEFINED",
-      "description": "Production server"
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Backbone Price Assessment API",
+        "description": "Backbone Price Assessment API",
+        "version": "1.0.0"
     },
-    {
-      "url": "UNDEFINED",
-      "description": "Staging server"
+    "servers": [
+        {
+            "url": "UNDEFINED",
+            "description": "Production server"
+        },
+        {
+            "url": "UNDEFINED",
+            "description": "Staging server"
+        },
+        {
+            "url": "https://localhost:30290",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/customer-pricing-profile": {
+            "post": {
+                "tags": [
+                    "customer-pricing-profile"
+                ],
+                "summary": "Add a new Customer Pricing Profile",
+                "description": "Add a new Customer Pricing Profile",
+                "operationId": "postCustomerPricingProfile",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newCustomerPricingProfile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/customerPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "customer-pricing-profile:post"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/customer-pricing-profile/{customerPricingProfileId}": {
+            "get": {
+                "tags": [
+                    "customer-pricing-profile"
+                ],
+                "summary": "Query Customer Pricing Profile by by its id",
+                "description": "Query Customer Pricing Profile by by its id",
+                "operationId": "getCustomerPricingProfile",
+                "parameters": [
+                    {
+                        "name": "customerPricingProfileId",
+                        "in": "path",
+                        "description": "Customer Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/customerPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "customer-pricing-profile:get"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "customer-pricing-profile"
+                ],
+                "summary": "Add a new Customer Pricing Profile",
+                "description": "Add a new Customer Pricing Profile",
+                "operationId": "putCustomerPricingProfile",
+                "parameters": [
+                    {
+                        "name": "customerPricingProfileId",
+                        "in": "path",
+                        "description": "Customer Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newCustomerPricingProfile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/customerPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "customer-pricing-profile:put"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "customer-pricing-profile"
+                ],
+                "summary": "Delete Customer Pricing Profile",
+                "description": "Delete Customer Pricing Profile",
+                "operationId": "deleteCustomerPricingProfile",
+                "parameters": [
+                    {
+                        "name": "customerPricingProfileId",
+                        "in": "path",
+                        "description": "Customer Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "customer-pricing-profile:delete"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/docs": {
+            "get": {
+                "tags": [
+                    "docs"
+                ],
+                "summary": "Get the openapi documentation as json",
+                "description": "Get the openapi documentation as json",
+                "operationId": "getOpenApi",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/docs/openapi.{format}": {
+            "get": {
+                "tags": [
+                    "docs"
+                ],
+                "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+                "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+                "operationId": "getOpenApiInFormat",
+                "parameters": [
+                    {
+                        "name": "format",
+                        "in": "path",
+                        "description": "Openapi file format",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "yaml",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/organization-pricing-profile": {
+            "post": {
+                "tags": [
+                    "organization-pricing-profile"
+                ],
+                "summary": "Add a new Organization Pricing Profile",
+                "description": "Add a new Organization Pricing Profile",
+                "operationId": "postOrganizationPricingProfile",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newOrganizationPricingProfile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/organizationPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "organization-pricing-profile:post"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/organization-pricing-profile/{organizationPricingProfileId}": {
+            "get": {
+                "tags": [
+                    "organization-pricing-profile"
+                ],
+                "summary": "Query Organization Pricing Profile by by its id",
+                "description": "Query Organization Pricing Profile by by its id",
+                "operationId": "getOrganizationPricingProfile",
+                "parameters": [
+                    {
+                        "name": "organizationPricingProfileId",
+                        "in": "path",
+                        "description": "Organization Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/organizationPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "organization-pricing-profile:get"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "organization-pricing-profile"
+                ],
+                "summary": "Add a new Organization Pricing Profile",
+                "description": "Add a new Organization Pricing Profile",
+                "operationId": "putOrganizationPricingProfile",
+                "parameters": [
+                    {
+                        "name": "organizationPricingProfileId",
+                        "in": "path",
+                        "description": "Organization Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newOrganizationPricingProfile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/organizationPricingProfile"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "organization-pricing-profile:put"
+                        ]
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "organization-pricing-profile"
+                ],
+                "summary": "Delete Organization Pricing Profile",
+                "description": "Delete Organization Pricing Profile",
+                "operationId": "deleteOrganizationPricingProfile",
+                "parameters": [
+                    {
+                        "name": "organizationPricingProfileId",
+                        "in": "path",
+                        "description": "Organization Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "organization-pricing-profile:delete"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/price": {
+            "get": {
+                "tags": [
+                    "price"
+                ],
+                "summary": "Get Price",
+                "description": "Get Price",
+                "operationId": "getPriceCollection",
+                "parameters": [
+                    {
+                        "name": "filter[skuId]",
+                        "in": "query",
+                        "description": "SkuId filter",
+                        "style": "form",
+                        "explode": false,
+                        "allowReserved": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/getPriceCollectionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": [
+                            "price:get"
+                        ]
+                    }
+                ]
+            }
+        }
     },
-    {
-      "url": "https://localhost:30290",
-      "description": "Development server"
+    "components": {
+        "schemas": {
+            "errorResponse": {
+                "properties": {
+                    "errors": {
+                        "description": "errors",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/error"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "error": {
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "description": "Code",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Message",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "customerPricingProfile": {
+                "required": [
+                    "customerPricingProfileId",
+                    "customerId",
+                    "skuId"
+                ],
+                "properties": {
+                    "customerPricingProfileId": {
+                        "description": "Customer Pricing Profile Id",
+                        "type": "string"
+                    },
+                    "customerId": {
+                        "description": "Customer Id",
+                        "type": "string"
+                    },
+                    "skuId": {
+                        "description": "SKU Id",
+                        "type": "string"
+                    },
+                    "price": {
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "currency": {
+                        "nullable": true,
+                        "description": "Currency",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "newCustomerPricingProfile": {
+                "description": "Class CustomerPricingProfileResource",
+                "required": [
+                    "customerId",
+                    "skuId"
+                ],
+                "properties": {
+                    "customerId": {
+                        "description": "Customer Id",
+                        "type": "string"
+                    },
+                    "skuId": {
+                        "description": "SKU Id",
+                        "type": "string"
+                    },
+                    "price": {
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "currency": {
+                        "nullable": true,
+                        "description": "Currency",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "organizationPricingProfile": {
+                "required": [
+                    "organizationPricingProfileId",
+                    "organizationId",
+                    "skuId"
+                ],
+                "properties": {
+                    "organizationPricingProfileId": {
+                        "description": "Organization Pricing Profile Id",
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "description": "Organization Id",
+                        "type": "string"
+                    },
+                    "skuId": {
+                        "description": "SKU Id",
+                        "type": "string"
+                    },
+                    "price": {
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "currency": {
+                        "nullable": true,
+                        "description": "Currency",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "newOrganizationPricingProfile": {
+                "description": "Class OrganizationPricingProfileResource",
+                "required": [
+                    "organizationId",
+                    "skuId"
+                ],
+                "properties": {
+                    "organizationId": {
+                        "description": "Organization Id",
+                        "type": "string"
+                    },
+                    "skuId": {
+                        "description": "SKU Id",
+                        "type": "string"
+                    },
+                    "price": {
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "currency": {
+                        "nullable": true,
+                        "description": "Currency",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "price": {
+                "required": [
+                    "skuId",
+                    "organizationId",
+                    "price"
+                ],
+                "properties": {
+                    "skuId": {
+                        "description": "SKU Id",
+                        "type": "string"
+                    },
+                    "organizationId": {
+                        "description": "Organization Id",
+                        "type": "string"
+                    },
+                    "price": {
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "getPriceCollectionResponse": {
+                "description": "Class PriceResource",
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/price"
+                }
+            }
+        },
+        "securitySchemes": {
+            "oAuthAuthorization": {
+                "type": "oauth2",
+                "description": "OAuth2 Authorization",
+                "flows": {
+                    "clientCredentials": {
+                        "tokenUrl": "https://localhost:30250/oauth/token",
+                        "refreshUrl": "UNDEFINED",
+                        "scopes": {
+                            "price:get": "Get Prices from the Price Assessment API"
+                        }
+                    }
+                }
+            }
+        }
     }
-  ],
-  "paths": {
-    "/docs": {
-      "get": {
-        "tags": [
-          "docs"
-        ],
-        "summary": "Get the openapi documentation as json",
-        "description": "Get the openapi documentation as json",
-        "operationId": "getOpenApi",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/docs/openapi.{format}": {
-      "get": {
-        "tags": [
-          "docs"
-        ],
-        "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
-        "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
-        "operationId": "getOpenApiInFormat",
-        "parameters": [
-          {
-            "name": "format",
-            "in": "path",
-            "description": "Openapi file format",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "yaml",
-                "json"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/price": {
-      "get": {
-        "tags": [
-          "price"
-        ],
-        "summary": "Get Price",
-        "description": "Get Price",
-        "operationId": "getPriceCollection",
-        "parameters": [
-          {
-            "name": "filter[skuId]",
-            "in": "query",
-            "description": "SkuId filter",
-            "style": "form",
-            "explode": false,
-            "allowReserved": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getPriceCollectionResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oAuthAuthorization": [
-              "price:get"
-            ]
-          }
-        ]
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "errorResponse": {
-        "properties": {
-          "errors": {
-            "description": "errors",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/error"
-            }
-          }
-        },
-        "type": "object"
-      },
-      "error": {
-        "required": [
-          "code",
-          "message"
-        ],
-        "properties": {
-          "code": {
-            "description": "Code",
-            "type": "string"
-          },
-          "message": {
-            "description": "Message",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "price": {
-        "required": [
-          "skuId",
-          "organizationId",
-          "price"
-        ],
-        "properties": {
-          "skuId": {
-            "description": "SKU Id",
-            "type": "string"
-          },
-          "organizationId": {
-            "description": "Organization Id",
-            "type": "string"
-          },
-          "price": {
-            "description": "Price",
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          }
-        },
-        "type": "object"
-      },
-      "getPriceCollectionResponse": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/price"
-        }
-      }
-    },
-    "securitySchemes": {
-      "oAuthAuthorization": {
-        "type": "oauth2",
-        "description": "OAuth2 Authorization",
-        "flows": {
-          "clientCredentials": {
-            "tokenUrl": "https://localhost:30250/oauth/token",
-            "refreshUrl": "UNDEFINED",
-            "scopes": {
-              "price:get": "Get Prices from the Price Assessment API"
-            }
-          }
-        }
-      }
-    }
-  }
 }
