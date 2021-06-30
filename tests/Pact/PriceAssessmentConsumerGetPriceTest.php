@@ -39,7 +39,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             'Content-Type' => 'application/json',
         ];
 
-        $this->skuId = 'freshdesk-resolved_tickets';
+        $this->skuId = 'test_sku_a';
         $this->customerId = '71b9fb54-4f6f-493c-bd62-229d79d07880';
         $this->path = '/price';
         $this->queryParams = ['filter[skuId]' => $this->skuId, 'filter[customerId]' => $this->customerId];

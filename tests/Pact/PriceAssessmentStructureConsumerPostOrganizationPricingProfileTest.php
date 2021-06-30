@@ -18,9 +18,9 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 {
     protected string $validSkuId;
 
-    protected string $validOrganizationIdDatenkraft;
+    protected string $validOrganizationIdOrganizationA;
 
-    protected string $validOrganizationIdNiceshops;
+    protected string $validOrganizationIdOrganizationB;
 
 
     /**
@@ -40,19 +40,19 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuId = 'freshdesk-ticket_answers';
-        $this->validOrganizationIdDatenkraft = '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4';
-        $this->validOrganizationIdNiceshops = 'c3486847-6d5e-4c41-aeb9-740c8089d428';
+        $this->validSkuId = 'test_sku_b';
+        $this->validOrganizationIdOrganizationA = 'adece628-c1ce-436b-8975-01d32753bc33';
+        $this->validOrganizationIdOrganizationB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
 
         $this->requestData = [
-            'organizationId' =>  $this->validOrganizationIdDatenkraft,
+            'organizationId' =>  $this->validOrganizationIdOrganizationA,
             'skuId' =>  $this->validSkuId,
             'price' =>  123,
             'currency' =>  'EUR',
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' =>  $this->validOrganizationIdDatenkraft,
+            'organizationId' =>  $this->validOrganizationIdOrganizationA,
             'skuId' =>  $this->validSkuId,
             'price' =>  $this->requestData['price'],
             'currency' =>  $this->requestData['currency'],

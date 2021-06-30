@@ -43,7 +43,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->requestData = [];
         $this->responseData = [
             'organizationPricingProfileId' => $this->organizationPricingProfileId,
-            'organizationId' => '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4', //Datenkraft
+            'organizationId' => 'dbc9dc41-ff32-4a9b-b6bd-2c3b736c959e',
             'skuId' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => 123,
             'currency' => 'EUR',

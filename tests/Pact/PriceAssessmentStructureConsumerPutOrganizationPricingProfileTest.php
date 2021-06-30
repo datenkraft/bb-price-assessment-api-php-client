@@ -22,9 +22,9 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
     protected string $validSkuId;
 
-    protected string $validOrganizationIdDatenkraft;
+    protected string $validOrganizationIdA;
 
-    protected string $validOrganizationIdNiceshops;
+    protected string $validOrganizationIdB;
 
 
     /**
@@ -46,19 +46,19 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
         $this->organizationPricingProfileId = '4efe3251-22c2-4373-9df2-d7956fae3f20';
         $this->invalidOrganizationPricingProfileId = '5a83fb23-5e36-4d8a-9d5a-fa50e0924b50';
-        $this->validSkuId = 'freshdesk-resolved_tickets';
-        $this->validOrganizationIdDatenkraft = '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4';
-        $this->validOrganizationIdNiceshops = 'c3486847-6d5e-4c41-aeb9-740c8089d428';
+        $this->validSkuId = 'test_sku_c';
+        $this->validOrganizationIdA = 'adece628-c1ce-436b-8975-01d32753bc33';
+        $this->validOrganizationIdB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
 
         $this->requestData = [
-            'organizationId' =>  $this->validOrganizationIdDatenkraft,
+            'organizationId' =>  $this->validOrganizationIdA,
             'skuId' =>  $this->validSkuId,
             'price' =>  321,
             'currency' =>  'USD',
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' =>  $this->validOrganizationIdDatenkraft,
+            'organizationId' =>  $this->validOrganizationIdA,
             'skuId' =>  $this->validSkuId,
             'price' =>  $this->requestData['price'],
             'currency' =>  $this->requestData['currency'],

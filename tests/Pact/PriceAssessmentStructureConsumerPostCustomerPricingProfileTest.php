@@ -18,9 +18,9 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 {
     protected string $validSkuId;
 
-    protected string $validCustomerIdLabelHair;
+    protected string $validCustomerIdTestCustomerA;
 
-    protected string $validCustomerIdYaasa;
+    protected string $validCustomerIdTestCustomerB;
 
 
     /**
@@ -40,19 +40,19 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuId = 'callone-call_inbound';
-        $this->validCustomerIdLabelHair = '71b9fb54-4f6f-493c-bd62-229d79d07880'; //Labelhair
-        $this->validCustomerIdYaasa = 'ab1f0809-931b-4739-b470-bccf1fb08090'; //Yaasa
+        $this->validSkuId = 'test_sku_a';
+        $this->validCustomerIdTestCustomerA = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
+        $this->validCustomerIdTestCustomerB = '40c02d14-1a36-4408-9b25-6ec0b6303621'; //Test Customer
 
         $this->requestData = [
-            'customerId' =>  $this->validCustomerIdLabelHair,
+            'customerId' =>  $this->validCustomerIdTestCustomerA,
             'skuId' =>  $this->validSkuId,
             'price' =>  50000,
             'currency' =>  'EUR',
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
-            'customerId' =>  $this->validCustomerIdLabelHair,
+            'customerId' =>  $this->validCustomerIdTestCustomerA,
             'skuId' =>  $this->validSkuId,
             'price' =>  $this->requestData['price'],
             'currency' =>  $this->requestData['currency'],

@@ -22,9 +22,9 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     protected string $validSkuId;
 
-    protected string $validCustomerIdLabelHair;
+    protected string $validCustomerIdA;
 
-    protected string $validCustomerIdYaasa;
+    protected string $validCustomerIdB;
 
 
     /**
@@ -46,19 +46,19 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
         $this->customerPricingProfileId = 'a5eb9142-794b-4824-9164-6aac24778b3c';
         $this->invalidCustomerPricingProfileId = '02199f9a-5911-4f32-8394-f4fe86773e33';
-        $this->validSkuId = 'freshdesk-resolved_tickets';
-        $this->validCustomerIdLabelHair = '71b9fb54-4f6f-493c-bd62-229d79d07880'; //Labelhair
-        $this->validCustomerIdYaasa = 'ab1f0809-931b-4739-b470-bccf1fb08090'; //Yaasa
+        $this->validSkuId = 'test_sku_c';
+        $this->validCustomerIdA = '71b9fb54-4f6f-493c-bd62-229d79d07880'; //Test Customer
+        $this->validCustomerIdB = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
 
         $this->requestData = [
-            'customerId' =>  $this->validCustomerIdLabelHair,
+            'customerId' =>  $this->validCustomerIdA,
             'skuId' =>  $this->validSkuId,
             'price' =>  123,
             'currency' =>  'EUR',
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
-            'customerId' =>  $this->validCustomerIdLabelHair,
+            'customerId' =>  $this->validCustomerIdA,
             'skuId' =>  $this->validSkuId,
             'price' =>  $this->requestData['price'],
             'currency' =>  $this->requestData['currency'],
