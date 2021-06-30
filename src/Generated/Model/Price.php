@@ -23,6 +23,12 @@ class Price
      */
     protected $price;
     /**
+     * Currency
+     *
+     * @var string|null
+     */
+    protected $currency;
+    /**
      * SKU Id
      *
      * @return string
@@ -83,6 +89,27 @@ class Price
     public function setPrice(?float $price) : self
     {
         $this->price = $price;
+        return $this;
+    }
+    /**
+     * Currency
+     *
+     * @return string|null
+     */
+    public function getCurrency() : ?string
+    {
+        return $this->currency;
+    }
+    /**
+     * Currency
+     *
+     * @param string|null $currency
+     *
+     * @return self
+     */
+    public function setCurrency(?string $currency) : self
+    {
+        $this->currency = $currency;
         return $this;
     }
 }

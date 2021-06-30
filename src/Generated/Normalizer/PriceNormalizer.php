@@ -48,6 +48,12 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
             $object->setPrice(null);
         }
+        if (\array_key_exists('currency', $data) && $data['currency'] !== null) {
+            $object->setCurrency($data['currency']);
+        }
+        elseif (\array_key_exists('currency', $data) && $data['currency'] === null) {
+            $object->setCurrency(null);
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -56,6 +62,7 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         $data['skuId'] = $object->getSkuId();
         $data['organizationId'] = $object->getOrganizationId();
         $data['price'] = $object->getPrice();
+        $data['currency'] = $object->getCurrency();
         return $data;
     }
 }

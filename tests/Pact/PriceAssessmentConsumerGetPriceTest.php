@@ -18,6 +18,8 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     protected $skuId;
 
+    protected $customerId;
+
     /**
      * @throws Exception
      */
@@ -37,16 +39,18 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             'Content-Type' => 'application/json',
         ];
 
-        $this->skuId = 'skuId_test';
+        $this->skuId = 'freshdesk-resolved_tickets';
+        $this->customerId = '71b9fb54-4f6f-493c-bd62-229d79d07880';
         $this->path = '/price';
-        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
+        $this->queryParams = ['filter[skuId]' => $this->skuId, 'filter[customerId]' => $this->customerId];
 
         $this->requestData = [];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test1',
-                'price' => 999.99
+                'customerId' => $this->customerId,
+                'price' => 50000,
+                'currency' => 'USD'
             ]
         ];
     }
@@ -56,45 +60,13 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         parent::tearDown();
     }
 
-    public function testGetPriceSuccessOnePrice()
+    public function testGetPriceSuccess()
     {
         $this->expectedStatusCode = '200';
 
         $this->builder
             ->given(
-                'Exactly one Price exists for the requested skuId, ' .
-                'the request is valid, the token is valid and has a valid scope'
-            )
-            ->uponReceiving('Successful GET request to /price');
-
-        $this->beginTest();
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testGetPriceSuccessMultiplePrices()
-    {
-        $this->skuId = 'skuId_test_multiple';
-        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
-        $this->responseData = [
-            [
-                'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test2',
-                'price' => 999.99
-            ],
-            [
-                'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test3',
-                'price' => 999.99
-            ]
-        ];
-
-        $this->expectedStatusCode = '200';
-
-        $this->builder
-            ->given(
-                'Multiple Prices exist for the requested skuId, ' .
+                'Successful request, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
             ->uponReceiving('Successful GET request to /price');
@@ -104,13 +76,14 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     public function testGetPriceSuccessNull()
     {
-        $this->skuId = 'skuId_test_null';
-        $this->queryParams = ['filter[skuId]' => [$this->skuId]];
+        $this->customerId = 'ab1f0809-931b-4739-b470-bccf1fb08090';
+        $this->queryParams = ['filter[skuId]' => $this->skuId, 'filter[customerId]' => $this->customerId];
         $this->responseData = [
             [
                 'skuId' => $this->skuId,
-                'organizationId' => 'organizationId_test4',
-                'price' => null
+                'customerId' => $this->customerId,
+                'price' => null,
+                'currency' => null,
             ]
         ];
 
@@ -118,7 +91,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->builder
             ->given(
-                'The Price "null" (SKU not billable) exists for the requested skuId, ' .
+                'Price and Currency is null, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
             ->uponReceiving('Successful GET request to /price');
