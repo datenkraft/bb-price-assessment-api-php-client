@@ -74,6 +74,21 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         $this->beginTest();
     }
 
+    public function testPostOrganizationPricingProfileConflict(): void
+    {
+        $this->requestData['organizationId'] = $this->validOrganizationIdOrganizationA;
+        $this->requestData['skuId'] = 'test_sku_d';
+
+        $this->expectedStatusCode = '409';
+        $this->errorResponse['errors'][0]['code'] = '409';
+        $this->builder->given(
+            'The request is valid, the token is valid and has a valid scope but the organization is invalid'
+        )->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - conflict');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
     public function testPostOrganizationPricingProfileUnprocessable(): void
     {
         $this->requestData['organizationId'] = '734af8b8-d9a3-48bc-a060-d1dd4a4c8ed1';
@@ -125,7 +140,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
     public function testPostOrganizationBadRequest(): void
     {
-        // name is not defined
+        // invalid organizationId
         $this->requestData['organizationId'] = 'asdf';
 
         // Error code in response is 400

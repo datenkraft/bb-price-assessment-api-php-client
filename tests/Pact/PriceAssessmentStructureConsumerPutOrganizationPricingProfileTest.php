@@ -69,7 +69,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
     public function testPutOrganizationPricingProfileSuccess(): void
     {
-        $this->expectedStatusCode = '201';
+        $this->expectedStatusCode = '200';
 
         $this->builder
             ->given(
@@ -89,6 +89,42 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->builder->given(
             'The request is valid, the token is valid and has a valid scope but the project is invalid'
         )->uponReceiving('Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - invalid organization');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    public function testPutOrganizationPricingProfileConflict(): void
+    {
+        $this->requestData['organizationId'] = 'adece628-c1ce-436b-8975-01d32753bc33';
+        $this->requestData['skuId'] = 'test_sku_b';
+
+        $this->expectedStatusCode = '409';
+        $this->errorResponse['errors'][0]['code'] = '409';
+        $this->builder->given(
+            'The request is valid, the token is valid and has a valid scope but the organization is invalid'
+        )->uponReceiving('Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - conflict');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    public function testPutOrganizationPricingProfileNotFound(): void
+    {
+        // Path with id for non existent organization pricing profile
+        $this->path = '/organization-pricing-profile/' . $this->invalidOrganizationPricingProfileId;
+        $this->organizationPricingProfileId = $this->invalidOrganizationPricingProfileId;
+        $this->requestData['skuId'] = 'test_sku_a';
+
+        // Error code in response is 404
+        $this->expectedStatusCode = '404';
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+
+        $this->builder
+            ->given(
+                'A Organization Pricing Profile with organizationPricingProfileId does not exist'
+            )
+            ->uponReceiving('Not Found PUT request to /organization-pricing-profile/{organizationPricingProfileId}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -131,7 +167,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
     public function testPutOrganizationPricingProfileBadRequest(): void
     {
-        // name is not defined
+        // invalid organizationId
         $this->requestData['organizationId'] = 'asdf';
 
         // Error code in response is 400

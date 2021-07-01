@@ -80,6 +80,42 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->beginTest();
     }
 
+    public function testPostCustomerPricingProfileConflict(): void
+    {
+        $this->requestData['customerId'] = '86cde51c-9fba-4d8b-8ff7-331645b5c31a';
+        $this->requestData['skuId'] = 'test_sku_d';
+
+        $this->expectedStatusCode = '409';
+        $this->errorResponse['errors'][0]['code'] = '409';
+        $this->builder->given(
+            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
+        )->uponReceiving('Unsuccessful PUT request to /customer-pricing-profile - conflict');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    public function testPostCustomerPricingProfileNotFound(): void
+    {
+        // Path with id for non existent customer pricing profile
+        $this->path = '/customer-pricing-profile/' . $this->invalidCustomerPricingProfileId;
+        $this->customerPricingProfileId = $this->invalidCustomerPricingProfileId;
+        $this->requestData['skuId'] = 'test_sku_d';
+
+        // Error code in response is 404
+        $this->expectedStatusCode = '404';
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+
+        $this->builder
+            ->given(
+                'A Customer Pricing Profile with customerPricingProfileId does not exist'
+            )
+            ->uponReceiving('Not Found PUT request to /customer-pricing-profile/{customerPricingProfileId}');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
     public function testPutCustomerPricingProfileUnprocessable(): void
     {
         $this->requestData['customerId'] = 'bf6793ae-1246-4ca1-85d0-d4efe18a5c91';
@@ -131,7 +167,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     public function testPutCustomerPricingProfileBadRequest(): void
     {
-        // name is not defined
+        // invalid customerId
         $this->requestData['customerId'] = 'asdf';
 
         // Error code in response is 400

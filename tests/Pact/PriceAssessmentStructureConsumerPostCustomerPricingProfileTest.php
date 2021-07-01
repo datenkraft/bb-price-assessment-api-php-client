@@ -74,6 +74,21 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->beginTest();
     }
 
+    public function testPostCustomerPricingProfileConflict(): void
+    {
+        $this->requestData['customerId'] = '86cde51c-9fba-4d8b-8ff7-331645b5c31a';
+        $this->requestData['skuId'] = 'test_sku_b';
+
+        $this->expectedStatusCode = '409';
+        $this->errorResponse['errors'][0]['code'] = '409';
+        $this->builder->given(
+            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
+        )->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - conflict');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
     public function testPostCustomerPricingProfileUnprocessable(): void
     {
         $this->requestData['customerId'] = '4a5e1650-8ca6-4f2e-8c61-669de5c71516';
