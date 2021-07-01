@@ -125,7 +125,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 
     public function testPostCustomerBadRequest(): void
     {
-        // name is not defined
+        // customer id is invalid
         $this->requestData['customerId'] = 'asdf';
 
         // Error code in response is 400
