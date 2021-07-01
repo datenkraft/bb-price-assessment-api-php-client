@@ -2,20 +2,20 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class Price
+class NewOrganizationPricingProfile
 {
-    /**
-     * SKU Id
-     *
-     * @var string
-     */
-    protected $skuId;
     /**
      * Organization Id
      *
      * @var string
      */
     protected $organizationId;
+    /**
+     * SKU Id
+     *
+     * @var string
+     */
+    protected $skuId;
     /**
      * Price
      *
@@ -28,27 +28,6 @@ class Price
      * @var string|null
      */
     protected $currency;
-    /**
-     * SKU Id
-     *
-     * @return string
-     */
-    public function getSkuId() : string
-    {
-        return $this->skuId;
-    }
-    /**
-     * SKU Id
-     *
-     * @param string $skuId
-     *
-     * @return self
-     */
-    public function setSkuId(string $skuId) : self
-    {
-        $this->skuId = $skuId;
-        return $this;
-    }
     /**
      * Organization Id
      *
@@ -68,6 +47,27 @@ class Price
     public function setOrganizationId(string $organizationId) : self
     {
         $this->organizationId = $organizationId;
+        return $this;
+    }
+    /**
+     * SKU Id
+     *
+     * @return string
+     */
+    public function getSkuId() : string
+    {
+        return $this->skuId;
+    }
+    /**
+     * SKU Id
+     *
+     * @param string $skuId
+     *
+     * @return self
+     */
+    public function setSkuId(string $skuId) : self
+    {
+        $this->skuId = $skuId;
         return $this;
     }
     /**

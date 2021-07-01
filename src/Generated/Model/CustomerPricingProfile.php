@@ -2,20 +2,26 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class Price
+class CustomerPricingProfile
 {
+    /**
+     * Customer Pricing Profile Id
+     *
+     * @var string
+     */
+    protected $customerPricingProfileId;
+    /**
+     * Customer Id
+     *
+     * @var string
+     */
+    protected $customerId;
     /**
      * SKU Id
      *
      * @var string
      */
     protected $skuId;
-    /**
-     * Organization Id
-     *
-     * @var string
-     */
-    protected $organizationId;
     /**
      * Price
      *
@@ -28,6 +34,48 @@ class Price
      * @var string|null
      */
     protected $currency;
+    /**
+     * Customer Pricing Profile Id
+     *
+     * @return string
+     */
+    public function getCustomerPricingProfileId() : string
+    {
+        return $this->customerPricingProfileId;
+    }
+    /**
+     * Customer Pricing Profile Id
+     *
+     * @param string $customerPricingProfileId
+     *
+     * @return self
+     */
+    public function setCustomerPricingProfileId(string $customerPricingProfileId) : self
+    {
+        $this->customerPricingProfileId = $customerPricingProfileId;
+        return $this;
+    }
+    /**
+     * Customer Id
+     *
+     * @return string
+     */
+    public function getCustomerId() : string
+    {
+        return $this->customerId;
+    }
+    /**
+     * Customer Id
+     *
+     * @param string $customerId
+     *
+     * @return self
+     */
+    public function setCustomerId(string $customerId) : self
+    {
+        $this->customerId = $customerId;
+        return $this;
+    }
     /**
      * SKU Id
      *
@@ -47,27 +95,6 @@ class Price
     public function setSkuId(string $skuId) : self
     {
         $this->skuId = $skuId;
-        return $this;
-    }
-    /**
-     * Organization Id
-     *
-     * @return string
-     */
-    public function getOrganizationId() : string
-    {
-        return $this->organizationId;
-    }
-    /**
-     * Organization Id
-     *
-     * @param string $organizationId
-     *
-     * @return self
-     */
-    public function setOrganizationId(string $organizationId) : self
-    {
-        $this->organizationId = $organizationId;
         return $this;
     }
     /**

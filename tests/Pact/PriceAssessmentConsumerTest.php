@@ -91,7 +91,9 @@ abstract class PriceAssessmentConsumerTest extends TestCase
         $response = $this->doClientRequest();
 
         $this->assertEquals($this->expectedStatusCode, $response->getStatusCode());
-        $this->assertJson($response->getBody());
+        if ($this->expectedStatusCode != 204) {
+            $this->assertJson($response->getBody());
+        }
     }
 
     protected function prepareTest(): void
@@ -152,14 +154,16 @@ abstract class PriceAssessmentConsumerTest extends TestCase
     protected function createProviderResponse(
         int $statusCode,
         array $responseHeaders,
-        array $responseBody
+        array $responseBody = null
     ): ProviderResponse {
         $response = new ProviderResponse();
         $response->setStatus($statusCode);
         foreach ($responseHeaders as $header => $value) {
             $response->addHeader($header, $value);
         }
-        $response->setBody($responseBody);
+        if ($responseBody !== null) {
+            $response->setBody($responseBody);
+        }
         return $response;
     }
 
