@@ -151,10 +151,6 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
                     'code' => '400',
                     'message' => $this->matcher->like('Example error message'),
                 ],
-                [
-                    'code' => '422',
-                    'message' => $this->matcher->like('Example error message'),
-                ],
             ]
         ];
 
