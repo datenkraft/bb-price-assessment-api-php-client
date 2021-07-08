@@ -57,12 +57,20 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('currency', $data) && $data['currency'] === null) {
             $object->setCurrency(null);
         }
+        if (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] !== null) {
+            $object->setRevenueCommissionPercent($data['revenueCommissionPercent']);
+        }
+        elseif (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] === null) {
+            $object->setRevenueCommissionPercent(null);
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        $data['organizationPricingProfileId'] = $object->getOrganizationPricingProfileId();
+        if (null !== $object->getOrganizationPricingProfileId()) {
+            $data['organizationPricingProfileId'] = $object->getOrganizationPricingProfileId();
+        }
         $data['organizationId'] = $object->getOrganizationId();
         $data['skuId'] = $object->getSkuId();
         if (null !== $object->getPrice()) {
@@ -70,6 +78,9 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         }
         if (null !== $object->getCurrency()) {
             $data['currency'] = $object->getCurrency();
+        }
+        if (null !== $object->getRevenueCommissionPercent()) {
+            $data['revenueCommissionPercent'] = $object->getRevenueCommissionPercent();
         }
         return $data;
     }

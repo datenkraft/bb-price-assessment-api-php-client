@@ -47,6 +47,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
             'skuId' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => 123,
             'currency' => 'EUR',
+            'revenueCommissionPercent' => 0.11111,
         ];
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;

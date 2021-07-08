@@ -113,7 +113,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "customer-pricing-profile:post"
+                            "bb-price-assessment-api/customer-pricing-profile:post"
                         ]
                     }
                 ]
@@ -203,7 +203,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "customer-pricing-profile:get"
+                            "bb-price-assessment-api/customer-pricing-profile:get"
                         ]
                     }
                 ]
@@ -311,7 +311,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "customer-pricing-profile:put"
+                            "bb-price-assessment-api/customer-pricing-profile:put"
                         ]
                     }
                 ]
@@ -392,7 +392,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "customer-pricing-profile:delete"
+                            "bb-price-assessment-api/customer-pricing-profile:delete"
                         ]
                     }
                 ]
@@ -576,7 +576,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "organization-pricing-profile:post"
+                            "bb-price-assessment-api/organization-pricing-profile:post"
                         ]
                     }
                 ]
@@ -666,7 +666,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "organization-pricing-profile:get"
+                            "bb-price-assessment-api/organization-pricing-profile:get"
                         ]
                     }
                 ]
@@ -774,7 +774,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "organization-pricing-profile:put"
+                            "bb-price-assessment-api/organization-pricing-profile:put"
                         ]
                     }
                 ]
@@ -855,7 +855,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "organization-pricing-profile:delete"
+                            "bb-price-assessment-api/organization-pricing-profile:delete"
                         ]
                     }
                 ]
@@ -954,7 +954,7 @@
                 "security": [
                     {
                         "oAuthAuthorization": [
-                            "price:get"
+                            "bb-price-assessment-api/price:get"
                         ]
                     }
                 ]
@@ -998,32 +998,21 @@
                     "customerId",
                     "skuId"
                 ],
-                "properties": {
-                    "customerPricingProfileId": {
-                        "description": "Customer Pricing Profile Id",
-                        "type": "string"
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "customerPricingProfileId": {
+                                "description": "Customer Pricing Profile Id",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
                     },
-                    "customerId": {
-                        "description": "Customer Id",
-                        "type": "string"
-                    },
-                    "skuId": {
-                        "description": "SKU Id",
-                        "type": "string"
-                    },
-                    "price": {
-                        "nullable": true,
-                        "description": "Price",
-                        "type": "number",
-                        "format": "integer"
-                    },
-                    "currency": {
-                        "nullable": true,
-                        "description": "Currency",
-                        "type": "string"
+                    {
+                        "$ref": "#/components/schemas/newCustomerPricingProfile"
                     }
-                },
-                "type": "object"
+                ]
             },
             "newCustomerPricingProfile": {
                 "description": "Class CustomerPricingProfileResource",
@@ -1050,6 +1039,12 @@
                         "nullable": true,
                         "description": "Currency",
                         "type": "string"
+                    },
+                    "revenueCommissionPercent": {
+                        "nullable": true,
+                        "description": "Revenue Commission Percent (5 digits precision, 10 digits max.)",
+                        "type": "number",
+                        "format": "float"
                     }
                 },
                 "type": "object"
@@ -1060,32 +1055,21 @@
                     "organizationId",
                     "skuId"
                 ],
-                "properties": {
-                    "organizationPricingProfileId": {
-                        "description": "Organization Pricing Profile Id",
-                        "type": "string"
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "organizationPricingProfileId": {
+                                "description": "Organization Pricing Profile Id",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
                     },
-                    "organizationId": {
-                        "description": "Organization Id",
-                        "type": "string"
-                    },
-                    "skuId": {
-                        "description": "SKU Id",
-                        "type": "string"
-                    },
-                    "price": {
-                        "nullable": true,
-                        "description": "Price",
-                        "type": "number",
-                        "format": "integer"
-                    },
-                    "currency": {
-                        "nullable": true,
-                        "description": "Currency",
-                        "type": "string"
+                    {
+                        "$ref": "#/components/schemas/newOrganizationPricingProfile"
                     }
-                },
-                "type": "object"
+                ]
             },
             "newOrganizationPricingProfile": {
                 "description": "Class OrganizationPricingProfileResource",
@@ -1112,6 +1096,12 @@
                         "nullable": true,
                         "description": "Currency",
                         "type": "string"
+                    },
+                    "revenueCommissionPercent": {
+                        "nullable": true,
+                        "description": "Revenue Commission Percent (5 digits precision, 10 digits max.)",
+                        "type": "number",
+                        "format": "float"
                     }
                 },
                 "type": "object"
@@ -1142,6 +1132,12 @@
                         "nullable": true,
                         "description": "Currency",
                         "type": "string"
+                    },
+                    "revenueCommissionPercent": {
+                        "nullable": true,
+                        "description": "Revenue Commission Percent (5 digits precision, 10 digits max.)",
+                        "type": "number",
+                        "format": "float"
                     }
                 },
                 "type": "object"
@@ -1163,7 +1159,14 @@
                         "tokenUrl": "https://localhost:30250/oauth/token",
                         "refreshUrl": "UNDEFINED",
                         "scopes": {
-                            "price:get": "Get Prices from the Price Assessment API"
+                            "bb-price-assessment-api/price:get": "Get Prices from the Price Assessment API",
+                            "bb-price-assessment-api/organization-pricing-profile:get": "Get Organization Pricing Profiles from the Price Assessment API",
+                            "bb-price-assessment-api/organization-pricing-profile:post": "Add Organization Pricing Profiles to the Price Assessment API",
+                            "bb-price-assessment-api/organization-pricing-profile:put": "Update Organization Pricing Profiles in the Price Assessment API",
+                            "bb-price-assessment-api/organization-pricing-profile:delete": "Delete Customer Pricing Profiles in the Price Assessment API",
+                            "bb-price-assessment-api/customer-pricing-profile:get": "Get Customer Pricing Profiles from the Price Assessment API",
+                            "bb-price-assessment-api/customer-pricing-profile:post": "Add Customer Pricing Profiles to the Price Assessment API",
+                            "bb-price-assessment-api/customer-pricing-profile:put": "Update Customer Pricing Profiles in the Price Assessment API"
                         }
                     }
                 }

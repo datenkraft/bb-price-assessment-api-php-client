@@ -54,6 +54,12 @@ class NewCustomerPricingProfileNormalizer implements DenormalizerInterface, Norm
         elseif (\array_key_exists('currency', $data) && $data['currency'] === null) {
             $object->setCurrency(null);
         }
+        if (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] !== null) {
+            $object->setRevenueCommissionPercent($data['revenueCommissionPercent']);
+        }
+        elseif (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] === null) {
+            $object->setRevenueCommissionPercent(null);
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -66,6 +72,9 @@ class NewCustomerPricingProfileNormalizer implements DenormalizerInterface, Norm
         }
         if (null !== $object->getCurrency()) {
             $data['currency'] = $object->getCurrency();
+        }
+        if (null !== $object->getRevenueCommissionPercent()) {
+            $data['revenueCommissionPercent'] = $object->getRevenueCommissionPercent();
         }
         return $data;
     }

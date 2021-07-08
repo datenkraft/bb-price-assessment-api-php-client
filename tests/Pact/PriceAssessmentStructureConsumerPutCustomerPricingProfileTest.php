@@ -26,7 +26,6 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     protected string $validCustomerIdB;
 
-
     /**
      * @throws Exception
      */
@@ -51,17 +50,19 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->validCustomerIdB = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
 
         $this->requestData = [
-            'customerId' =>  $this->validCustomerIdA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  123,
-            'currency' =>  'EUR',
+            'customerId' => $this->validCustomerIdA,
+            'skuId' => $this->validSkuId,
+            'price' => 123,
+            'currency' => 'EUR',
+            'revenueCommissionPercent' => 0.11111,
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
-            'customerId' =>  $this->validCustomerIdA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  $this->requestData['price'],
-            'currency' =>  $this->requestData['currency'],
+            'customerId' => $this->validCustomerIdA,
+            'skuId' => $this->validSkuId,
+            'price' => $this->requestData['price'],
+            'currency' => $this->requestData['currency'],
+            'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
         ];
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
@@ -124,7 +125,9 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->errorResponse['errors'][0]['code'] = '422';
         $this->builder->given(
             'The request is valid, the token is valid and has a valid scope but the customer is invalid'
-        )->uponReceiving('Unsuccessful PUT request to /customer-pricing-profile/{customerPricingProfileId} - invalid customer');
+        )->uponReceiving(
+            'Unsuccessful PUT request to /customer-pricing-profile/{customerPricingProfileId} - invalid customer'
+        );
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -165,6 +168,9 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->beginTest();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testPutCustomerPricingProfileBadRequest(): void
     {
         // invalid customerId
@@ -206,7 +212,8 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuId($this->requestData['skuId'])
             ->setPrice($this->requestData['price'])
-            ->setCurrency($this->requestData['currency']);
+            ->setCurrency($this->requestData['currency'])
+            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
 
         return $client->putCustomerPricingProfile(
             $this->customerPricingProfileId,

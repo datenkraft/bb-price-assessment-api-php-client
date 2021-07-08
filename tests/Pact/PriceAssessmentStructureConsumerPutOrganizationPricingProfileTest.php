@@ -26,7 +26,6 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
     protected string $validOrganizationIdB;
 
-
     /**
      * @throws Exception
      */
@@ -51,17 +50,19 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->validOrganizationIdB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
 
         $this->requestData = [
-            'organizationId' =>  $this->validOrganizationIdA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  321,
-            'currency' =>  'USD',
+            'organizationId' => $this->validOrganizationIdA,
+            'skuId' => $this->validSkuId,
+            'price' => 321,
+            'currency' => 'USD',
+            'revenueCommissionPercent' => 0.11111,
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' =>  $this->validOrganizationIdA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  $this->requestData['price'],
-            'currency' =>  $this->requestData['currency'],
+            'organizationId' => $this->validOrganizationIdA,
+            'skuId' => $this->validSkuId,
+            'price' => $this->requestData['price'],
+            'currency' => $this->requestData['currency'],
+            'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
         ];
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
@@ -88,7 +89,10 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->errorResponse['errors'][0]['code'] = '422';
         $this->builder->given(
             'The request is valid, the token is valid and has a valid scope but the project is invalid'
-        )->uponReceiving('Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - invalid organization');
+        )->uponReceiving(
+            'Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} -' .
+            ' invalid organization'
+        );
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -103,7 +107,9 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->errorResponse['errors'][0]['code'] = '409';
         $this->builder->given(
             'The request is valid, the token is valid and has a valid scope but the organization is invalid'
-        )->uponReceiving('Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - conflict');
+        )->uponReceiving(
+            'Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - conflict'
+        );
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -165,6 +171,9 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->beginTest();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testPutOrganizationPricingProfileBadRequest(): void
     {
         // invalid organizationId
@@ -206,7 +215,8 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuId($this->requestData['skuId'])
             ->setPrice($this->requestData['price'])
-            ->setCurrency($this->requestData['currency']);
+            ->setCurrency($this->requestData['currency'])
+            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
 
         return $client->putOrganizationPricingProfile(
             $this->organizationPricingProfileId,
