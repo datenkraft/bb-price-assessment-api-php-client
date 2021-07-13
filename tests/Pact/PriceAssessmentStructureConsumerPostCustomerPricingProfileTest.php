@@ -22,7 +22,6 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 
     protected string $validCustomerIdTestCustomerB;
 
-
     /**
      * @throws Exception
      */
@@ -45,17 +44,18 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->validCustomerIdTestCustomerB = '40c02d14-1a36-4408-9b25-6ec0b6303621'; //Test Customer
 
         $this->requestData = [
-            'customerId' =>  $this->validCustomerIdTestCustomerA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  50000,
-            'currency' =>  'EUR',
+            'customerId' => $this->validCustomerIdTestCustomerA,
+            'skuId' => $this->validSkuId,
+            'price' => 50000,
+            'currency' => 'EUR',
+            'revenueCommissionPercent' => 0.11111,
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
-            'customerId' =>  $this->validCustomerIdTestCustomerA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  $this->requestData['price'],
-            'currency' =>  $this->requestData['currency'],
+            'customerId' => $this->validCustomerIdTestCustomerA,
+            'skuId' => $this->validSkuId,
+            'price' => $this->requestData['price'],
+            'currency' => $this->requestData['currency'],
         ];
 
         $this->path = '/customer-pricing-profile';
@@ -138,6 +138,9 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->beginTest();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testPostCustomerBadRequest(): void
     {
         // customer id is invalid
@@ -180,7 +183,8 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuId($this->requestData['skuId'])
             ->setPrice($this->requestData['price'])
-            ->setCurrency($this->requestData['currency']);
+            ->setCurrency($this->requestData['currency'])
+            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
 
         return $client->postCustomerPricingProfile($customerPricingProfile, Client::FETCH_RESPONSE);
     }

@@ -16,9 +16,9 @@ use Psr\Http\Message\ResponseInterface;
 class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 {
 
-    protected $skuId;
+    protected string $skuId;
 
-    protected $customerId;
+    protected string $customerId;
 
     /**
      * @throws Exception
@@ -50,7 +50,8 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'skuId' => $this->skuId,
                 'customerId' => $this->customerId,
                 'price' => 50000,
-                'currency' => 'USD'
+                'currency' => 'USD',
+                'revenueCommissionPercent' => 0.11111,
             ]
         ];
     }
@@ -83,6 +84,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'customerId' => $this->customerId,
                 'price' => null,
                 'currency' => null,
+                'revenueCommissionPercent' => null,
             ]
         ];
 

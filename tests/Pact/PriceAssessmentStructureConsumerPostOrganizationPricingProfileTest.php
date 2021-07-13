@@ -22,7 +22,6 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
     protected string $validOrganizationIdOrganizationB;
 
-
     /**
      * @throws Exception
      */
@@ -45,17 +44,19 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         $this->validOrganizationIdOrganizationB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
 
         $this->requestData = [
-            'organizationId' =>  $this->validOrganizationIdOrganizationA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  123,
-            'currency' =>  'EUR',
+            'organizationId' => $this->validOrganizationIdOrganizationA,
+            'skuId' => $this->validSkuId,
+            'price' => 123,
+            'currency' => 'EUR',
+            'revenueCommissionPercent' => 0.11111,
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' =>  $this->validOrganizationIdOrganizationA,
-            'skuId' =>  $this->validSkuId,
-            'price' =>  $this->requestData['price'],
-            'currency' =>  $this->requestData['currency'],
+            'organizationId' => $this->validOrganizationIdOrganizationA,
+            'skuId' => $this->validSkuId,
+            'price' => $this->requestData['price'],
+            'currency' => $this->requestData['currency'],
+            'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
         ];
 
         $this->path = '/organization-pricing-profile';
@@ -138,6 +139,9 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         $this->beginTest();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testPostOrganizationBadRequest(): void
     {
         // invalid organizationId
@@ -180,7 +184,8 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuId($this->requestData['skuId'])
             ->setPrice($this->requestData['price'])
-            ->setCurrency($this->requestData['currency']);
+            ->setCurrency($this->requestData['currency'])
+            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
 
         return $client->postOrganizationPricingProfile($organizationPricingProfile, Client::FETCH_RESPONSE);
     }

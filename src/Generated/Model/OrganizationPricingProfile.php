@@ -35,6 +35,12 @@ class OrganizationPricingProfile
      */
     protected $currency;
     /**
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     *
+     * @var float|null
+     */
+    protected $revenueCommissionPercent;
+    /**
      * Organization Pricing Profile Id
      *
      * @return string
@@ -137,6 +143,27 @@ class OrganizationPricingProfile
     public function setCurrency(?string $currency) : self
     {
         $this->currency = $currency;
+        return $this;
+    }
+    /**
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     *
+     * @return float|null
+     */
+    public function getRevenueCommissionPercent() : ?float
+    {
+        return $this->revenueCommissionPercent;
+    }
+    /**
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     *
+     * @param float|null $revenueCommissionPercent
+     *
+     * @return self
+     */
+    public function setRevenueCommissionPercent(?float $revenueCommissionPercent) : self
+    {
+        $this->revenueCommissionPercent = $revenueCommissionPercent;
         return $this;
     }
 }
