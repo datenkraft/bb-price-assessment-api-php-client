@@ -29,7 +29,7 @@ class NewOrganizationPricingProfile
      */
     protected $currency;
     /**
-     * Revenue Commission Percent (5 digits precision, 10 digits max.)
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
      *
      * @var float|null
      */
@@ -119,7 +119,7 @@ class NewOrganizationPricingProfile
         return $this;
     }
     /**
-     * Revenue Commission Percent (5 digits precision, 10 digits max.)
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
      *
      * @return float|null
      */
@@ -128,7 +128,7 @@ class NewOrganizationPricingProfile
         return $this->revenueCommissionPercent;
     }
     /**
-     * Revenue Commission Percent (5 digits precision, 10 digits max.)
+     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
      *
      * @param float|null $revenueCommissionPercent
      *
