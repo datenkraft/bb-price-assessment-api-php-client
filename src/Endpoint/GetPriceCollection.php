@@ -18,9 +18,9 @@ class GetPriceCollection extends GetPriceCollectionGenerated
      */
     public function __construct(array $queryParameters = array())
     {
-        // Convert filter[skuId] array to string of comma-separated values
-        if (isset($queryParameters['filter[skuId]']) && is_array($queryParameters['filter[skuId]'])) {
-            $queryParameters['filter[skuId]'] = implode(',', $queryParameters['filter[skuId]']);
+        // Convert filter[skuCode] array to string of comma-separated values
+        if (isset($queryParameters['filter[skuCode]']) && is_array($queryParameters['filter[skuCode]'])) {
+            $queryParameters['filter[skuCode]'] = implode(',', $queryParameters['filter[skuCode]']);
         }
         parent::__construct($queryParameters);
     }
@@ -30,7 +30,7 @@ class GetPriceCollection extends GetPriceCollectionGenerated
      */
     protected function getQueryOptionsResolver(): OptionsResolver
     {
-        // Set allowed type for filter[skuId] to string
-        return parent::getQueryOptionsResolver()->setAllowedTypes('filter[skuId]', array('string'));
+        // Set allowed type for filter[skuCode] to string
+        return parent::getQueryOptionsResolver()->setAllowedTypes('filter[skuCode]', array('string'));
     }
 }

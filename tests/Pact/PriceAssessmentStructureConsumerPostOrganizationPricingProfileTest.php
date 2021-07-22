@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends PriceAssessmentConsumerTest
 {
-    protected string $validSkuId;
+    protected string $validSkuCode;
 
     protected string $validOrganizationIdOrganizationA;
 
@@ -39,13 +39,13 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuId = 'test_sku_b';
+        $this->validSkuCode = 'test_sku_b';
         $this->validOrganizationIdOrganizationA = 'adece628-c1ce-436b-8975-01d32753bc33';
         $this->validOrganizationIdOrganizationB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
 
         $this->requestData = [
             'organizationId' => $this->validOrganizationIdOrganizationA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => 123,
             'currency' => 'EUR',
             'revenueCommissionPercent' => 0.11111,
@@ -53,7 +53,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
             'organizationId' => $this->validOrganizationIdOrganizationA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => $this->requestData['price'],
             'currency' => $this->requestData['currency'],
             'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
@@ -67,9 +67,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         $this->expectedStatusCode = '201';
 
         $this->builder
-            ->given(
-                'The request is valid, the token is valid and has a valid scope'
-            )
+            ->given('The request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful POST request to /organization-pricing-profile');
 
         $this->beginTest();
@@ -78,13 +76,13 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
     public function testPostOrganizationPricingProfileConflict(): void
     {
         $this->requestData['organizationId'] = $this->validOrganizationIdOrganizationA;
-        $this->requestData['skuId'] = 'test_sku_d';
+        $this->requestData['skuCode'] = 'test_sku_d';
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the organization is invalid'
-        )->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - conflict');
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the organization is invalid')
+            ->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - conflict');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -96,9 +94,9 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the project is invalid'
-        )->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - invalid organization');
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the project is invalid')
+            ->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - invalid organization');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -182,7 +180,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
         $organizationPricingProfile = (new NewOrganizationPricingProfile())
             ->setOrganizationId($this->requestData['organizationId'])
-            ->setSkuId($this->requestData['skuId'])
+            ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($this->requestData['price'])
             ->setCurrency($this->requestData['currency'])
             ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);

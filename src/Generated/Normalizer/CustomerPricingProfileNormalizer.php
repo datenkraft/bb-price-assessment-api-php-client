@@ -42,8 +42,8 @@ class CustomerPricingProfileNormalizer implements DenormalizerInterface, Normali
         if (\array_key_exists('customerId', $data)) {
             $object->setCustomerId($data['customerId']);
         }
-        if (\array_key_exists('skuId', $data)) {
-            $object->setSkuId($data['skuId']);
+        if (\array_key_exists('skuCode', $data)) {
+            $object->setSkuCode($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
             $object->setPrice($data['price']);
@@ -72,7 +72,7 @@ class CustomerPricingProfileNormalizer implements DenormalizerInterface, Normali
             $data['customerPricingProfileId'] = $object->getCustomerPricingProfileId();
         }
         $data['customerId'] = $object->getCustomerId();
-        $data['skuId'] = $object->getSkuId();
+        $data['skuCode'] = $object->getSkuCode();
         if (null !== $object->getPrice()) {
             $data['price'] = $object->getPrice();
         }
