@@ -44,7 +44,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->responseData = [
             'organizationPricingProfileId' => $this->organizationPricingProfileId,
             'organizationId' => 'dbc9dc41-ff32-4a9b-b6bd-2c3b736c959e',
-            'skuId' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
+            'skuCode' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => 123,
             'currency' => 'EUR',
             'revenueCommissionPercent' => 0.11111,
@@ -113,9 +113,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given(
-                'A Organization Pricing Profile with organizationPricingProfileId does not exist'
-            )
+            ->given('A Organization Pricing Profile with organizationPricingProfileId does not exist')
             ->uponReceiving('Not Found GET request to /organization-pricing-profile/{organizationPricingProfileId}');
 
         $this->responseData = $this->errorResponse;

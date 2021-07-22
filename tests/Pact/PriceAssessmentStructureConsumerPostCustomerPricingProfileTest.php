@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends PriceAssessmentConsumerTest
 {
-    protected string $validSkuId;
+    protected string $validSkuCode;
 
     protected string $validCustomerIdTestCustomerA;
 
@@ -39,13 +39,13 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuId = 'test_sku_a';
+        $this->validSkuCode = 'test_sku_a';
         $this->validCustomerIdTestCustomerA = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
         $this->validCustomerIdTestCustomerB = '40c02d14-1a36-4408-9b25-6ec0b6303621'; //Test Customer
 
         $this->requestData = [
             'customerId' => $this->validCustomerIdTestCustomerA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => 50000,
             'currency' => 'EUR',
             'revenueCommissionPercent' => 0.11111,
@@ -53,7 +53,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
             'customerId' => $this->validCustomerIdTestCustomerA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => $this->requestData['price'],
             'currency' => $this->requestData['currency'],
         ];
@@ -66,9 +66,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->expectedStatusCode = '201';
 
         $this->builder
-            ->given(
-                'The request is valid, the token is valid and has a valid scope'
-            )
+            ->given('The request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful POST request to /customer-pricing-profile');
 
         $this->beginTest();
@@ -77,13 +75,13 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
     public function testPostCustomerPricingProfileConflict(): void
     {
         $this->requestData['customerId'] = '86cde51c-9fba-4d8b-8ff7-331645b5c31a';
-        $this->requestData['skuId'] = 'test_sku_b';
+        $this->requestData['skuCode'] = 'test_sku_b';
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
-        )->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - conflict');
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the customer is invalid')
+            ->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - conflict');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -95,9 +93,9 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
-        )->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - invalid customer');
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the customer is invalid')
+            ->uponReceiving('Unsuccessful POST request to /customer-pricing-profile - invalid customer');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -181,7 +179,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
 
         $customerPricingProfile = (new NewCustomerPricingProfile())
             ->setCustomerId($this->requestData['customerId'])
-            ->setSkuId($this->requestData['skuId'])
+            ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($this->requestData['price'])
             ->setCurrency($this->requestData['currency'])
             ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);

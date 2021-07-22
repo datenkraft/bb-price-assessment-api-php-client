@@ -20,7 +20,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     protected string $invalidCustomerPricingProfileId;
 
-    protected string $validSkuId;
+    protected string $validSkuCode;
 
     protected string $validCustomerIdA;
 
@@ -45,13 +45,13 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
         $this->customerPricingProfileId = 'a5eb9142-794b-4824-9164-6aac24778b3c';
         $this->invalidCustomerPricingProfileId = '02199f9a-5911-4f32-8394-f4fe86773e33';
-        $this->validSkuId = 'test_sku_c';
+        $this->validSkuCode = 'test_sku_c';
         $this->validCustomerIdA = '71b9fb54-4f6f-493c-bd62-229d79d07880'; //Test Customer
         $this->validCustomerIdB = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
 
         $this->requestData = [
             'customerId' => $this->validCustomerIdA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => 123,
             'currency' => 'EUR',
             'revenueCommissionPercent' => 0.11111,
@@ -59,7 +59,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
             'customerId' => $this->validCustomerIdA,
-            'skuId' => $this->validSkuId,
+            'skuCode' => $this->validSkuCode,
             'price' => $this->requestData['price'],
             'currency' => $this->requestData['currency'],
             'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
@@ -73,9 +73,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->expectedStatusCode = '200';
 
         $this->builder
-            ->given(
-                'The request is valid, the token is valid and has a valid scope'
-            )
+            ->given('The request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful PUT request to /customer-pricing-profile/{customerPricingProfileId}');
 
         $this->beginTest();
@@ -84,13 +82,13 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
     public function testPostCustomerPricingProfileConflict(): void
     {
         $this->requestData['customerId'] = '86cde51c-9fba-4d8b-8ff7-331645b5c31a';
-        $this->requestData['skuId'] = 'test_sku_d';
+        $this->requestData['skuCode'] = 'test_sku_d';
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
-        )->uponReceiving('Unsuccessful PUT request to /customer-pricing-profile - conflict');
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the customer is invalid')
+            ->uponReceiving('Unsuccessful PUT request to /customer-pricing-profile - conflict');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -101,16 +99,14 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         // Path with id for non existent customer pricing profile
         $this->path = '/customer-pricing-profile/' . $this->invalidCustomerPricingProfileId;
         $this->customerPricingProfileId = $this->invalidCustomerPricingProfileId;
-        $this->requestData['skuId'] = 'test_sku_d';
+        $this->requestData['skuCode'] = 'test_sku_d';
 
         // Error code in response is 404
         $this->expectedStatusCode = '404';
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given(
-                'A Customer Pricing Profile with customerPricingProfileId does not exist'
-            )
+            ->given('A Customer Pricing Profile with customerPricingProfileId does not exist')
             ->uponReceiving('Not Found PUT request to /customer-pricing-profile/{customerPricingProfileId}');
 
         $this->responseData = $this->errorResponse;
@@ -123,11 +119,11 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
-        $this->builder->given(
-            'The request is valid, the token is valid and has a valid scope but the customer is invalid'
-        )->uponReceiving(
-            'Unsuccessful PUT request to /customer-pricing-profile/{customerPricingProfileId} - invalid customer'
-        );
+        $this->builder
+            ->given('The request is valid, the token is valid and has a valid scope but the customer is invalid')
+            ->uponReceiving(
+                'Unsuccessful PUT request to /customer-pricing-profile/{customerPricingProfileId} - invalid customer'
+            );
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -210,7 +206,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
         $customerPricingProfile = (new NewCustomerPricingProfile())
             ->setCustomerId($this->requestData['customerId'])
-            ->setSkuId($this->requestData['skuId'])
+            ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($this->requestData['price'])
             ->setCurrency($this->requestData['currency'])
             ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);

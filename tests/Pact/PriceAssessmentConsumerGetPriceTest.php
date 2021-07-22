@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 {
 
-    protected string $skuId;
+    protected string $skuCode;
 
     protected string $customerId;
 
@@ -39,15 +39,15 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             'Content-Type' => 'application/json',
         ];
 
-        $this->skuId = 'test_sku_a';
+        $this->skuCode = 'test_sku_a';
         $this->customerId = '71b9fb54-4f6f-493c-bd62-229d79d07880';
         $this->path = '/price';
-        $this->queryParams = ['filter[skuId]' => $this->skuId, 'filter[customerId]' => $this->customerId];
+        $this->queryParams = ['filter[skuCode]' => $this->skuCode, 'filter[customerId]' => $this->customerId];
 
         $this->requestData = [];
         $this->responseData = [
             [
-                'skuId' => $this->skuId,
+                'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
                 'price' => 50000,
                 'currency' => 'USD',
@@ -66,9 +66,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->expectedStatusCode = '200';
 
         $this->builder
-            ->given(
-                'the request is valid, the token is valid and has a valid scope'
-            )
+            ->given('the request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful GET request to /price');
 
         $this->beginTest();
@@ -77,10 +75,10 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
     public function testGetPriceSuccessNull()
     {
         $this->customerId = 'ab1f0809-931b-4739-b470-bccf1fb08090';
-        $this->queryParams = ['filter[skuId]' => $this->skuId, 'filter[customerId]' => $this->customerId];
+        $this->queryParams = ['filter[skuCode]' => $this->skuCode, 'filter[customerId]' => $this->customerId];
         $this->responseData = [
             [
-                'skuId' => $this->skuId,
+                'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
                 'price' => null,
                 'currency' => null,

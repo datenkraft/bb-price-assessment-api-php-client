@@ -49,8 +49,8 @@ $client = Client::createWithFactory($factory);
 
 ### Example Endpoint: Get Price Collection
 ~~~~ php
-$skuIds = ["sku1" , "sku2" , "sku3"];  // array
-$queryParams = ['filter[skuId]' => $skuIds];
+$skuCodes = ["sku1" , "sku2" , "sku3"];  // array
+$queryParams = ['filter[skuCode]' => $skuCodes];
 
 $response = $client->getPriceCollection($queryParams);
 

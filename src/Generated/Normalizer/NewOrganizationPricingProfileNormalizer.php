@@ -39,8 +39,8 @@ class NewOrganizationPricingProfileNormalizer implements DenormalizerInterface, 
         if (\array_key_exists('organizationId', $data)) {
             $object->setOrganizationId($data['organizationId']);
         }
-        if (\array_key_exists('skuId', $data)) {
-            $object->setSkuId($data['skuId']);
+        if (\array_key_exists('skuCode', $data)) {
+            $object->setSkuCode($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
             $object->setPrice($data['price']);
@@ -66,7 +66,7 @@ class NewOrganizationPricingProfileNormalizer implements DenormalizerInterface, 
     {
         $data = array();
         $data['organizationId'] = $object->getOrganizationId();
-        $data['skuId'] = $object->getSkuId();
+        $data['skuCode'] = $object->getSkuCode();
         if (null !== $object->getPrice()) {
             $data['price'] = $object->getPrice();
         }

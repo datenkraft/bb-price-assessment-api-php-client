@@ -44,7 +44,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->responseData = [
             'customerPricingProfileId' => $this->customerPricingProfileId,
             'customerId' => '569e4b86-af23-4f73-8c12-3a3e56f148e7',
-            'skuId' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
+            'skuCode' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => 123,
             'currency' => 'EUR',
             'revenueCommissionPercent' => 0.11111,
@@ -113,9 +113,7 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given(
-                'A Customer Pricing Profile with customerPricingProfileId does not exist'
-            )
+            ->given('A Customer Pricing Profile with customerPricingProfileId does not exist')
             ->uponReceiving('Not Found GET request to /customer-pricing-profile/{customerPricingProfileId}');
 
         $this->responseData = $this->errorResponse;

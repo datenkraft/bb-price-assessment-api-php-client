@@ -9,7 +9,7 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
      *
      * @param array $queryParameters {
      *     @var string $filter[customerId] Customer Id filter
-     *     @var string $filter[skuId] SKU Id filter
+     *     @var string $filter[skuCode] SKU Code filter
      * }
      */
     public function __construct(array $queryParameters = array())
@@ -36,11 +36,11 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
     protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('filter[customerId]', 'filter[skuId]'));
-        $optionsResolver->setRequired(array('filter[customerId]', 'filter[skuId]'));
+        $optionsResolver->setDefined(array('filter[customerId]', 'filter[skuCode]'));
+        $optionsResolver->setRequired(array('filter[customerId]', 'filter[skuCode]'));
         $optionsResolver->setDefaults(array());
         $optionsResolver->setAllowedTypes('filter[customerId]', array('string'));
-        $optionsResolver->setAllowedTypes('filter[skuId]', array('string'));
+        $optionsResolver->setAllowedTypes('filter[skuCode]', array('string'));
         return $optionsResolver;
     }
     /**

@@ -11,11 +11,11 @@ class NewCustomerPricingProfile
      */
     protected $customerId;
     /**
-     * SKU Id
+     * SKU Code
      *
      * @var string
      */
-    protected $skuId;
+    protected $skuCode;
     /**
      * Price
      *
@@ -56,24 +56,24 @@ class NewCustomerPricingProfile
         return $this;
     }
     /**
-     * SKU Id
+     * SKU Code
      *
      * @return string
      */
-    public function getSkuId() : string
+    public function getSkuCode() : string
     {
-        return $this->skuId;
+        return $this->skuCode;
     }
     /**
-     * SKU Id
+     * SKU Code
      *
-     * @param string $skuId
+     * @param string $skuCode
      *
      * @return self
      */
-    public function setSkuId(string $skuId) : self
+    public function setSkuCode(string $skuCode) : self
     {
-        $this->skuId = $skuId;
+        $this->skuCode = $skuCode;
         return $this;
     }
     /**

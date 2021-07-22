@@ -880,9 +880,9 @@
                         }
                     },
                     {
-                        "name": "filter[skuId]",
+                        "name": "filter[skuCode]",
                         "in": "query",
-                        "description": "SKU Id filter",
+                        "description": "SKU Code filter",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -996,7 +996,7 @@
                 "required": [
                     "customerPricingProfileId",
                     "customerId",
-                    "skuId"
+                    "skuCode"
                 ],
                 "type": "object",
                 "allOf": [
@@ -1018,15 +1018,15 @@
                 "description": "Class CustomerPricingProfileResource",
                 "required": [
                     "customerId",
-                    "skuId"
+                    "skuCode"
                 ],
                 "properties": {
                     "customerId": {
                         "description": "Customer Id",
                         "type": "string"
                     },
-                    "skuId": {
-                        "description": "SKU Id",
+                    "skuCode": {
+                        "description": "SKU Code",
                         "type": "string"
                     },
                     "price": {
@@ -1053,7 +1053,7 @@
                 "required": [
                     "organizationPricingProfileId",
                     "organizationId",
-                    "skuId"
+                    "skuCode"
                 ],
                 "type": "object",
                 "allOf": [
@@ -1075,15 +1075,15 @@
                 "description": "Class OrganizationPricingProfileResource",
                 "required": [
                     "organizationId",
-                    "skuId"
+                    "skuCode"
                 ],
                 "properties": {
                     "organizationId": {
                         "description": "Organization Id",
                         "type": "string"
                     },
-                    "skuId": {
-                        "description": "SKU Id",
+                    "skuCode": {
+                        "description": "SKU Code",
                         "type": "string"
                     },
                     "price": {
@@ -1108,14 +1108,14 @@
             },
             "price": {
                 "required": [
-                    "skuId",
+                    "skuCode",
                     "organizationId",
                     "price",
                     "currency"
                 ],
                 "properties": {
-                    "skuId": {
-                        "description": "SKU Id",
+                    "skuCode": {
+                        "description": "SKU Code",
                         "type": "string"
                     },
                     "organizationId": {
