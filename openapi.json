@@ -1015,7 +1015,6 @@
                 ]
             },
             "newCustomerPricingProfile": {
-                "description": "Class CustomerPricingProfileResource",
                 "required": [
                     "customerId",
                     "skuCode"
@@ -1030,8 +1029,27 @@
                         "type": "string"
                     },
                     "price": {
+                        "$ref": "#/components/schemas/priceProperty"
+                    },
+                    "revenueCommissionPercent": {
                         "nullable": true,
-                        "description": "Price",
+                        "description": "Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)",
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "type": "object"
+            },
+            "priceProperty": {
+                "description": "Class CustomerPricingProfileResource",
+                "required": [
+                    "minor",
+                    "currency"
+                ],
+                "properties": {
+                    "minor": {
+                        "nullable": true,
+                        "description": "Minor",
                         "type": "number",
                         "format": "integer"
                     },
@@ -1039,12 +1057,6 @@
                         "nullable": true,
                         "description": "Currency",
                         "type": "string"
-                    },
-                    "revenueCommissionPercent": {
-                        "nullable": true,
-                        "description": "Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)",
-                        "type": "number",
-                        "format": "float"
                     }
                 },
                 "type": "object"
@@ -1087,15 +1099,7 @@
                         "type": "string"
                     },
                     "price": {
-                        "nullable": true,
-                        "description": "Price",
-                        "type": "number",
-                        "format": "integer"
-                    },
-                    "currency": {
-                        "nullable": true,
-                        "description": "Currency",
-                        "type": "string"
+                        "$ref": "#/components/schemas/priceProperty"
                     },
                     "revenueCommissionPercent": {
                         "nullable": true,
@@ -1123,15 +1127,7 @@
                         "type": "string"
                     },
                     "price": {
-                        "nullable": true,
-                        "description": "Price",
-                        "type": "number",
-                        "format": "integer"
-                    },
-                    "currency": {
-                        "nullable": true,
-                        "description": "Currency",
-                        "type": "string"
+                        "$ref": "#/components/schemas/priceProperty"
                     },
                     "revenueCommissionPercent": {
                         "nullable": true,

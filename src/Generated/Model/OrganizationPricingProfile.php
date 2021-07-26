@@ -23,17 +23,11 @@ class OrganizationPricingProfile
      */
     protected $skuCode;
     /**
-     * Price
+     * Class CustomerPricingProfileResource
      *
-     * @var float|null
+     * @var PriceProperty
      */
     protected $price;
-    /**
-     * Currency
-     *
-     * @var string|null
-     */
-    protected $currency;
     /**
      * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
      *
@@ -104,45 +98,24 @@ class OrganizationPricingProfile
         return $this;
     }
     /**
-     * Price
+     * Class CustomerPricingProfileResource
      *
-     * @return float|null
+     * @return PriceProperty
      */
-    public function getPrice() : ?float
+    public function getPrice() : PriceProperty
     {
         return $this->price;
     }
     /**
-     * Price
+     * Class CustomerPricingProfileResource
      *
-     * @param float|null $price
+     * @param PriceProperty $price
      *
      * @return self
      */
-    public function setPrice(?float $price) : self
+    public function setPrice(PriceProperty $price) : self
     {
         $this->price = $price;
-        return $this;
-    }
-    /**
-     * Currency
-     *
-     * @return string|null
-     */
-    public function getCurrency() : ?string
-    {
-        return $this->currency;
-    }
-    /**
-     * Currency
-     *
-     * @param string|null $currency
-     *
-     * @return self
-     */
-    public function setCurrency(?string $currency) : self
-    {
-        $this->currency = $currency;
         return $this;
     }
     /**

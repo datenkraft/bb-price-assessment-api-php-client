@@ -45,17 +45,8 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
         }
-        if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($data['price']);
-        }
-        elseif (\array_key_exists('price', $data) && $data['price'] === null) {
-            $object->setPrice(null);
-        }
-        if (\array_key_exists('currency', $data) && $data['currency'] !== null) {
-            $object->setCurrency($data['currency']);
-        }
-        elseif (\array_key_exists('currency', $data) && $data['currency'] === null) {
-            $object->setCurrency(null);
+        if (\array_key_exists('price', $data)) {
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PriceProperty', 'json', $context));
         }
         if (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] !== null) {
             $object->setRevenueCommissionPercent($data['revenueCommissionPercent']);
@@ -74,10 +65,7 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         $data['organizationId'] = $object->getOrganizationId();
         $data['skuCode'] = $object->getSkuCode();
         if (null !== $object->getPrice()) {
-            $data['price'] = $object->getPrice();
-        }
-        if (null !== $object->getCurrency()) {
-            $data['currency'] = $object->getCurrency();
+            $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
         if (null !== $object->getRevenueCommissionPercent()) {
             $data['revenueCommissionPercent'] = $object->getRevenueCommissionPercent();
