@@ -7,6 +7,7 @@ use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfile;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -46,16 +47,17 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $this->requestData = [
             'customerId' => $this->validCustomerIdTestCustomerA,
             'skuCode' => $this->validSkuCode,
-            'price' => 50000,
-            'currency' => 'EUR',
+            'price' => ['minor' => 50000, 'currency' => 'EUR'],
             'revenueCommissionPercent' => 0.11111,
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
             'customerId' => $this->validCustomerIdTestCustomerA,
             'skuCode' => $this->validSkuCode,
-            'price' => $this->requestData['price'],
-            'currency' => $this->requestData['currency'],
+            'price' => [
+                'minor' => $this->requestData['price']['minor'],
+                'currency' => $this->requestData['price']['currency']
+            ],
         ];
 
         $this->path = '/customer-pricing-profile';
@@ -177,11 +179,14 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
         $factory->setToken($this->token);
         $client = Client::createWithFactory($factory, $this->config->getBaseUri());
 
+        $priceProperty = (new PriceProperty())
+            ->setMinor($this->requestData['price']['minor'])
+            ->setCurrency($this->requestData['price']['currency']);
+
         $customerPricingProfile = (new NewCustomerPricingProfile())
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuCode($this->requestData['skuCode'])
-            ->setPrice($this->requestData['price'])
-            ->setCurrency($this->requestData['currency'])
+            ->setPrice($priceProperty)
             ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
 
         return $client->postCustomerPricingProfile($customerPricingProfile, Client::FETCH_RESPONSE);

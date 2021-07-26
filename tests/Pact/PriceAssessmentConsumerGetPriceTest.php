@@ -49,8 +49,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             [
                 'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
-                'price' => 50000,
-                'currency' => 'USD',
+                'price' => ['minor' => 50000, 'currency' => 'USD'],
                 'revenueCommissionPercent' => 0.11111,
             ]
         ];
@@ -80,8 +79,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             [
                 'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
-                'price' => null,
-                'currency' => null,
+                'price' => ['minor' => null, 'currency' => null],
                 'revenueCommissionPercent' => null,
             ]
         ];
@@ -90,7 +88,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->builder
             ->given(
-                'Price and Currency is null, ' .
+                'PriceMinor and PriceCurrency is null, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
             ->uponReceiving('Successful GET request to /price');
