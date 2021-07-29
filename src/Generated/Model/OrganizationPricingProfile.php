@@ -29,11 +29,11 @@ class OrganizationPricingProfile
      */
     protected $price;
     /**
-     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits)
      *
      * @var float|null
      */
-    protected $revenueCommissionPercent;
+    protected $percent;
     /**
      * Organization Pricing Profile Id
      *
@@ -119,24 +119,24 @@ class OrganizationPricingProfile
         return $this;
     }
     /**
-     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits)
      *
      * @return float|null
      */
-    public function getRevenueCommissionPercent() : ?float
+    public function getPercent() : ?float
     {
-        return $this->revenueCommissionPercent;
+        return $this->percent;
     }
     /**
-     * Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits)
      *
-     * @param float|null $revenueCommissionPercent
+     * @param float|null $percent
      *
      * @return self
      */
-    public function setRevenueCommissionPercent(?float $revenueCommissionPercent) : self
+    public function setPercent(?float $percent) : self
     {
-        $this->revenueCommissionPercent = $revenueCommissionPercent;
+        $this->percent = $percent;
         return $this;
     }
 }

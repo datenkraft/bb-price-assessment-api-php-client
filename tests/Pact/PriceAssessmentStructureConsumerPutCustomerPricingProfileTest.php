@@ -54,7 +54,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
             'customerId' => $this->validCustomerIdA,
             'skuCode' => $this->validSkuCode,
             'price' => ['minor' => 123, 'currency' => 'EUR'],
-            'revenueCommissionPercent' => 0.11111,
+            'percent' => 0.11111,
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
@@ -64,7 +64,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
                 'minor' => $this->requestData['price']['minor'],
                 'currency' => $this->requestData['price']['currency']
             ],
-            'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
+            'percent' => $this->requestData['percent'],
         ];
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
@@ -214,7 +214,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
+            ->setpercent($this->requestData['percent']);
 
         return $client->putCustomerPricingProfile(
             $this->customerPricingProfileId,

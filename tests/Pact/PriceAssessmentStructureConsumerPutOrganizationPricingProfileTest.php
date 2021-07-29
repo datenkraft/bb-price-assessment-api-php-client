@@ -54,7 +54,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
             'organizationId' => $this->validOrganizationIdA,
             'skuCode' => $this->validSkuCode,
             'price' => ['minor' => 321, 'currency' => 'USD'],
-            'revenueCommissionPercent' => 0.11111,
+            'percent' => 0.11111,
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
@@ -64,7 +64,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
                 'minor' => $this->requestData['price']['minor'],
                 'currency' => $this->requestData['price']['currency']
             ],
-            'revenueCommissionPercent' => $this->requestData['revenueCommissionPercent'],
+            'percent' => $this->requestData['percent'],
         ];
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
@@ -217,7 +217,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
+            ->setpercent($this->requestData['percent']);
 
         return $client->putOrganizationPricingProfile(
             $this->organizationPricingProfileId,

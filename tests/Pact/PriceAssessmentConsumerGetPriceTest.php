@@ -50,7 +50,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
                 'price' => ['minor' => 50000, 'currency' => 'USD'],
-                'revenueCommissionPercent' => 0.11111,
+                'percent' => 0.11111,
             ]
         ];
     }
@@ -80,7 +80,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
                 'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
                 'price' => ['minor' => null, 'currency' => null],
-                'revenueCommissionPercent' => null,
+                'percent' => null,
             ]
         ];
 

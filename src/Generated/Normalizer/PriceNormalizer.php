@@ -45,11 +45,11 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (\array_key_exists('price', $data)) {
             $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PriceProperty', 'json', $context));
         }
-        if (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] !== null) {
-            $object->setRevenueCommissionPercent($data['revenueCommissionPercent']);
+        if (\array_key_exists('percent', $data) && $data['percent'] !== null) {
+            $object->setPercent($data['percent']);
         }
-        elseif (\array_key_exists('revenueCommissionPercent', $data) && $data['revenueCommissionPercent'] === null) {
-            $object->setRevenueCommissionPercent(null);
+        elseif (\array_key_exists('percent', $data) && $data['percent'] === null) {
+            $object->setPercent(null);
         }
         return $object;
     }
@@ -59,8 +59,8 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         $data['skuCode'] = $object->getSkuCode();
         $data['organizationId'] = $object->getOrganizationId();
         $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
-        if (null !== $object->getRevenueCommissionPercent()) {
-            $data['revenueCommissionPercent'] = $object->getRevenueCommissionPercent();
+        if (null !== $object->getPercent()) {
+            $data['percent'] = $object->getPercent();
         }
         return $data;
     }

@@ -46,7 +46,7 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
             'organizationId' => 'dbc9dc41-ff32-4a9b-b6bd-2c3b736c959e',
             'skuCode' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
             'price' => ['minor' => 123, 'currency' => 'EUR'],
-            'revenueCommissionPercent' => 0.11111,
+            'percent' => 0.11111,
         ];
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;

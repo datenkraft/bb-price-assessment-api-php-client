@@ -48,7 +48,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
             'customerId' => $this->validCustomerIdTestCustomerA,
             'skuCode' => $this->validSkuCode,
             'price' => ['minor' => 50000, 'currency' => 'EUR'],
-            'revenueCommissionPercent' => 0.11111,
+            'percent' => 0.11111,
         ];
         $this->responseData = [
             'customerPricingProfileId' => $this->matcher->uuid(),
@@ -187,7 +187,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setrevenueCommissionPercent($this->requestData['revenueCommissionPercent']);
+            ->setpercent($this->requestData['percent']);
 
         return $client->postCustomerPricingProfile($customerPricingProfile, Client::FETCH_RESPONSE);
     }
