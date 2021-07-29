@@ -187,7 +187,7 @@ class PriceAssessmentStructureConsumerPostCustomerPricingProfileTest extends Pri
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setpercent($this->requestData['percent']);
+            ->setPercent($this->requestData['percent']);
 
         return $client->postCustomerPricingProfile($customerPricingProfile, Client::FETCH_RESPONSE);
     }

@@ -188,7 +188,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setpercent($this->requestData['percent']);
+            ->setPercent($this->requestData['percent']);
 
         return $client->postOrganizationPricingProfile($organizationPricingProfile, Client::FETCH_RESPONSE);
     }
