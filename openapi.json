@@ -1031,9 +1031,9 @@
                     "price": {
                         "$ref": "#/components/schemas/priceProperty"
                     },
-                    "revenueCommissionPercent": {
+                    "percent": {
                         "nullable": true,
-                        "description": "Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
                     }
@@ -1101,9 +1101,9 @@
                     "price": {
                         "$ref": "#/components/schemas/priceProperty"
                     },
-                    "revenueCommissionPercent": {
+                    "percent": {
                         "nullable": true,
-                        "description": "Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
                     }
@@ -1129,9 +1129,9 @@
                     "price": {
                         "$ref": "#/components/schemas/priceProperty"
                     },
-                    "revenueCommissionPercent": {
+                    "percent": {
                         "nullable": true,
-                        "description": "Revenue Commission Percent (5 digits precision, 5 pre-decimal digits)",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
                     }
