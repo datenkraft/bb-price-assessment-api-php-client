@@ -137,14 +137,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
-        $this->errorResponse = [
-            'errors' => [
-                [
-                    'code' => '400',
-                    'message' => $this->matcher->like('Example error message'),
-                ],
-            ]
-        ];
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The request query is invalid or missing')
