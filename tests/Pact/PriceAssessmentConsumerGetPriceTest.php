@@ -60,7 +60,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         parent::tearDown();
     }
 
-    public function testGetPriceSuccess()
+    public function testGetPriceSuccess(): void
     {
         $this->expectedStatusCode = '200';
 
@@ -71,7 +71,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->beginTest();
     }
 
-    public function testGetPriceSuccessNull()
+    public function testGetPriceSuccessNull(): void
     {
         $this->customerId = 'ab1f0809-931b-4739-b470-bccf1fb08090';
         $this->queryParams = ['filter[skuCode]' => $this->skuCode, 'filter[customerId]' => $this->customerId];
@@ -96,7 +96,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->beginTest();
     }
 
-    public function testGetPriceUnauthorized()
+    public function testGetPriceUnauthorized(): void
     {
         $this->token = 'invalid_token';
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
@@ -113,7 +113,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->beginTest();
     }
 
-    public function testGetPriceForbidden()
+    public function testGetPriceForbidden(): void
     {
         $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
@@ -129,6 +129,31 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->responseData = $this->errorResponse;
         $this->beginTest();
     }
+
+    public function testGetPriceBadRequest(): void
+    {
+        // empty skuCode
+        $this->queryParams['filter[skuCode]'] = '';
+
+        // Error code in response is 400
+        $this->expectedStatusCode = '400';
+        $this->errorResponse = [
+            'errors' => [
+                [
+                    'code' => '400',
+                    'message' => $this->matcher->like('Example error message'),
+                ],
+            ]
+        ];
+
+        $this->builder
+            ->given('The request query is invalid or missing')
+            ->uponReceiving('Bad POST request to /customer-pricing-profile');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
 
     /**
      * @return ResponseInterface
