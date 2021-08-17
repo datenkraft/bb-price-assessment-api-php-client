@@ -141,7 +141,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->builder
             ->given('The request query is invalid or missing')
-            ->uponReceiving('Bad POST request to /customer-pricing-profile');
+            ->uponReceiving('Bad GET request to /customer-pricing-profile');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
