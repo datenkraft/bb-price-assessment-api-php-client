@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class GetAuthRoleIdentityCollectionEndpointBadRequestException extends BadRequestException
+class GetAuthRoleCollectionBadRequestException extends BadRequestException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)

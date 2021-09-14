@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class GetAuthRoleIdentityCollectionEndpointForbiddenException extends ForbiddenException
+class GetAuthRoleIdentityCollectionBadRequestException extends BadRequestException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Forbidden', 403);
+        parent::__construct('Bad Request', 400);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()

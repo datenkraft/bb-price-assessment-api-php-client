@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class GetAuthRoleIdentityCollectionEndpointUnauthorizedException extends UnauthorizedException
+class GetAuthRoleIdentityCollectionUnauthorizedException extends UnauthorizedException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)

@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class PostAuthRoleIdentityCollectionEndpointNotFoundException extends NotFoundException
+class GetAuthRoleCollectionForbiddenException extends ForbiddenException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Not Found', 404);
+        parent::__construct('Forbidden', 403);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()

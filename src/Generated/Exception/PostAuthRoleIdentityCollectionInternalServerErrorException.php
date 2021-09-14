@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class PostAuthRoleIdentityCollectionEndpointConflictException extends ConflictException
+class PostAuthRoleIdentityCollectionInternalServerErrorException extends InternalServerErrorException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Conflict', 409);
+        parent::__construct('Server error', 500);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()

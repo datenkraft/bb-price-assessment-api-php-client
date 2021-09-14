@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class GetAuthRoleCollectionEndpointForbiddenException extends ForbiddenException
+class GetAuthRoleCollectionUnauthorizedException extends UnauthorizedException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Forbidden', 403);
+        parent::__construct('Unauthorized', 401);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()
