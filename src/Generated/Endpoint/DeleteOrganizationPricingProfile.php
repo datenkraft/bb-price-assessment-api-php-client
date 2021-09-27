@@ -66,6 +66,6 @@ class DeleteOrganizationPricingProfile extends \Datenkraft\Backbone\Client\Price
     }
     public function getAuthenticationScopes() : array
     {
-        return array('oAuthAuthorization');
+        return array();
     }
 }

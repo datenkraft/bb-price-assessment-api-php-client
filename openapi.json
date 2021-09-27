@@ -436,14 +436,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/customer-pricing-profile:post"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/customer-pricing-profile/{customerPricingProfileId}": {
@@ -526,14 +519,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/customer-pricing-profile:get"
-                        ]
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -634,14 +620,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/customer-pricing-profile:put"
-                        ]
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -715,14 +694,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/customer-pricing-profile:delete"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/docs": {
@@ -899,14 +871,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/organization-pricing-profile:post"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/organization-pricing-profile/{organizationPricingProfileId}": {
@@ -989,14 +954,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/organization-pricing-profile:get"
-                        ]
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -1097,14 +1055,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/organization-pricing-profile:put"
-                        ]
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -1178,14 +1129,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/organization-pricing-profile:delete"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/price": {
@@ -1277,14 +1221,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-price-assessment-api/price:get"
-                        ]
-                    }
-                ]
+                }
             }
         }
     },
@@ -1550,16 +1487,7 @@
                     "clientCredentials": {
                         "tokenUrl": "https://localhost:30250/oauth/token",
                         "refreshUrl": "UNDEFINED",
-                        "scopes": {
-                            "bb-price-assessment-api/price:get": "Get Prices from the Price Assessment API",
-                            "bb-price-assessment-api/organization-pricing-profile:get": "Get Organization Pricing Profiles from the Price Assessment API",
-                            "bb-price-assessment-api/organization-pricing-profile:post": "Add Organization Pricing Profiles to the Price Assessment API",
-                            "bb-price-assessment-api/organization-pricing-profile:put": "Update Organization Pricing Profiles in the Price Assessment API",
-                            "bb-price-assessment-api/organization-pricing-profile:delete": "Delete Customer Pricing Profiles in the Price Assessment API",
-                            "bb-price-assessment-api/customer-pricing-profile:get": "Get Customer Pricing Profiles from the Price Assessment API",
-                            "bb-price-assessment-api/customer-pricing-profile:post": "Add Customer Pricing Profiles to the Price Assessment API",
-                            "bb-price-assessment-api/customer-pricing-profile:put": "Update Customer Pricing Profiles in the Price Assessment API"
-                        }
+                        "scopes": {}
                     }
                 }
             }
