@@ -29,7 +29,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
         $this->method = 'GET';
 
-        $this->token = getenv('VALID_TOKEN_PRICE_GET');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_TOKEN');
 
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token,
@@ -115,7 +115,7 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
 
     public function testGetPriceForbidden(): void
     {
-        $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_WITHOUT_PERMISSIONS_TOKEN');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         $this->expectedStatusCode = '403';

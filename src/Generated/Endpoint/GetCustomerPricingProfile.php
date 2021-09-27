@@ -66,6 +66,6 @@ class GetCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAssessm
     }
     public function getAuthenticationScopes() : array
     {
-        return array('oAuthAuthorization');
+        return array();
     }
 }

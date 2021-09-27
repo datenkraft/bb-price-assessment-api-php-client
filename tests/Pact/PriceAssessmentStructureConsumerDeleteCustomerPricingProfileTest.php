@@ -28,7 +28,7 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
 
         $this->method = 'DELETE';
 
-        $this->token = getenv('VALID_TOKEN_CUSTOMER_PRICING_PROFILE_DELETE');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_TOKEN');
 
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
@@ -77,8 +77,7 @@ class PriceAssessmentStructureConsumerDeleteCustomerPricingProfileTest extends P
 
     public function testDeleteCustomerPricingProfileForbidden(): void
     {
-        // Token with invalid scope
-        $this->token = getenv('VALID_TOKEN_SKU_USAGE_POST');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_WITHOUT_PERMISSIONS_TOKEN');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403
