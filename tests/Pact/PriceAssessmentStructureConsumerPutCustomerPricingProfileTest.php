@@ -117,7 +117,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     public function testPutCustomerPricingProfileUnprocessable(): void
     {
-        $this->requestData['customerId'] = 'bf6793ae-1246-4ca1-85d0-d4efe18a5c91';
+        $this->requestData['skuCode'] = 'invalid_sku_code';
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
