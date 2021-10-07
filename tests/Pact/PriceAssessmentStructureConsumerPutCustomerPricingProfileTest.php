@@ -53,7 +53,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->requestData = [
             'customerId' => $this->validCustomerIdA,
             'skuCode' => $this->validSkuCode,
-            'price' => ['minor' => 123, 'currency' => 'EUR'],
+            'price' => ['minorMicro' => 123, 'currency' => 'EUR'],
             'percent' => 0.11111,
         ];
         $this->responseData = [
@@ -61,7 +61,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
             'customerId' => $this->validCustomerIdA,
             'skuCode' => $this->validSkuCode,
             'price' => [
-                'minor' => $this->requestData['price']['minor'],
+                'minorMicro' => $this->requestData['price']['minorMicro'],
                 'currency' => $this->requestData['price']['currency']
             ],
             'percent' => $this->requestData['percent'],
@@ -206,7 +206,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $client = Client::createWithFactory($factory, $this->config->getBaseUri());
 
         $priceProperty = (new PriceProperty())
-            ->setMinor($this->requestData['price']['minor'])
+            ->setMinorMicro($this->requestData['price']['minorMicro'])
             ->setCurrency($this->requestData['price']['currency']);
 
         $customerPricingProfile = (new NewCustomerPricingProfile())

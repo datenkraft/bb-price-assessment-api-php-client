@@ -5,11 +5,11 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 class PriceProperty
 {
     /**
-     * Minor
+     * Minor Micro
      *
      * @var float|null
      */
-    protected $minor;
+    protected $minorMicro;
     /**
      * Currency
      *
@@ -17,24 +17,24 @@ class PriceProperty
      */
     protected $currency;
     /**
-     * Minor
+     * Minor Micro
      *
      * @return float|null
      */
-    public function getMinor() : ?float
+    public function getMinorMicro() : ?float
     {
-        return $this->minor;
+        return $this->minorMicro;
     }
     /**
-     * Minor
+     * Minor Micro
      *
-     * @param float|null $minor
+     * @param float|null $minorMicro
      *
      * @return self
      */
-    public function setMinor(?float $minor) : self
+    public function setMinorMicro(?float $minorMicro) : self
     {
-        $this->minor = $minor;
+        $this->minorMicro = $minorMicro;
         return $this;
     }
     /**

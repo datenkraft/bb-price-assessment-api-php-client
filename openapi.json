@@ -1376,13 +1376,13 @@
             "priceProperty": {
                 "description": "Class CustomerPricingProfileResource",
                 "required": [
-                    "minor",
+                    "minorMicro",
                     "currency"
                 ],
                 "properties": {
-                    "minor": {
+                    "minorMicro": {
                         "nullable": true,
-                        "description": "Minor",
+                        "description": "Minor Micro",
                         "type": "number",
                         "format": "integer"
                     },
@@ -1485,7 +1485,7 @@
                 "description": "OAuth2 Authorization",
                 "flows": {
                     "clientCredentials": {
-                        "tokenUrl": "https://localhost:30250/oauth/token",
+                        "tokenUrl": "https://authentication-api.conqore.niceshops.com/oauth/token",
                         "refreshUrl": "UNDEFINED",
                         "scopes": {}
                     }

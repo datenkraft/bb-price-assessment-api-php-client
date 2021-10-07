@@ -36,11 +36,11 @@ class PricePropertyNormalizer implements DenormalizerInterface, NormalizerInterf
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('minor', $data) && $data['minor'] !== null) {
-            $object->setMinor($data['minor']);
+        if (\array_key_exists('minorMicro', $data) && $data['minorMicro'] !== null) {
+            $object->setMinorMicro($data['minorMicro']);
         }
-        elseif (\array_key_exists('minor', $data) && $data['minor'] === null) {
-            $object->setMinor(null);
+        elseif (\array_key_exists('minorMicro', $data) && $data['minorMicro'] === null) {
+            $object->setMinorMicro(null);
         }
         if (\array_key_exists('currency', $data) && $data['currency'] !== null) {
             $object->setCurrency($data['currency']);
@@ -53,7 +53,7 @@ class PricePropertyNormalizer implements DenormalizerInterface, NormalizerInterf
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        $data['minor'] = $object->getMinor();
+        $data['minorMicro'] = $object->getMinorMicro();
         $data['currency'] = $object->getCurrency();
         return $data;
     }
