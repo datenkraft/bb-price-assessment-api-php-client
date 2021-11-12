@@ -29,6 +29,12 @@ class NewOrganizationPricingProfile
      */
     protected $percent;
     /**
+     * Start date from when on the price is valid
+     *
+     * @var \DateTime
+     */
+    protected $validFrom;
+    /**
      * Organization Id
      *
      * @return string
@@ -110,6 +116,27 @@ class NewOrganizationPricingProfile
     public function setPercent(?float $percent) : self
     {
         $this->percent = $percent;
+        return $this;
+    }
+    /**
+     * Start date from when on the price is valid
+     *
+     * @return \DateTime
+     */
+    public function getValidFrom() : \DateTime
+    {
+        return $this->validFrom;
+    }
+    /**
+     * Start date from when on the price is valid
+     *
+     * @param \DateTime $validFrom
+     *
+     * @return self
+     */
+    public function setValidFrom(\DateTime $validFrom) : self
+    {
+        $this->validFrom = $validFrom;
         return $this;
     }
 }

@@ -8,6 +8,8 @@ use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty;
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -18,14 +20,10 @@ use Psr\Http\Message\ResponseInterface;
 class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends PriceAssessmentConsumerTest
 {
     protected string $organizationPricingProfileId;
-
-    protected string $invalidOrganizationPricingProfileId;
-
+    protected string $organizationPricingProfileIdConflict;
+    protected string $organizationPricingProfileIdInvalid;
     protected string $validSkuCode;
-
-    protected string $validOrganizationIdA;
-
-    protected string $validOrganizationIdB;
+    protected string $organizationId;
 
     /**
      * @throws Exception
@@ -45,26 +43,29 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
         $this->organizationPricingProfileId = '4efe3251-22c2-4373-9df2-d7956fae3f20';
-        $this->invalidOrganizationPricingProfileId = '5a83fb23-5e36-4d8a-9d5a-fa50e0924b50';
+        $this->organizationPricingProfileIdConflict = '4efe3251-22c2-4373-9df2-d7956fae3f21';
+        $this->organizationPricingProfileIdInvalid = '5a83fb23-5e36-4d8a-9d5a-fa50e0924b50';
         $this->validSkuCode = 'test_sku_c';
-        $this->validOrganizationIdA = 'adece628-c1ce-436b-8975-01d32753bc33';
-        $this->validOrganizationIdB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
+        //Datenkraft Organozation because contract test identity is assigend to dk-customer
+        $this->organizationId = '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4';
 
         $this->requestData = [
-            'organizationId' => $this->validOrganizationIdA,
+            'organizationId' => $this->organizationId,
             'skuCode' => $this->validSkuCode,
             'price' => ['minorMicro' => 321, 'currency' => 'USD'],
             'percent' => 0.11111,
+            'validFrom' => $this->validFrom,
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' => $this->validOrganizationIdA,
+            'organizationId' => $this->organizationId,
             'skuCode' => $this->validSkuCode,
             'price' => [
                 'minorMicro' => $this->requestData['price']['minorMicro'],
                 'currency' => $this->requestData['price']['currency']
             ],
             'percent' => $this->requestData['percent'],
+            'validFrom' => $this->requestData['validFrom'],
         ];
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
@@ -100,35 +101,19 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
 
     public function testPutOrganizationPricingProfileConflict(): void
     {
-        $this->requestData['organizationId'] = 'adece628-c1ce-436b-8975-01d32753bc33';
-        $this->requestData['skuCode'] = 'test_sku_b';
+        $this->organizationPricingProfileId = $this->organizationPricingProfileIdConflict;
+        $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope but the organization is invalid')
+            ->given(
+                'The request is valid, the token is valid ' .
+                'but a organization pricing profile with the same organizationId, skuCode and validFrom-date already exists'
+            )
             ->uponReceiving(
                 'Unsuccessful PUT request to /organization-pricing-profile/{organizationPricingProfileId} - conflict'
             );
-
-        $this->responseData = $this->errorResponse;
-        $this->beginTest();
-    }
-
-    public function testPutOrganizationPricingProfileNotFound(): void
-    {
-        // Path with id for non existent organization pricing profile
-        $this->path = '/organization-pricing-profile/' . $this->invalidOrganizationPricingProfileId;
-        $this->organizationPricingProfileId = $this->invalidOrganizationPricingProfileId;
-        $this->requestData['skuCode'] = 'test_sku_a';
-
-        // Error code in response is 404
-        $this->expectedStatusCode = '404';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
-
-        $this->builder
-            ->given('A Organization Pricing Profile with organizationPricingProfileId does not exist')
-            ->uponReceiving('Not Found PUT request to /organization-pricing-profile/{organizationPricingProfileId}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -199,6 +184,7 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
      * @return ResponseInterface
      * @throws ConfigException
      * @throws AuthException
+     * @throws Exception
      */
     protected function doClientRequest(): ResponseInterface
     {
@@ -216,7 +202,8 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setPercent($this->requestData['percent']);
+            ->setPercent($this->requestData['percent'])
+            ->setValidFrom(new DateTime($this->requestData['validFrom']));
 
         return $client->putOrganizationPricingProfile(
             $this->organizationPricingProfileId,

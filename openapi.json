@@ -1158,6 +1158,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "filter[validFrom]",
+                        "in": "query",
+                        "description": "Valid From Date filter",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
                     }
                 ],
                 "responses": {
@@ -1329,7 +1338,8 @@
                 "required": [
                     "customerPricingProfileId",
                     "customerId",
-                    "skuCode"
+                    "skuCode",
+                    "validFrom"
                 ],
                 "type": "object",
                 "allOf": [
@@ -1350,7 +1360,8 @@
             "newCustomerPricingProfile": {
                 "required": [
                     "customerId",
-                    "skuCode"
+                    "skuCode",
+                    "validFrom"
                 ],
                 "properties": {
                     "customerId": {
@@ -1369,6 +1380,11 @@
                         "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid",
+                        "type": "string",
+                        "format": "date-time"
                     }
                 },
                 "type": "object"
@@ -1398,7 +1414,8 @@
                 "required": [
                     "organizationPricingProfileId",
                     "organizationId",
-                    "skuCode"
+                    "skuCode",
+                    "validFrom"
                 ],
                 "type": "object",
                 "allOf": [
@@ -1420,7 +1437,8 @@
                 "description": "Class OrganizationPricingProfileResource",
                 "required": [
                     "organizationId",
-                    "skuCode"
+                    "skuCode",
+                    "validFrom"
                 ],
                 "properties": {
                     "organizationId": {
@@ -1439,6 +1457,11 @@
                         "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid",
+                        "type": "string",
+                        "format": "date-time"
                     }
                 },
                 "type": "object"

@@ -37,16 +37,17 @@ class PriceAssessmentStructureConsumerGetCustomerPricingProfileTest extends Pric
             'Content-Type' => 'application/json'
         ];
 
-        $this->customerPricingProfileId = '7372e896-4a43-4d7c-b15a-70ff98e302f8';
+        $this->customerPricingProfileId = '12345678-1234-1234-1234-1234567890ab';
         $this->invalidCustomerPricingProfileId = '0f83f15c-3fb1-44bf-9aab-b974918cc22f';
 
         $this->requestData = [];
         $this->responseData = [
             'customerPricingProfileId' => $this->customerPricingProfileId,
-            'customerId' => '569e4b86-af23-4f73-8c12-3a3e56f148e7',
-            'skuCode' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
-            'price' => ['minorMicro' => 123, 'currency' => 'EUR'],
+            'customerId' => 'd0d7e31a-9d43-4e8f-aaa2-e71c9aa09be4',
+            'skuCode' => 'test_sku_b',
+            'price' => ['minorMicro' => 123000000, 'currency' => 'EUR'],
             'percent' => 0.11111,
+            'validFrom' => $this->validFrom,
         ];
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;

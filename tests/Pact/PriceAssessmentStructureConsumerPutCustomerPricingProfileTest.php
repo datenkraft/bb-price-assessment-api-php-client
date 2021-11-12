@@ -8,6 +8,7 @@ use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfile;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty;
+use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -18,14 +19,10 @@ use Psr\Http\Message\ResponseInterface;
 class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends PriceAssessmentConsumerTest
 {
     protected string $customerPricingProfileId;
-
-    protected string $invalidCustomerPricingProfileId;
-
+    protected string $customerPricingProfileIdConflict;
+    protected string $customerPricingProfileIdInvalid;
     protected string $validSkuCode;
-
-    protected string $validCustomerIdA;
-
-    protected string $validCustomerIdB;
+    protected string $customerId;
 
     /**
      * @throws Exception
@@ -45,26 +42,29 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
         $this->customerPricingProfileId = 'a5eb9142-794b-4824-9164-6aac24778b3c';
-        $this->invalidCustomerPricingProfileId = '02199f9a-5911-4f32-8394-f4fe86773e33';
+        $this->customerPricingProfileIdConflict = 'a5eb9142-794b-4824-9164-6aac24778b33';
+        $this->customerPricingProfileIdInvalid = '02199f9a-5911-4f32-8394-f4fe86773e33';
         $this->validSkuCode = 'test_sku_c';
-        $this->validCustomerIdA = '71b9fb54-4f6f-493c-bd62-229d79d07880'; //Test Customer
-        $this->validCustomerIdB = '86cde51c-9fba-4d8b-8ff7-331645b5c31a'; //Test Customer
+        //Datenkraft Customer because contract test identity is assigend to dk-customer
+        $this->customerId = 'd0d7e31a-9d43-4e8f-aaa2-e71c9aa09be4';
 
         $this->requestData = [
-            'customerId' => $this->validCustomerIdA,
+            'customerId' => $this->customerId,
             'skuCode' => $this->validSkuCode,
-            'price' => ['minorMicro' => 123, 'currency' => 'EUR'],
+            'price' => ['minorMicro' => 123000000, 'currency' => 'EUR'],
             'percent' => 0.11111,
+            'validFrom' => $this->validFrom,
         ];
         $this->responseData = [
-            'customerPricingProfileId' => $this->matcher->uuid(),
-            'customerId' => $this->validCustomerIdA,
+            'customerPricingProfileId' => $this->customerPricingProfileId,
+            'customerId' => $this->customerId,
             'skuCode' => $this->validSkuCode,
             'price' => [
                 'minorMicro' => $this->requestData['price']['minorMicro'],
                 'currency' => $this->requestData['price']['currency']
             ],
             'percent' => $this->requestData['percent'],
+            'validFrom' => $this->requestData['validFrom'],
         ];
 
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
@@ -83,33 +83,17 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
 
     public function testPostCustomerPricingProfileConflict(): void
     {
-        $this->requestData['customerId'] = '86cde51c-9fba-4d8b-8ff7-331645b5c31a';
-        $this->requestData['skuCode'] = 'test_sku_d';
+        $this->customerPricingProfileId = $this->customerPricingProfileIdConflict;
+        $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope but the customer is invalid')
+            ->given(
+                'The request is valid, the token is valid ' .
+                'but a customer pricing profile with the same customerId, skuCode and validFrom-date already exists'
+            )
             ->uponReceiving('Unsuccessful PUT request to /customer-pricing-profile - conflict');
-
-        $this->responseData = $this->errorResponse;
-        $this->beginTest();
-    }
-
-    public function testPostCustomerPricingProfileNotFound(): void
-    {
-        // Path with id for non existent customer pricing profile
-        $this->path = '/customer-pricing-profile/' . $this->invalidCustomerPricingProfileId;
-        $this->customerPricingProfileId = $this->invalidCustomerPricingProfileId;
-        $this->requestData['skuCode'] = 'test_sku_d';
-
-        // Error code in response is 404
-        $this->expectedStatusCode = '404';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
-
-        $this->builder
-            ->given('A Customer Pricing Profile with customerPricingProfileId does not exist')
-            ->uponReceiving('Not Found PUT request to /customer-pricing-profile/{customerPricingProfileId}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -196,6 +180,7 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
      * @return ResponseInterface
      * @throws ConfigException
      * @throws AuthException
+     * @throws Exception
      */
     protected function doClientRequest(): ResponseInterface
     {
@@ -213,7 +198,8 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
             ->setCustomerId($this->requestData['customerId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setPercent($this->requestData['percent']);
+            ->setPercent($this->requestData['percent'])
+            ->setValidFrom(new DateTime($this->requestData['validFrom']));
 
         return $client->putCustomerPricingProfile(
             $this->customerPricingProfileId,
