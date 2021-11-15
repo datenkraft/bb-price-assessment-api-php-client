@@ -6,6 +6,8 @@ use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -45,7 +47,6 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->queryParams = [
             'filter[skuCode]' => $this->skuCode,
             'filter[customerId]' => $this->customerId,
-            'filter[validFrom]' => $this->validFrom
         ];
 
         $this->requestData = [];
@@ -72,6 +73,26 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->builder
             ->given('the request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful GET request to /price');
+
+        $this->beginTest();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testGetPriceSuccessWithOptionalFilters(): void
+    {
+        $this->expectedStatusCode = '200';
+        $validFrom = (new DateTime('2021-11-01 00:00:00'))->format(DateTimeInterface::ATOM);
+        $this->queryParams['filter[validFrom]'] = $validFrom;
+        $this->responseData[0]['validFrom'] = $validFrom;
+
+        $this->builder
+            ->given(
+                'the request is valid, the token is valid and has a valid scope ' .
+                ' and optional query-filter-parameters are set'
+            )
+            ->uponReceiving('Successful GET request to /price with optional query-filter-parameters');
 
         $this->beginTest();
     }
