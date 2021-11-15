@@ -9,6 +9,7 @@ use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPri
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty;
 use DateTime;
+use DateTimeInterface;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -70,16 +71,49 @@ class PriceAssessmentStructureConsumerPutCustomerPricingProfileTest extends Pric
         $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
     }
 
-    public function testPutCustomerPricingProfileSuccess(): void
+    public function testPutCustomerPricingProfileSuccessOk(): void
     {
         $this->expectedStatusCode = '200';
 
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope')
-            ->uponReceiving('Successful PUT request to /customer-pricing-profile/{customerPricingProfileId}');
+            ->given(
+                'The request is valid, the token is valid and has a valid scope, ' .
+                'the customerPricingProfile exists and is updated'
+            )
+            ->uponReceiving(
+                'Successful PUT request to /customer-pricing-profile/{customerPricingProfileId} with ok response'
+            );
 
         $this->beginTest();
     }
+
+    public function testPutCustomerPricingProfileSuccessCreated(): void
+    {
+        $this->expectedStatusCode = '201';
+
+        $this->customerPricingProfileId = 'a5eb9142-794b-4824-9164-6aac24778b3d';
+        $this->path = '/customer-pricing-profile/' . $this->customerPricingProfileId;
+
+        $skuCode = 'test_sku_d';
+        $validFrom = (new DateTime('2021-01-01 00:00:00'))->format(DateTimeInterface::ATOM);
+
+        $this->requestData['skuCode'] = $skuCode;
+        $this->requestData['validFrom'] = $validFrom;
+
+        $this->responseData['customerPricingProfileId'] = $this->customerPricingProfileId;
+        $this->responseData['skuCode'] = $skuCode;
+        $this->responseData['validFrom'] = $validFrom;
+
+        $this->builder
+            ->given(
+                'The request is valid, the token is valid and has a valid scope, ' .
+                'the customerPricingProfile does not exist and is created'
+            )
+            ->uponReceiving('Successful PUT request to /organization-pricing-profile/{organizationPricingProfileId}');
+
+        $this->beginTest();
+    }
+
 
     public function testPostCustomerPricingProfileConflict(): void
     {

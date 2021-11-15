@@ -71,12 +71,44 @@ class PriceAssessmentStructureConsumerPutOrganizationPricingProfileTest extends 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
     }
 
-    public function testPutOrganizationPricingProfileSuccess(): void
+    public function testPutOrganizationPricingProfileSuccessOk(): void
     {
         $this->expectedStatusCode = '200';
 
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope')
+            ->given(
+                'The request is valid, the token is valid and has a valid scope, ' .
+                'the organizationPricingProfile exists and is updated'
+            )
+            ->uponReceiving(
+                'Successful PUT request to /organization-pricing-profile/{organizationPricingProfileId} with ok response'
+            );
+
+        $this->beginTest();
+    }
+
+    public function testPutOrganizationPricingProfileSuccessCreated(): void
+    {
+        $this->expectedStatusCode = '201';
+
+        $this->organizationPricingProfileId = '4efe3251-22c2-4373-9df2-d7956fae3f22';
+        $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;
+
+        $skuCode = 'test_sku_d';
+        $validFrom = (new DateTime('2021-01-01 00:00:00'))->format(DateTimeInterface::ATOM);
+
+        $this->requestData['skuCode'] = $skuCode;
+        $this->requestData['validFrom'] = $validFrom;
+
+        $this->responseData['organizationPricingProfileId'] = $this->organizationPricingProfileId;
+        $this->responseData['skuCode'] = $skuCode;
+        $this->responseData['validFrom'] = $validFrom;
+
+        $this->builder
+            ->given(
+                'The request is valid, the token is valid and has a valid scope, ' .
+                'the organizationPricingProfile does not exist and is created'
+            )
             ->uponReceiving('Successful PUT request to /organization-pricing-profile/{organizationPricingProfileId}');
 
         $this->beginTest();
