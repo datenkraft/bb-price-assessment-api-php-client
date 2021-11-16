@@ -550,6 +550,16 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/customerPricingProfile"
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "Created",
                         "content": {
@@ -985,6 +995,16 @@
                     }
                 },
                 "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/organizationPricingProfile"
+                                }
+                            }
+                        }
+                    },
                     "201": {
                         "description": "Created",
                         "content": {
