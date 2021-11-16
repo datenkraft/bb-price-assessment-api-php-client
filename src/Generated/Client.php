@@ -246,6 +246,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
      * @param array $queryParameters {
      *     @var string $filter[customerId] Customer Id filter
      *     @var string $filter[skuCode] SKU Code filter
+     *     @var string $filter[validFrom] Valid From Date filter
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionUnauthorizedException

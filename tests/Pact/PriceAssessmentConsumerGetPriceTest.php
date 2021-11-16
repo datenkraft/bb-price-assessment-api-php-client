@@ -6,6 +6,8 @@ use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -39,18 +41,22 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
             'Content-Type' => 'application/json',
         ];
 
-        $this->skuCode = 'test_sku_a';
-        $this->customerId = '71b9fb54-4f6f-493c-bd62-229d79d07880';
+        $this->skuCode = 'test_sku_b';
+        $this->customerId = 'd0d7e31a-9d43-4e8f-aaa2-e71c9aa09be4';
         $this->path = '/price';
-        $this->queryParams = ['filter[skuCode]' => $this->skuCode, 'filter[customerId]' => $this->customerId];
+        $this->queryParams = [
+            'filter[skuCode]' => $this->skuCode,
+            'filter[customerId]' => $this->customerId,
+        ];
 
         $this->requestData = [];
         $this->responseData = [
             [
                 'skuCode' => $this->skuCode,
                 'customerId' => $this->customerId,
-                'price' => ['minorMicro' => 50000, 'currency' => 'USD'],
+                'price' => ['minorMicro' => 123000000, 'currency' => 'EUR'],
                 'percent' => 0.11111,
+                'validFrom' => $this->validFrom,
             ]
         ];
     }
@@ -71,27 +77,22 @@ class PriceAssessmentConsumerGetPriceTest extends PriceAssessmentConsumerTest
         $this->beginTest();
     }
 
-    public function testGetPriceSuccessNull(): void
+    /**
+     * @throws Exception
+     */
+    public function testGetPriceSuccessWithOptionalFilters(): void
     {
-        $this->customerId = 'ab1f0809-931b-4739-b470-bccf1fb08090';
-        $this->queryParams = ['filter[skuCode]' => $this->skuCode, 'filter[customerId]' => $this->customerId];
-        $this->responseData = [
-            [
-                'skuCode' => $this->skuCode,
-                'customerId' => $this->customerId,
-                'price' => ['minorMicro' => null, 'currency' => null],
-                'percent' => null,
-            ]
-        ];
-
         $this->expectedStatusCode = '200';
+        $validFrom = (new DateTime('2021-11-01 00:00:00'))->format(DateTimeInterface::ATOM);
+        $this->queryParams['filter[validFrom]'] = $validFrom;
+        $this->responseData[0]['validFrom'] = $validFrom;
 
         $this->builder
             ->given(
-                'PriceminorMicro and PriceCurrency is null, ' .
-                'the request is valid, the token is valid and has a valid scope'
+                'the request is valid, the token is valid and has a valid scope ' .
+                ' and optional query-filter-parameters are set'
             )
-            ->uponReceiving('Successful GET request to /price');
+            ->uponReceiving('Successful GET request to /price with optional query-filter-parameters');
 
         $this->beginTest();
     }

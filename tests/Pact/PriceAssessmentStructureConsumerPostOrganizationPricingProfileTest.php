@@ -8,6 +8,7 @@ use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Client;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty;
+use DateTime;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 
@@ -18,10 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends PriceAssessmentConsumerTest
 {
     protected string $validSkuCode;
-
-    protected string $validOrganizationIdOrganizationA;
-
-    protected string $validOrganizationIdOrganizationB;
+    protected string $organizationId;
 
     /**
      * @throws Exception
@@ -40,25 +38,27 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
         ];
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
-        $this->validSkuCode = 'test_sku_b';
-        $this->validOrganizationIdOrganizationA = 'adece628-c1ce-436b-8975-01d32753bc33';
-        $this->validOrganizationIdOrganizationB = 'cdccec4d-1d91-4373-a276-5b5fb6aab69c';
+        $this->validSkuCode = 'test_sku_a';
+        //Datenkraft Organozation because contract test identity is assigend to dk-customer
+        $this->organizationId = '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4';
 
         $this->requestData = [
-            'organizationId' => $this->validOrganizationIdOrganizationA,
+            'organizationId' => $this->organizationId,
             'skuCode' => $this->validSkuCode,
             'price' => ['minorMicro' => 123, 'currency' => 'EUR'],
             'percent' => 0.11111,
+            'validFrom' => $this->validFrom,
         ];
         $this->responseData = [
             'organizationPricingProfileId' => $this->matcher->uuid(),
-            'organizationId' => $this->validOrganizationIdOrganizationA,
+            'organizationId' => $this->organizationId,
             'skuCode' => $this->validSkuCode,
             'price' => [
                 'minorMicro' => $this->requestData['price']['minorMicro'],
                 'currency' => $this->requestData['price']['currency']
             ],
             'percent' => $this->requestData['percent'],
+            'validFrom' => $this->requestData['validFrom'],
         ];
 
         $this->path = '/organization-pricing-profile';
@@ -77,13 +77,16 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
     public function testPostOrganizationPricingProfileConflict(): void
     {
-        $this->requestData['organizationId'] = $this->validOrganizationIdOrganizationA;
-        $this->requestData['skuCode'] = 'test_sku_d';
+        $this->requestData['skuCode'] = 'test_sku_b';
 
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = '409';
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope but the organization is invalid')
+            ->given(
+                'The request is valid, the token is valid ' .
+                'but a organization pricing profile with the same ' .
+                'organizationId, skuCode and validFrom-date already exists'
+            )
             ->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - conflict');
 
         $this->responseData = $this->errorResponse;
@@ -92,13 +95,13 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
 
     public function testPostOrganizationPricingProfileUnprocessable(): void
     {
-        $this->requestData['organizationId'] = '734af8b8-d9a3-48bc-a060-d1dd4a4c8ed1';
+        $this->requestData['skuCode'] = 'invalid_sku_code';
 
         $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = '422';
         $this->builder
-            ->given('The request is valid, the token is valid and has a valid scope but the project is invalid')
-            ->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - invalid organization');
+            ->given('The request is valid, the token is valid but the sku with skuCode does not exist')
+            ->uponReceiving('Unsuccessful POST request to /organization-pricing-profile - invalid skuCode');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -170,6 +173,7 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
      * @return ResponseInterface
      * @throws ConfigException
      * @throws AuthException
+     * @throws Exception
      */
     protected function doClientRequest(): ResponseInterface
     {
@@ -187,7 +191,8 @@ class PriceAssessmentStructureConsumerPostOrganizationPricingProfileTest extends
             ->setOrganizationId($this->requestData['organizationId'])
             ->setSkuCode($this->requestData['skuCode'])
             ->setPrice($priceProperty)
-            ->setPercent($this->requestData['percent']);
+            ->setPercent($this->requestData['percent'])
+            ->setValidFrom(new DateTime($this->requestData['validFrom']));
 
         return $client->postOrganizationPricingProfile($organizationPricingProfile, Client::FETCH_RESPONSE);
     }

@@ -54,6 +54,9 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         elseif (\array_key_exists('percent', $data) && $data['percent'] === null) {
             $object->setPercent(null);
         }
+        if (\array_key_exists('validFrom', $data)) {
+            $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['validFrom']));
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
@@ -70,6 +73,7 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (null !== $object->getPercent()) {
             $data['percent'] = $object->getPercent();
         }
+        $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
         return $data;
     }
 }

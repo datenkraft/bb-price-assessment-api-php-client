@@ -37,16 +37,17 @@ class PriceAssessmentStructureConsumerGetOrganizationPricingProfileTest extends 
             'Content-Type' => 'application/json'
         ];
 
-        $this->organizationPricingProfileId = '310cc414-2712-4776-a612-b95b4c41cfd1';
+        $this->organizationPricingProfileId = '12345678-1234-1234-1234-1234567890ab';
         $this->invalidOrganizationPricingProfileId = 'd0d38683-ff65-4b62-a138-6a380e6577bc';
 
         $this->requestData = [];
         $this->responseData = [
             'organizationPricingProfileId' => $this->organizationPricingProfileId,
-            'organizationId' => 'dbc9dc41-ff32-4a9b-b6bd-2c3b736c959e',
-            'skuCode' => 'c29c3eff-0ac2-4928-8b5b-f116b543ae9f',
-            'price' => ['minorMicro' => 123, 'currency' => 'EUR'],
+            'organizationId' => '1e31d2a8-c0e7-4709-93fc-7a7a7f7654d4',
+            'skuCode' => 'test_sku_b',
+            'price' => ['minorMicro' => 123000000, 'currency' => 'EUR'],
             'percent' => 0.11111,
+            'validFrom' => $this->validFrom,
         ];
 
         $this->path = '/organization-pricing-profile/' . $this->organizationPricingProfileId;

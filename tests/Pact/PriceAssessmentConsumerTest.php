@@ -2,6 +2,8 @@
 
 namespace Pact;
 
+use DateTime;
+use DateTimeInterface;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use PhpPact\Consumer\InteractionBuilder;
@@ -17,27 +19,28 @@ use PhpPact\Consumer\Model\ProviderResponse;
  */
 abstract class PriceAssessmentConsumerTest extends TestCase
 {
-    protected $builder;
-    protected $config;
+    protected InteractionBuilder $builder;
+    protected MockServerEnvConfig $config;
 
-    protected $expectedExceptionClass = GuzzleException::class;
+    protected string $expectedExceptionClass = GuzzleException::class;
 
-    protected $token;
+    protected string $token;
 
-    protected $method;
-    protected $path;
-    protected $queryParams;
+    protected string $method;
+    protected string $path;
+    protected array $queryParams = [];
 
-    protected $requestHeaders;
-    protected $responseHeaders;
-    protected $expectedStatusCode;
+    protected array $requestHeaders;
+    protected array $responseHeaders;
+    protected string $expectedStatusCode;
 
-    protected $requestData;
-    protected $responseData;
-    protected $errorResponse;
+    protected array $requestData;
+    protected ?array $responseData;
+    protected array $errorResponse;
 
-    protected $matcher;
+    protected Matcher $matcher;
 
+    protected string $validFrom;
 
     /**
      * @throws Exception
@@ -74,6 +77,8 @@ abstract class PriceAssessmentConsumerTest extends TestCase
                 ]
             ]
         ];
+
+        $this->validFrom = (new DateTime('2021-11-11 00:00:00'))->format(DateTimeInterface::ATOM);
     }
 
     protected function tearDown(): void
@@ -133,7 +138,7 @@ abstract class PriceAssessmentConsumerTest extends TestCase
                 if (is_array($value)) {
                     $value = implode(',', $value);
                 }
-                $request->addQueryParameter($queryParam, $value);
+                $request->addQueryParameter($queryParam, urlencode($value));
             }
         }
         foreach ($requestHeaders as $header => $value) {
