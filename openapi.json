@@ -1489,27 +1489,40 @@
             "price": {
                 "required": [
                     "skuCode",
-                    "organizationId",
-                    "price",
-                    "currency"
+                    "customerId"
                 ],
                 "properties": {
                     "skuCode": {
                         "description": "SKU Code",
                         "type": "string"
                     },
-                    "organizationId": {
-                        "description": "Organization Id",
+                    "customerId": {
+                        "description": "Customer Id",
                         "type": "string"
                     },
                     "price": {
-                        "$ref": "#/components/schemas/priceProperty"
+                        "nullable": true,
+                        "description": "Price",
+                        "type": "object",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
                     },
                     "percent": {
                         "nullable": true,
                         "description": "Percent (5 digits precision, 5 pre-decimal digits)",
                         "type": "number",
                         "format": "float"
+                    },
+                    "steppedPrices": {
+                        "nullable": true,
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        }
                     }
                 },
                 "type": "object"
@@ -1520,6 +1533,24 @@
                 "items": {
                     "$ref": "#/components/schemas/price"
                 }
+            },
+            "steppedPrice": {
+                "description": "Class SteppedPriceResource",
+                "required": [
+                    "validFromQuantity",
+                    "price"
+                ],
+                "properties": {
+                    "validFromQuantity": {
+                        "description": "Valid from Quantity",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "price": {
+                        "$ref": "#/components/schemas/priceProperty"
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {
