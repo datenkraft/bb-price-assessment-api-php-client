@@ -39,11 +39,14 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
         }
-        if (\array_key_exists('organizationId', $data)) {
-            $object->setOrganizationId($data['organizationId']);
+        if (\array_key_exists('customerId', $data)) {
+            $object->setCustomerId($data['customerId']);
         }
-        if (\array_key_exists('price', $data)) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PriceProperty', 'json', $context));
+        if (\array_key_exists('price', $data) && $data['price'] !== null) {
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
+        }
+        elseif (\array_key_exists('price', $data) && $data['price'] === null) {
+            $object->setPrice(null);
         }
         if (\array_key_exists('percent', $data) && $data['percent'] !== null) {
             $object->setPercent($data['percent']);
@@ -51,16 +54,35 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         elseif (\array_key_exists('percent', $data) && $data['percent'] === null) {
             $object->setPercent(null);
         }
+        if (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] !== null) {
+            $values = array();
+            foreach ($data['steppedPrices'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPrice', 'json', $context);
+            }
+            $object->setSteppedPrices($values);
+        }
+        elseif (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] === null) {
+            $object->setSteppedPrices(null);
+        }
         return $object;
     }
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
         $data['skuCode'] = $object->getSkuCode();
-        $data['organizationId'] = $object->getOrganizationId();
-        $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
+        $data['customerId'] = $object->getCustomerId();
+        if (null !== $object->getPrice()) {
+            $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
+        }
         if (null !== $object->getPercent()) {
             $data['percent'] = $object->getPercent();
+        }
+        if (null !== $object->getSteppedPrices()) {
+            $values = array();
+            foreach ($object->getSteppedPrices() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $data['steppedPrices'] = $values;
         }
         return $data;
     }

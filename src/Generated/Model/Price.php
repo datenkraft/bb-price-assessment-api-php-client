@@ -11,15 +11,15 @@ class Price
      */
     protected $skuCode;
     /**
-     * Organization Id
+     * Customer Id
      *
      * @var string
      */
-    protected $organizationId;
+    protected $customerId;
     /**
-     * Class CustomerPricingProfileResource
+     * Price
      *
-     * @var PriceProperty
+     * @var PricePrice|null
      */
     protected $price;
     /**
@@ -28,6 +28,12 @@ class Price
      * @var float|null
      */
     protected $percent;
+    /**
+     * Stepped Prices
+     *
+     * @var SteppedPrice[]|null
+     */
+    protected $steppedPrices;
     /**
      * SKU Code
      *
@@ -50,43 +56,43 @@ class Price
         return $this;
     }
     /**
-     * Organization Id
+     * Customer Id
      *
      * @return string
      */
-    public function getOrganizationId() : string
+    public function getCustomerId() : string
     {
-        return $this->organizationId;
+        return $this->customerId;
     }
     /**
-     * Organization Id
+     * Customer Id
      *
-     * @param string $organizationId
+     * @param string $customerId
      *
      * @return self
      */
-    public function setOrganizationId(string $organizationId) : self
+    public function setCustomerId(string $customerId) : self
     {
-        $this->organizationId = $organizationId;
+        $this->customerId = $customerId;
         return $this;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * Price
      *
-     * @return PriceProperty
+     * @return PricePrice|null
      */
-    public function getPrice() : PriceProperty
+    public function getPrice() : ?PricePrice
     {
         return $this->price;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * Price
      *
-     * @param PriceProperty $price
+     * @param PricePrice|null $price
      *
      * @return self
      */
-    public function setPrice(PriceProperty $price) : self
+    public function setPrice(?PricePrice $price) : self
     {
         $this->price = $price;
         return $this;
@@ -110,6 +116,27 @@ class Price
     public function setPercent(?float $percent) : self
     {
         $this->percent = $percent;
+        return $this;
+    }
+    /**
+     * Stepped Prices
+     *
+     * @return SteppedPrice[]|null
+     */
+    public function getSteppedPrices() : ?array
+    {
+        return $this->steppedPrices;
+    }
+    /**
+     * Stepped Prices
+     *
+     * @param SteppedPrice[]|null $steppedPrices
+     *
+     * @return self
+     */
+    public function setSteppedPrices(?array $steppedPrices) : self
+    {
+        $this->steppedPrices = $steppedPrices;
         return $this;
     }
 }
