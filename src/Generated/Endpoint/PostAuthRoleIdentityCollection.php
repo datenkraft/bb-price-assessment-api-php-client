@@ -39,7 +39,6 @@ class PostAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\PriceAs
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionBadRequestException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionForbiddenException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionNotFoundException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionConflictException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionUnprocessableEntityException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionInternalServerErrorException
@@ -60,9 +59,6 @@ class PostAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\PriceAs
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'));
-        }
-        if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionNotFoundException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'));
         }
         if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostAuthRoleIdentityCollectionConflictException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'));
