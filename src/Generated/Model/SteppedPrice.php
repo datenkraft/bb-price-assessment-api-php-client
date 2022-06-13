@@ -7,11 +7,11 @@ class SteppedPrice
     /**
      * Valid from Quantity
      *
-     * @var float
+     * @var int
      */
     protected $validFromQuantity;
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @var PriceProperty
      */
@@ -19,26 +19,26 @@ class SteppedPrice
     /**
      * Valid from Quantity
      *
-     * @return float
+     * @return int
      */
-    public function getValidFromQuantity() : float
+    public function getValidFromQuantity() : int
     {
         return $this->validFromQuantity;
     }
     /**
      * Valid from Quantity
      *
-     * @param float $validFromQuantity
+     * @param int $validFromQuantity
      *
      * @return self
      */
-    public function setValidFromQuantity(float $validFromQuantity) : self
+    public function setValidFromQuantity(int $validFromQuantity) : self
     {
         $this->validFromQuantity = $validFromQuantity;
         return $this;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @return PriceProperty
      */
@@ -47,7 +47,7 @@ class SteppedPrice
         return $this->price;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @param PriceProperty $price
      *

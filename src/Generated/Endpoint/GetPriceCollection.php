@@ -80,6 +80,6 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
     }
     public function getAuthenticationScopes() : array
     {
-        return array();
+        return array('oAuthAuthorization');
     }
 }

@@ -66,6 +66,6 @@ class GetOrganizationPricingProfile extends \Datenkraft\Backbone\Client\PriceAss
     }
     public function getAuthenticationScopes() : array
     {
-        return array();
+        return array('oAuthAuthorization');
     }
 }

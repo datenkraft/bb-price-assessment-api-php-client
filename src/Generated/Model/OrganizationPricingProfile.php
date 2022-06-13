@@ -23,7 +23,7 @@ class OrganizationPricingProfile
      */
     protected $skuCode;
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @var PriceProperty
      */
@@ -104,7 +104,7 @@ class OrganizationPricingProfile
         return $this;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @return PriceProperty
      */
@@ -113,7 +113,7 @@ class OrganizationPricingProfile
         return $this->price;
     }
     /**
-     * Class CustomerPricingProfileResource
+     * 
      *
      * @param PriceProperty $price
      *

@@ -66,6 +66,6 @@ class DeleteCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAsse
     }
     public function getAuthenticationScopes() : array
     {
-        return array();
+        return array('oAuthAuthorization');
     }
 }

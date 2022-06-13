@@ -79,6 +79,6 @@ class PutCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAssessm
     }
     public function getAuthenticationScopes() : array
     {
-        return array();
+        return array('oAuthAuthorization');
     }
 }
