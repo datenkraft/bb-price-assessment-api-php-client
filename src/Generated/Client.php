@@ -293,7 +293,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\PostAuthRoleIdentityCollection($requestBody), $fetch);
     }
-    public static function create($httpClient = null, array $additionalPlugins = array())
+    public static function create($httpClient = null, array $additionalPlugins = array(), array $additionalNormalizers = array())
     {
         if (null === $httpClient) {
             $httpClient = \Http\Discovery\Psr18ClientDiscovery::find();
@@ -308,7 +308,11 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         }
         $requestFactory = \Http\Discovery\Psr17FactoryDiscovery::findRequestFactory();
         $streamFactory = \Http\Discovery\Psr17FactoryDiscovery::findStreamFactory();
-        $serializer = new \Symfony\Component\Serializer\Serializer(array(new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(), new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\JaneObjectNormalizer()), array(new \Symfony\Component\Serializer\Encoder\JsonEncoder(new \Symfony\Component\Serializer\Encoder\JsonEncode(), new \Symfony\Component\Serializer\Encoder\JsonDecode(array('json_decode_associative' => true)))));
+        $normalizers = array(new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(), new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\JaneObjectNormalizer());
+        if (count($additionalNormalizers) > 0) {
+            $normalizers = array_merge($normalizers, $additionalNormalizers);
+        }
+        $serializer = new \Symfony\Component\Serializer\Serializer($normalizers, array(new \Symfony\Component\Serializer\Encoder\JsonEncoder(new \Symfony\Component\Serializer\Encoder\JsonEncode(), new \Symfony\Component\Serializer\Encoder\JsonDecode(array('json_decode_associative' => true)))));
         return new static($httpClient, $requestFactory, $serializer, $streamFactory);
     }
 }

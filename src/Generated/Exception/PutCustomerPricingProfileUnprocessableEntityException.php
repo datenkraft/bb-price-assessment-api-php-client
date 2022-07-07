@@ -4,13 +4,16 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
 class PutCustomerPricingProfileUnprocessableEntityException extends UnprocessableEntityException
 {
+    /**
+     * @var \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
+     */
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Unprocessable Entity', 422);
+        parent::__construct('Unprocessable Entity');
         $this->errorResponse = $errorResponse;
     }
-    public function getErrorResponse()
+    public function getErrorResponse() : \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
     {
         return $this->errorResponse;
     }
