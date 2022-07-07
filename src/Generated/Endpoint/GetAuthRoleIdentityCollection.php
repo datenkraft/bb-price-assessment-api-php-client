@@ -52,6 +52,6 @@ class GetAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\PriceAss
     }
     public function getAuthenticationScopes() : array
     {
-        return array('oAuthAuthorization');
+        return array('oAuthAuthorization', 'bearerAuth');
     }
 }
