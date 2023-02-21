@@ -23,19 +23,25 @@ class OrganizationPricingProfile
      */
     protected $skuCode;
     /**
-     * 
+     * Price
      *
-     * @var PriceProperty
+     * @var PricePrice|null
      */
     protected $price;
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @var float|null
      */
     protected $percent;
     /**
-     * Start date from when on the price is valid
+     * Stepped Prices
+     *
+     * @var SteppedPrice[]|null
+     */
+    protected $steppedPrices;
+    /**
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
      *
      * @var \DateTime
      */
@@ -104,28 +110,28 @@ class OrganizationPricingProfile
         return $this;
     }
     /**
-     * 
+     * Price
      *
-     * @return PriceProperty
+     * @return PricePrice|null
      */
-    public function getPrice() : PriceProperty
+    public function getPrice() : ?PricePrice
     {
         return $this->price;
     }
     /**
-     * 
+     * Price
      *
-     * @param PriceProperty $price
+     * @param PricePrice|null $price
      *
      * @return self
      */
-    public function setPrice(PriceProperty $price) : self
+    public function setPrice(?PricePrice $price) : self
     {
         $this->price = $price;
         return $this;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @return float|null
      */
@@ -134,7 +140,7 @@ class OrganizationPricingProfile
         return $this->percent;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @param float|null $percent
      *
@@ -146,7 +152,28 @@ class OrganizationPricingProfile
         return $this;
     }
     /**
-     * Start date from when on the price is valid
+     * Stepped Prices
+     *
+     * @return SteppedPrice[]|null
+     */
+    public function getSteppedPrices() : ?array
+    {
+        return $this->steppedPrices;
+    }
+    /**
+     * Stepped Prices
+     *
+     * @param SteppedPrice[]|null $steppedPrices
+     *
+     * @return self
+     */
+    public function setSteppedPrices(?array $steppedPrices) : self
+    {
+        $this->steppedPrices = $steppedPrices;
+        return $this;
+    }
+    /**
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
      *
      * @return \DateTime
      */
@@ -155,7 +182,7 @@ class OrganizationPricingProfile
         return $this->validFrom;
     }
     /**
-     * Start date from when on the price is valid
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
      *
      * @param \DateTime $validFrom
      *

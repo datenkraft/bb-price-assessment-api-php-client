@@ -42,9 +42,6 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
         }
-        if (\array_key_exists('customerId', $data)) {
-            $object->setCustomerId($data['customerId']);
-        }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
             $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
         }
@@ -67,6 +64,9 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         elseif (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] === null) {
             $object->setSteppedPrices(null);
         }
+        if (\array_key_exists('validFrom', $data)) {
+            $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['validFrom']));
+        }
         return $object;
     }
     /**
@@ -76,7 +76,6 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     {
         $data = array();
         $data['skuCode'] = $object->getSkuCode();
-        $data['customerId'] = $object->getCustomerId();
         if (null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
@@ -89,6 +88,9 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
             $data['steppedPrices'] = $values;
+        }
+        if (null !== $object->getValidFrom()) {
+            $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
         }
         return $data;
     }
