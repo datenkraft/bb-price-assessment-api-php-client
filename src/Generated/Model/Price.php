@@ -11,19 +11,13 @@ class Price
      */
     protected $skuCode;
     /**
-     * Customer Id
-     *
-     * @var string
-     */
-    protected $customerId;
-    /**
      * Price
      *
      * @var PricePrice|null
      */
     protected $price;
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @var float|null
      */
@@ -34,6 +28,12 @@ class Price
      * @var SteppedPrice[]|null
      */
     protected $steppedPrices;
+    /**
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
+     *
+     * @var \DateTime
+     */
+    protected $validFrom;
     /**
      * SKU Code
      *
@@ -53,27 +53,6 @@ class Price
     public function setSkuCode(string $skuCode) : self
     {
         $this->skuCode = $skuCode;
-        return $this;
-    }
-    /**
-     * Customer Id
-     *
-     * @return string
-     */
-    public function getCustomerId() : string
-    {
-        return $this->customerId;
-    }
-    /**
-     * Customer Id
-     *
-     * @param string $customerId
-     *
-     * @return self
-     */
-    public function setCustomerId(string $customerId) : self
-    {
-        $this->customerId = $customerId;
         return $this;
     }
     /**
@@ -98,7 +77,7 @@ class Price
         return $this;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @return float|null
      */
@@ -107,7 +86,7 @@ class Price
         return $this->percent;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits)
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
      *
      * @param float|null $percent
      *
@@ -137,6 +116,27 @@ class Price
     public function setSteppedPrices(?array $steppedPrices) : self
     {
         $this->steppedPrices = $steppedPrices;
+        return $this;
+    }
+    /**
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
+     *
+     * @return \DateTime
+     */
+    public function getValidFrom() : \DateTime
+    {
+        return $this->validFrom;
+    }
+    /**
+     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
+     *
+     * @param \DateTime $validFrom
+     *
+     * @return self
+     */
+    public function setValidFrom(\DateTime $validFrom) : self
+    {
+        $this->validFrom = $validFrom;
         return $this;
     }
 }

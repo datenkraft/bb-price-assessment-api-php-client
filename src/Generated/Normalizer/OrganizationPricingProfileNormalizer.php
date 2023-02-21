@@ -48,14 +48,27 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
         }
-        if (\array_key_exists('price', $data)) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PriceProperty', 'json', $context));
+        if (\array_key_exists('price', $data) && $data['price'] !== null) {
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
+        }
+        elseif (\array_key_exists('price', $data) && $data['price'] === null) {
+            $object->setPrice(null);
         }
         if (\array_key_exists('percent', $data) && $data['percent'] !== null) {
             $object->setPercent($data['percent']);
         }
         elseif (\array_key_exists('percent', $data) && $data['percent'] === null) {
             $object->setPercent(null);
+        }
+        if (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] !== null) {
+            $values = array();
+            foreach ($data['steppedPrices'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPrice', 'json', $context);
+            }
+            $object->setSteppedPrices($values);
+        }
+        elseif (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] === null) {
+            $object->setSteppedPrices(null);
         }
         if (\array_key_exists('validFrom', $data)) {
             $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['validFrom']));
@@ -71,7 +84,9 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (null !== $object->getOrganizationPricingProfileId()) {
             $data['organizationPricingProfileId'] = $object->getOrganizationPricingProfileId();
         }
-        $data['organizationId'] = $object->getOrganizationId();
+        if (null !== $object->getOrganizationId()) {
+            $data['organizationId'] = $object->getOrganizationId();
+        }
         $data['skuCode'] = $object->getSkuCode();
         if (null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
@@ -79,7 +94,16 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (null !== $object->getPercent()) {
             $data['percent'] = $object->getPercent();
         }
-        $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
+        if (null !== $object->getSteppedPrices()) {
+            $values = array();
+            foreach ($object->getSteppedPrices() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            }
+            $data['steppedPrices'] = $values;
+        }
+        if (null !== $object->getValidFrom()) {
+            $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
+        }
         return $data;
     }
 }

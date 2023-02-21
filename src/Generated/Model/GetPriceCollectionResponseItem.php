@@ -2,14 +2,14 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class NewOrganizationPricingProfile
+class GetPriceCollectionResponseItem
 {
     /**
-     * Organization Id
+     * Customer Id
      *
      * @var string
      */
-    protected $organizationId;
+    protected $customerId;
     /**
      * SKU Code
      *
@@ -41,24 +41,24 @@ class NewOrganizationPricingProfile
      */
     protected $validFrom;
     /**
-     * Organization Id
+     * Customer Id
      *
      * @return string
      */
-    public function getOrganizationId() : string
+    public function getCustomerId() : string
     {
-        return $this->organizationId;
+        return $this->customerId;
     }
     /**
-     * Organization Id
+     * Customer Id
      *
-     * @param string $organizationId
+     * @param string $customerId
      *
      * @return self
      */
-    public function setOrganizationId(string $organizationId) : self
+    public function setCustomerId(string $customerId) : self
     {
-        $this->organizationId = $organizationId;
+        $this->customerId = $customerId;
         return $this;
     }
     /**
