@@ -5,10 +5,11 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint;
 class PostOrganizationPricingProfile extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\Endpoint
 {
     /**
-     * Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an existing pricing profile.
-     *
-     * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile $requestBody 
-     */
+    * Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an
+    existing pricing profile.
+    *
+    * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile $requestBody 
+    */
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile $requestBody)
     {
         $this->body = $requestBody;
