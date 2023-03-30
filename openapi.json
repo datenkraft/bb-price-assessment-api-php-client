@@ -12,6 +12,76 @@
         }
     ],
     "paths": {
+        "/auth/permission": {
+            "get": {
+                "tags": [
+                    "auth-permission"
+                ],
+                "summary": "Get all permissions from this resource server",
+                "description": "Get all permissions from this resource server",
+                "operationId": "getAuthPermissionCollection",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/getAuthPermissionCollectionResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/docs": {
             "get": {
                 "tags": [
@@ -92,86 +162,6 @@
                         "description": "Invalid format"
                     }
                 }
-            }
-        },
-        "/auth/role": {
-            "get": {
-                "tags": [
-                    "auth-role"
-                ],
-                "summary": "Get all available roles from this resource server",
-                "description": "Get all available roles from this resource server",
-                "operationId": "getAuthRoleCollection",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/authRoleCollection"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": []
-                    },
-                    {
-                        "bearerAuth": []
-                    }
-                ]
             }
         },
         "/auth/role-identity": {
@@ -369,7 +359,8 @@
                 "description": "Delete one or more role to identity assignments in this resource server",
                 "operationId": "deleteAuthRoleIdentityCollection",
                 "requestBody": {
-                    "required": true,
+                    "description": "CAUTION If the request is sent with an empty body, all relations are deleted!",
+                    "required": false,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -424,6 +415,870 @@
                     },
                     "422": {
                         "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/permission-role": {
+            "get": {
+                "tags": [
+                    "auth-permission-role"
+                ],
+                "summary": "Get all role to permission assignments from this resource server",
+                "description": "Get all role to permission assignments from this resource server",
+                "operationId": "getAuthPermissionRoleCollection",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authPermissionRoleCollection"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "auth-permission-role"
+                ],
+                "summary": "Create one or more role to permission assignments in this resource server",
+                "description": "Create one or more role to permission assignments in this resource server",
+                "operationId": "postAuthPermissionRoleCollection",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/authPermissionRoleCollection"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authPermissionRoleCollection"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "auth-permission-role"
+                ],
+                "summary": "Delete one or more role to permission assignments in this resource server",
+                "description": "Delete one or more role to permission assignments in this resource server",
+                "operationId": "deleteAuthPermissionRoleCollection",
+                "requestBody": {
+                    "description": "CAUTION If the request is sent with an empty body, all relations are deleted!",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/authPermissionRoleCollection"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/role": {
+            "get": {
+                "tags": [
+                    "auth-role"
+                ],
+                "summary": "Get all available roles from this resource server",
+                "description": "Get all available roles from this resource server",
+                "operationId": "getAuthRoleCollection",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authRoleCollection"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/role/{roleCode}": {
+            "get": {
+                "tags": [
+                    "auth-role"
+                ],
+                "summary": "Get a role from this resource server by its roleCode",
+                "description": "Get a role from this resource server by its roleCode",
+                "operationId": "getAuthRole",
+                "parameters": [
+                    {
+                        "name": "roleCode",
+                        "in": "path",
+                        "description": "Identifier for the role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authRoleResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "auth-role"
+                ],
+                "summary": "Post a role for this resource server",
+                "description": "Post a role for this resource server",
+                "operationId": "postAuthRole",
+                "parameters": [
+                    {
+                        "name": "roleCode",
+                        "in": "path",
+                        "description": "Identifier for the role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newAuthRoleResource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authRoleResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "auth-role"
+                ],
+                "summary": "Delete a role for this resource server",
+                "description": "Delete a role for this resource server",
+                "operationId": "deleteAuthRole",
+                "parameters": [
+                    {
+                        "name": "roleCode",
+                        "in": "path",
+                        "description": "Identifier for the role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "auth-role"
+                ],
+                "summary": "Patch a role for this resource server",
+                "description": "Patch a role for this resource server",
+                "operationId": "patchAuthRole",
+                "parameters": [
+                    {
+                        "name": "roleCode",
+                        "in": "path",
+                        "description": "Identifier for the role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/newAuthRoleResource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authRoleResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/audit-log": {
+            "get": {
+                "tags": [
+                    "audit-log"
+                ],
+                "summary": "Get the audit log.",
+                "description": "Get the audit log.",
+                "operationId": "getAuditLogCollection",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "The page to read. Default is the first page.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "The maximum size per page is 100. Default is 100.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "filter[endpoint]",
+                        "in": "query",
+                        "description": "A filter for restricting the audit log to a endpoint.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[version]",
+                        "in": "query",
+                        "description": "A filter for restricting the audit log to a endpoint version.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[identifier]",
+                        "in": "query",
+                        "description": "A filter for querying actions for a identifier.",
+                        "required": false,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/identifiers"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/auditLogCollection"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -558,7 +1413,7 @@
                     "customer-pricing-profile"
                 ],
                 "summary": "Add a new Customer Pricing Profile",
-                "description": "Add a new Customer Pricing Profile. You may not use this endpoint to add stepped prices to an existing pricing profile.",
+                "description": "Add a new Customer Pricing Profile. You may not use this endpoint to add stepped prices to an\nexisting pricing profile.",
                 "operationId": "postCustomerPricingProfile",
                 "requestBody": {
                     "required": true,
@@ -742,13 +1597,95 @@
                     }
                 ]
             },
-            "put": {
+            "delete": {
+                "tags": [
+                    "customer-pricing-profile"
+                ],
+                "summary": "Delete Customer Pricing Profile",
+                "description": "Delete Customer Pricing Profile",
+                "operationId": "deleteCustomerPricingProfile",
+                "parameters": [
+                    {
+                        "name": "customerPricingProfileId",
+                        "in": "path",
+                        "description": "Customer Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
                 "tags": [
                     "customer-pricing-profile"
                 ],
                 "summary": "Update a Customer Pricing Profile",
-                "description": "Update a Customer Pricing Profile. Please note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
-                "operationId": "putCustomerPricingProfile",
+                "description": "Update one or more fields of a Customer Pricing Profile.\\\nPlease note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
+                "operationId": "patchCustomerPricingProfile",
                 "parameters": [
                     {
                         "name": "customerPricingProfileId",
@@ -765,7 +1702,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/newCustomerPricingProfile"
+                                "$ref": "#/components/schemas/patchCustomerPricingProfile"
                             }
                         }
                     }
@@ -843,88 +1780,6 @@
                     },
                     "500": {
                         "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": []
-                    },
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "customer-pricing-profile"
-                ],
-                "summary": "Delete Customer Pricing Profile",
-                "description": "Delete Customer Pricing Profile",
-                "operationId": "deleteCustomerPricingProfile",
-                "parameters": [
-                    {
-                        "name": "customerPricingProfileId",
-                        "in": "path",
-                        "description": "Customer Pricing Profile Id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1039,7 +1894,7 @@
                     "organization-pricing-profile"
                 ],
                 "summary": "Add a new Organization Pricing Profile",
-                "description": "Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an existing pricing profile.",
+                "description": "Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an\nexisting pricing profile.",
                 "operationId": "postOrganizationPricingProfile",
                 "requestBody": {
                     "required": true,
@@ -1223,13 +2078,95 @@
                     }
                 ]
             },
-            "put": {
+            "delete": {
+                "tags": [
+                    "organization-pricing-profile"
+                ],
+                "summary": "Delete Organization Pricing Profile",
+                "description": "Delete Organization Pricing Profile",
+                "operationId": "deleteOrganizationPricingProfile",
+                "parameters": [
+                    {
+                        "name": "organizationPricingProfileId",
+                        "in": "path",
+                        "description": "Organization Pricing Profile Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
                 "tags": [
                     "organization-pricing-profile"
                 ],
                 "summary": "Update a Organization Pricing Profile",
-                "description": "Update a Organization Pricing Profile. Please note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
-                "operationId": "putOrganizationPricingProfile",
+                "description": "Update one or more fields of a Organization Pricing Profile.\\\nPlease note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
+                "operationId": "patchOrganizationPricingProfile",
                 "parameters": [
                     {
                         "name": "organizationPricingProfileId",
@@ -1246,7 +2183,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/newOrganizationPricingProfile"
+                                "$ref": "#/components/schemas/patchOrganizationPricingProfile"
                             }
                         }
                     }
@@ -1341,88 +2278,6 @@
                         "bearerAuth": []
                     }
                 ]
-            },
-            "delete": {
-                "tags": [
-                    "organization-pricing-profile"
-                ],
-                "summary": "Delete Organization Pricing Profile",
-                "description": "Delete Organization Pricing Profile",
-                "operationId": "deleteOrganizationPricingProfile",
-                "parameters": [
-                    {
-                        "name": "organizationPricingProfileId",
-                        "in": "path",
-                        "description": "Organization Pricing Profile Id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": []
-                    },
-                    {
-                        "bearerAuth": []
-                    }
-                ]
             }
         },
         "/report/price.csv": {
@@ -1431,7 +2286,7 @@
                     "price"
                 ],
                 "summary": "Get Price Table",
-                "description": "Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom, steppedPrices:validFromQuantity.",
+                "description": "Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom,\nsteppedPrices:validFromQuantity.",
                 "operationId": "getReportPrice",
                 "parameters": [
                     {
@@ -1634,6 +2489,11 @@
     },
     "components": {
         "schemas": {
+            "identifiers": {
+                "description": "Contains key value pairs for single identifier",
+                "type": "object",
+                "additionalProperties": {}
+            },
             "errorResponse": {
                 "properties": {
                     "errors": {
@@ -1716,6 +2576,73 @@
                 },
                 "type": "object"
             },
+            "auditLog": {
+                "description": "Data to represent a audit log entry.",
+                "properties": {
+                    "id": {
+                        "description": "Id",
+                        "type": "string"
+                    },
+                    "endpoint": {
+                        "description": "The name of the audited endpoint.",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "The version of the audited endpoint.",
+                        "type": "string"
+                    },
+                    "identifier": {
+                        "description": "The identifier of the resource.",
+                        "type": "string"
+                    },
+                    "content": {
+                        "description": "The content of the resource.",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "confidentialContent": {
+                        "description": "The GDPR relevant content of the resource.",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "requestId": {
+                        "description": "The optional request ID of the endpoint call.",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "oauthClientId": {
+                        "description": "The OAuth client id which did the change.",
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "description": "The timestamp of the action.",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "auditLogCollection": {
+                "title": "auditLogCollection",
+                "description": "A collection of audit log entries",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/collection"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "description": "",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/auditLog"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "authRoleIdentityResource": {
                 "required": [
                     "roleCode",
@@ -1739,6 +2666,29 @@
                     "$ref": "#/components/schemas/authRoleIdentityResource"
                 }
             },
+            "authPermissionRoleResource": {
+                "required": [
+                    "roleCode",
+                    "permissionCode"
+                ],
+                "properties": {
+                    "permissionCode": {
+                        "description": "Permission Code",
+                        "type": "string"
+                    },
+                    "roleCode": {
+                        "description": "Role Code",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "authPermissionRoleCollection": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/authPermissionRoleResource"
+                }
+            },
             "authRoleResource": {
                 "required": [
                     "roleCode",
@@ -1749,6 +2699,18 @@
                         "description": "Role Code",
                         "type": "string"
                     },
+                    "name": {
+                        "description": "Name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "newAuthRoleResource": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
                     "name": {
                         "description": "Name",
                         "type": "string"
@@ -1786,10 +2748,6 @@
                 "type": "object"
             },
             "price": {
-                "required": [
-                    "skuCode",
-                    "customerId"
-                ],
                 "properties": {
                     "skuCode": {
                         "description": "SKU Code",
@@ -1806,7 +2764,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted\nvalues, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -1820,7 +2778,7 @@
                         "nullable": true
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more\nrecent validFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -1869,6 +2827,23 @@
                     "$ref": "#/components/schemas/organizationPricingProfile"
                 }
             },
+            "baseOrganizationPricingProfile": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "organizationId": {
+                                "description": "Organization Id",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/price"
+                    }
+                ]
+            },
             "organizationPricingProfile": {
                 "required": [
                     "organizationPricingProfileId",
@@ -1888,7 +2863,7 @@
                         "type": "object"
                     },
                     {
-                        "$ref": "#/components/schemas/newOrganizationPricingProfile"
+                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
                     }
                 ]
             },
@@ -1901,16 +2876,15 @@
                 "type": "object",
                 "allOf": [
                     {
-                        "properties": {
-                            "organizationId": {
-                                "description": "Organization Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
+                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
+                    }
+                ]
+            },
+            "patchOrganizationPricingProfile": {
+                "type": "object",
+                "allOf": [
                     {
-                        "$ref": "#/components/schemas/price"
+                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
                     }
                 ]
             },
@@ -1939,6 +2913,28 @@
                     "$ref": "#/components/schemas/customerPricingProfile"
                 }
             },
+            "baseCustomerPricingProfile": {
+                "required": [
+                    "customerId",
+                    "skuCode",
+                    "validFrom"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "customerId": {
+                                "description": "Customer Id",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/price"
+                    }
+                ]
+            },
             "customerPricingProfile": {
                 "required": [
                     "customerPricingProfileId",
@@ -1958,7 +2954,7 @@
                         "type": "object"
                     },
                     {
-                        "$ref": "#/components/schemas/newCustomerPricingProfile"
+                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
                     }
                 ]
             },
@@ -1971,16 +2967,15 @@
                 "type": "object",
                 "allOf": [
                     {
-                        "properties": {
-                            "customerId": {
-                                "description": "Customer Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
+                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
+                    }
+                ]
+            },
+            "patchCustomerPricingProfile": {
+                "type": "object",
+                "allOf": [
                     {
-                        "$ref": "#/components/schemas/price"
+                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
                     }
                 ]
             }
