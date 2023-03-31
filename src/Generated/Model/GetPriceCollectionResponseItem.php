@@ -23,10 +23,11 @@ class GetPriceCollectionResponseItem
      */
     protected $price;
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @var float|null
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @var float|null
+    */
     protected $percent;
     /**
      * Stepped Prices
@@ -35,10 +36,11 @@ class GetPriceCollectionResponseItem
      */
     protected $steppedPrices;
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @var \DateTime
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @var \DateTime
+    */
     protected $validFrom;
     /**
      * Customer Id
@@ -104,21 +106,23 @@ class GetPriceCollectionResponseItem
         return $this;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @return float|null
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @return float|null
+    */
     public function getPercent() : ?float
     {
         return $this->percent;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @param float|null $percent
-     *
-     * @return self
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @param float|null $percent
+    *
+    * @return self
+    */
     public function setPercent(?float $percent) : self
     {
         $this->percent = $percent;
@@ -146,21 +150,23 @@ class GetPriceCollectionResponseItem
         return $this;
     }
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @return \DateTime
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @return \DateTime
+    */
     public function getValidFrom() : \DateTime
     {
         return $this->validFrom;
     }
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @param \DateTime $validFrom
-     *
-     * @return self
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @param \DateTime $validFrom
+    *
+    * @return self
+    */
     public function setValidFrom(\DateTime $validFrom) : self
     {
         $this->validFrom = $validFrom;
