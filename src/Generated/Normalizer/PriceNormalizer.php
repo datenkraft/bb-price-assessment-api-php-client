@@ -75,7 +75,9 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        $data['skuCode'] = $object->getSkuCode();
+        if (null !== $object->getSkuCode()) {
+            $data['skuCode'] = $object->getSkuCode();
+        }
         if (null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
