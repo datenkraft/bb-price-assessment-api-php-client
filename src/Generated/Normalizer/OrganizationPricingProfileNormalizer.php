@@ -87,7 +87,9 @@ class OrganizationPricingProfileNormalizer implements DenormalizerInterface, Nor
         if (null !== $object->getOrganizationId()) {
             $data['organizationId'] = $object->getOrganizationId();
         }
-        $data['skuCode'] = $object->getSkuCode();
+        if (null !== $object->getSkuCode()) {
+            $data['skuCode'] = $object->getSkuCode();
+        }
         if (null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
