@@ -87,7 +87,9 @@ class CustomerPricingProfileNormalizer implements DenormalizerInterface, Normali
         if (null !== $object->getCustomerId()) {
             $data['customerId'] = $object->getCustomerId();
         }
-        $data['skuCode'] = $object->getSkuCode();
+        if (null !== $object->getSkuCode()) {
+            $data['skuCode'] = $object->getSkuCode();
+        }
         if (null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
