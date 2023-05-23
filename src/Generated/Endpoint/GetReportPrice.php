@@ -5,13 +5,14 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint;
 class GetReportPrice extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\Endpoint
 {
     /**
-     * Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom, steppedPrices:validFromQuantity.
-     *
-     * @param array $queryParameters {
-     *     @var string $filter[organizationId] Organization Id filter
-     *     @var string $filter[validFrom] Valid From Date filter in UTC
-     * }
-     */
+    * Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom,
+    steppedPrices:validFromQuantity.
+    *
+    * @param array $queryParameters {
+    *     @var string $filter[organizationId] Organization Id filter
+    *     @var string $filter[validFrom] Valid From Date filter in UTC
+    * }
+    */
     public function __construct(array $queryParameters = array())
     {
         $this->queryParameters = $queryParameters;
