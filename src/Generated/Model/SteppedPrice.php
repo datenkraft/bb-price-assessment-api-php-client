@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class SteppedPrice
+class SteppedPrice extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * Valid from Quantity
      *
@@ -34,6 +42,7 @@ class SteppedPrice
      */
     public function setValidFromQuantity(int $validFromQuantity) : self
     {
+        $this->initialized['validFromQuantity'] = true;
         $this->validFromQuantity = $validFromQuantity;
         return $this;
     }
@@ -55,6 +64,7 @@ class SteppedPrice
      */
     public function setPrice(PriceProperty $price) : self
     {
+        $this->initialized['price'] = true;
         $this->price = $price;
         return $this;
     }

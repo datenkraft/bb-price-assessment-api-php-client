@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class PriceProperty
+class PriceProperty extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * Minor Micro
      *
@@ -34,6 +42,7 @@ class PriceProperty
      */
     public function setMinorMicro(?float $minorMicro) : self
     {
+        $this->initialized['minorMicro'] = true;
         $this->minorMicro = $minorMicro;
         return $this;
     }
@@ -55,6 +64,7 @@ class PriceProperty
      */
     public function setCurrency(?string $currency) : self
     {
+        $this->initialized['currency'] = true;
         $this->currency = $currency;
         return $this;
     }

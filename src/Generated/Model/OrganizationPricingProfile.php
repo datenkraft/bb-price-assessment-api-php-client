@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class OrganizationPricingProfile
+class OrganizationPricingProfile extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * Organization Pricing Profile Id
      *
@@ -25,14 +33,15 @@ class OrganizationPricingProfile
     /**
      * Price
      *
-     * @var PricePrice|null
+     * @var mixed[]|null
      */
     protected $price;
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @var float|null
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @var float|null
+    */
     protected $percent;
     /**
      * Stepped Prices
@@ -41,10 +50,11 @@ class OrganizationPricingProfile
      */
     protected $steppedPrices;
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @var \DateTime
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @var \DateTime
+    */
     protected $validFrom;
     /**
      * Organization Pricing Profile Id
@@ -64,6 +74,7 @@ class OrganizationPricingProfile
      */
     public function setOrganizationPricingProfileId(string $organizationPricingProfileId) : self
     {
+        $this->initialized['organizationPricingProfileId'] = true;
         $this->organizationPricingProfileId = $organizationPricingProfileId;
         return $this;
     }
@@ -85,6 +96,7 @@ class OrganizationPricingProfile
      */
     public function setOrganizationId(string $organizationId) : self
     {
+        $this->initialized['organizationId'] = true;
         $this->organizationId = $organizationId;
         return $this;
     }
@@ -106,48 +118,53 @@ class OrganizationPricingProfile
      */
     public function setSkuCode(string $skuCode) : self
     {
+        $this->initialized['skuCode'] = true;
         $this->skuCode = $skuCode;
         return $this;
     }
     /**
      * Price
      *
-     * @return PricePrice|null
+     * @return mixed[]|null
      */
-    public function getPrice() : ?PricePrice
+    public function getPrice() : ?iterable
     {
         return $this->price;
     }
     /**
      * Price
      *
-     * @param PricePrice|null $price
+     * @param mixed[]|null $price
      *
      * @return self
      */
-    public function setPrice(?PricePrice $price) : self
+    public function setPrice(?iterable $price) : self
     {
+        $this->initialized['price'] = true;
         $this->price = $price;
         return $this;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @return float|null
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @return float|null
+    */
     public function getPercent() : ?float
     {
         return $this->percent;
     }
     /**
-     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.
-     *
-     * @param float|null $percent
-     *
-     * @return self
-     */
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
+    values, e.g. to calculate commissions.
+    *
+    * @param float|null $percent
+    *
+    * @return self
+    */
     public function setPercent(?float $percent) : self
     {
+        $this->initialized['percent'] = true;
         $this->percent = $percent;
         return $this;
     }
@@ -169,27 +186,31 @@ class OrganizationPricingProfile
      */
     public function setSteppedPrices(?array $steppedPrices) : self
     {
+        $this->initialized['steppedPrices'] = true;
         $this->steppedPrices = $steppedPrices;
         return $this;
     }
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @return \DateTime
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @return \DateTime
+    */
     public function getValidFrom() : \DateTime
     {
         return $this->validFrom;
     }
     /**
-     * Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.
-     *
-     * @param \DateTime $validFrom
-     *
-     * @return self
-     */
+    * Start date from when on the price is valid. This price remains valid until a price with a more
+    recent validFrom date is found.
+    *
+    * @param \DateTime $validFrom
+    *
+    * @return self
+    */
     public function setValidFrom(\DateTime $validFrom) : self
     {
+        $this->initialized['validFrom'] = true;
         $this->validFrom = $validFrom;
         return $this;
     }
