@@ -53,11 +53,7 @@ class BaseCustomerPricingProfileNormalizer implements DenormalizerInterface, Nor
             unset($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['price'] as $key => $value) {
-                $values[$key] = $value;
-            }
-            $object->setPrice($values);
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
             unset($data['price']);
         }
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
@@ -71,11 +67,11 @@ class BaseCustomerPricingProfileNormalizer implements DenormalizerInterface, Nor
             $object->setPercent(null);
         }
         if (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] !== null) {
-            $values_1 = array();
-            foreach ($data['steppedPrices'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPrice', 'json', $context);
+            $values = array();
+            foreach ($data['steppedPrices'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPrice', 'json', $context);
             }
-            $object->setSteppedPrices($values_1);
+            $object->setSteppedPrices($values);
             unset($data['steppedPrices']);
         }
         elseif (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] === null) {
@@ -85,9 +81,9 @@ class BaseCustomerPricingProfileNormalizer implements DenormalizerInterface, Nor
             $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['validFrom']));
             unset($data['validFrom']);
         }
-        foreach ($data as $key_1 => $value_2) {
-            if (preg_match('/.*/', (string) $key_1)) {
-                $object[$key_1] = $value_2;
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
             }
         }
         return $object;
@@ -105,28 +101,24 @@ class BaseCustomerPricingProfileNormalizer implements DenormalizerInterface, Nor
             $data['skuCode'] = $object->getSkuCode();
         }
         if ($object->isInitialized('price') && null !== $object->getPrice()) {
-            $values = array();
-            foreach ($object->getPrice() as $key => $value) {
-                $values[$key] = $value;
-            }
-            $data['price'] = $values;
+            $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
         if ($object->isInitialized('percent') && null !== $object->getPercent()) {
             $data['percent'] = $object->getPercent();
         }
         if ($object->isInitialized('steppedPrices') && null !== $object->getSteppedPrices()) {
-            $values_1 = array();
-            foreach ($object->getSteppedPrices() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            $values = array();
+            foreach ($object->getSteppedPrices() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data['steppedPrices'] = $values_1;
+            $data['steppedPrices'] = $values;
         }
         if ($object->isInitialized('validFrom') && null !== $object->getValidFrom()) {
             $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
         }
-        foreach ($object as $key_1 => $value_2) {
-            if (preg_match('/.*/', (string) $key_1)) {
-                $data[$key_1] = $value_2;
+        foreach ($object as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $data[$key] = $value_1;
             }
         }
         return $data;
