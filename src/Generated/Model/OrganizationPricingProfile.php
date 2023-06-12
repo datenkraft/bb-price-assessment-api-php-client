@@ -33,7 +33,7 @@ class OrganizationPricingProfile extends \ArrayObject
     /**
      * Price
      *
-     * @var mixed[]|null
+     * @var PricePrice|null
      */
     protected $price;
     /**
@@ -125,20 +125,20 @@ class OrganizationPricingProfile extends \ArrayObject
     /**
      * Price
      *
-     * @return mixed[]|null
+     * @return PricePrice|null
      */
-    public function getPrice() : ?iterable
+    public function getPrice() : ?PricePrice
     {
         return $this->price;
     }
     /**
      * Price
      *
-     * @param mixed[]|null $price
+     * @param PricePrice|null $price
      *
      * @return self
      */
-    public function setPrice(?iterable $price) : self
+    public function setPrice(?PricePrice $price) : self
     {
         $this->initialized['price'] = true;
         $this->price = $price;
