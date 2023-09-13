@@ -181,7 +181,7 @@
                     {
                         "name": "pageSize",
                         "in": "query",
-                        "description": "The maximum size per page is 100.",
+                        "description": "The maximum size per page is 100. Default is 100.",
                         "required": false,
                         "schema": {
                             "type": "integer"
