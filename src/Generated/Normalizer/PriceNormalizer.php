@@ -44,12 +44,16 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
+        if (\array_key_exists('customerId', $data)) {
+            $object->setCustomerId($data['customerId']);
+            unset($data['customerId']);
+        }
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
             unset($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePricePrice', 'json', $context));
             unset($data['price']);
         }
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
@@ -90,6 +94,9 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
+        if ($object->isInitialized('customerId') && null !== $object->getCustomerId()) {
+            $data['customerId'] = $object->getCustomerId();
+        }
         if ($object->isInitialized('skuCode') && null !== $object->getSkuCode()) {
             $data['skuCode'] = $object->getSkuCode();
         }

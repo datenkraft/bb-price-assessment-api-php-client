@@ -13,6 +13,12 @@ class Price extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * Customer Id
+     *
+     * @var string
+     */
+    protected $customerId;
+    /**
      * SKU Code
      *
      * @var string
@@ -21,7 +27,7 @@ class Price extends \ArrayObject
     /**
      * Price
      *
-     * @var PricePrice|null
+     * @var BasePricePrice|null
      */
     protected $price;
     /**
@@ -44,6 +50,28 @@ class Price extends \ArrayObject
     * @var \DateTime
     */
     protected $validFrom;
+    /**
+     * Customer Id
+     *
+     * @return string
+     */
+    public function getCustomerId() : string
+    {
+        return $this->customerId;
+    }
+    /**
+     * Customer Id
+     *
+     * @param string $customerId
+     *
+     * @return self
+     */
+    public function setCustomerId(string $customerId) : self
+    {
+        $this->initialized['customerId'] = true;
+        $this->customerId = $customerId;
+        return $this;
+    }
     /**
      * SKU Code
      *
@@ -69,20 +97,20 @@ class Price extends \ArrayObject
     /**
      * Price
      *
-     * @return PricePrice|null
+     * @return BasePricePrice|null
      */
-    public function getPrice() : ?PricePrice
+    public function getPrice() : ?BasePricePrice
     {
         return $this->price;
     }
     /**
      * Price
      *
-     * @param PricePrice|null $price
+     * @param BasePricePrice|null $price
      *
      * @return self
      */
-    public function setPrice(?PricePrice $price) : self
+    public function setPrice(?BasePricePrice $price) : self
     {
         $this->initialized['price'] = true;
         $this->price = $price;
