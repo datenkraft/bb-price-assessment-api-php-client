@@ -33,7 +33,7 @@ class OrganizationPricingProfile extends \ArrayObject
     /**
      * Price
      *
-     * @var PricePrice|null
+     * @var BasePricePrice|null
      */
     protected $price;
     /**
@@ -125,20 +125,20 @@ class OrganizationPricingProfile extends \ArrayObject
     /**
      * Price
      *
-     * @return PricePrice|null
+     * @return BasePricePrice|null
      */
-    public function getPrice() : ?PricePrice
+    public function getPrice() : ?BasePricePrice
     {
         return $this->price;
     }
     /**
      * Price
      *
-     * @param PricePrice|null $price
+     * @param BasePricePrice|null $price
      *
      * @return self
      */
-    public function setPrice(?PricePrice $price) : self
+    public function setPrice(?BasePricePrice $price) : self
     {
         $this->initialized['price'] = true;
         $this->price = $price;

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class GetPriceCollectionResponseItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class BasePriceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -20,11 +20,11 @@ class GetPriceCollectionResponseItemNormalizer implements DenormalizerInterface,
     use ValidatorTrait;
     public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\GetPriceCollectionResponseItem';
+        return $type === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePrice';
     }
     public function supportsNormalization($data, $format = null, array $context = array()) : bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\GetPriceCollectionResponseItem';
+        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePrice';
     }
     /**
      * @return mixed
@@ -37,23 +37,19 @@ class GetPriceCollectionResponseItemNormalizer implements DenormalizerInterface,
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\GetPriceCollectionResponseItem();
+        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\BasePrice();
         if (\array_key_exists('percent', $data) && \is_int($data['percent'])) {
             $data['percent'] = (double) $data['percent'];
         }
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('customerId', $data)) {
-            $object->setCustomerId($data['customerId']);
-            unset($data['customerId']);
-        }
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
             unset($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PricePrice', 'json', $context));
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePricePrice', 'json', $context));
             unset($data['price']);
         }
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
@@ -94,9 +90,6 @@ class GetPriceCollectionResponseItemNormalizer implements DenormalizerInterface,
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        if ($object->isInitialized('customerId') && null !== $object->getCustomerId()) {
-            $data['customerId'] = $object->getCustomerId();
-        }
         if ($object->isInitialized('skuCode') && null !== $object->getSkuCode()) {
             $data['skuCode'] = $object->getSkuCode();
         }
