@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class DeleteAuthRoleIdentityCollectionNotFoundException extends NotFoundException
+class DeleteAuthPermissionRoleCollectionUnprocessableEntityException extends UnprocessableEntityException
 {
     /**
      * @var \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class DeleteAuthRoleIdentityCollectionNotFoundException extends NotFoundExceptio
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Not Found');
+        parent::__construct('Unprocessable Entity');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }
