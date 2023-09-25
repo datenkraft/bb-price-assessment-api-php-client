@@ -39,7 +39,6 @@ class DeleteAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\Price
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionBadRequestException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionForbiddenException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionNotFoundException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionUnprocessableEntityException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
@@ -61,9 +60,6 @@ class DeleteAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\Price
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
-        }
-        if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionNotFoundException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\DeleteAuthRoleIdentityCollectionUnprocessableEntityException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
