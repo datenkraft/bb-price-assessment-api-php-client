@@ -46,7 +46,7 @@ class SteppedPriceNormalizer implements DenormalizerInterface, NormalizerInterfa
             unset($data['validFromQuantity']);
         }
         if (\array_key_exists('price', $data)) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\PriceProperty', 'json', $context));
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPricePriceProperty', 'json', $context));
             unset($data['price']);
         }
         foreach ($data as $key => $value) {

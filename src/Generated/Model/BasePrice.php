@@ -34,7 +34,7 @@ class BasePrice extends \ArrayObject
     /**
      * Stepped Prices
      *
-     * @var SteppedPrice[]|null
+     * @var SteppedPrice[]
      */
     protected $steppedPrices;
     /**
@@ -115,20 +115,20 @@ class BasePrice extends \ArrayObject
     /**
      * Stepped Prices
      *
-     * @return SteppedPrice[]|null
+     * @return SteppedPrice[]
      */
-    public function getSteppedPrices() : ?array
+    public function getSteppedPrices() : array
     {
         return $this->steppedPrices;
     }
     /**
      * Stepped Prices
      *
-     * @param SteppedPrice[]|null $steppedPrices
+     * @param SteppedPrice[] $steppedPrices
      *
      * @return self
      */
-    public function setSteppedPrices(?array $steppedPrices) : self
+    public function setSteppedPrices(array $steppedPrices) : self
     {
         $this->initialized['steppedPrices'] = true;
         $this->steppedPrices = $steppedPrices;

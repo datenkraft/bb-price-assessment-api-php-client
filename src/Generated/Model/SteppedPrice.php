@@ -21,7 +21,7 @@ class SteppedPrice extends \ArrayObject
     /**
      * 
      *
-     * @var PriceProperty
+     * @var SteppedPricePriceProperty
      */
     protected $price;
     /**
@@ -49,20 +49,20 @@ class SteppedPrice extends \ArrayObject
     /**
      * 
      *
-     * @return PriceProperty
+     * @return SteppedPricePriceProperty
      */
-    public function getPrice() : PriceProperty
+    public function getPrice() : SteppedPricePriceProperty
     {
         return $this->price;
     }
     /**
      * 
      *
-     * @param PriceProperty $price
+     * @param SteppedPricePriceProperty $price
      *
      * @return self
      */
-    public function setPrice(PriceProperty $price) : self
+    public function setPrice(SteppedPricePriceProperty $price) : self
     {
         $this->initialized['price'] = true;
         $this->price = $price;

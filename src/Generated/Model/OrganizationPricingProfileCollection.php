@@ -21,7 +21,7 @@ class OrganizationPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @var mixed[][]
+     * @var OrganizationPricingProfile[]
      */
     protected $data;
     /**
@@ -49,7 +49,7 @@ class OrganizationPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @return mixed[][]
+     * @return OrganizationPricingProfile[]
      */
     public function getData() : array
     {
@@ -58,7 +58,7 @@ class OrganizationPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @param mixed[][] $data
+     * @param OrganizationPricingProfile[] $data
      *
      * @return self
      */

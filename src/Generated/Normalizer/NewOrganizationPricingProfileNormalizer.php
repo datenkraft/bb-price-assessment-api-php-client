@@ -53,7 +53,7 @@ class NewOrganizationPricingProfileNormalizer implements DenormalizerInterface, 
             unset($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePricePrice', 'json', $context));
+            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\NewOrganizationPricingProfilePrice', 'json', $context));
             unset($data['price']);
         }
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
@@ -94,12 +94,8 @@ class NewOrganizationPricingProfileNormalizer implements DenormalizerInterface, 
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        if ($object->isInitialized('organizationId') && null !== $object->getOrganizationId()) {
-            $data['organizationId'] = $object->getOrganizationId();
-        }
-        if ($object->isInitialized('skuCode') && null !== $object->getSkuCode()) {
-            $data['skuCode'] = $object->getSkuCode();
-        }
+        $data['organizationId'] = $object->getOrganizationId();
+        $data['skuCode'] = $object->getSkuCode();
         if ($object->isInitialized('price') && null !== $object->getPrice()) {
             $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
         }
@@ -113,9 +109,7 @@ class NewOrganizationPricingProfileNormalizer implements DenormalizerInterface, 
             }
             $data['steppedPrices'] = $values;
         }
-        if ($object->isInitialized('validFrom') && null !== $object->getValidFrom()) {
-            $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
-        }
+        $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
         foreach ($object as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $data[$key] = $value_1;

@@ -2854,45 +2854,6 @@
                 },
                 "type": "object"
             },
-            "baseCustomerPricingProfile": {
-                "required": [
-                    "customerId",
-                    "skuCode",
-                    "validFrom"
-                ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "customerId": {
-                                "description": "Customer Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/components/schemas/basePrice"
-                    }
-                ]
-            },
-            "baseOrganizationPricingProfile": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "organizationId": {
-                                "description": "Organization Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/components/schemas/basePrice"
-                    }
-                ]
-            },
             "basePrice": {
                 "properties": {
                     "skuCode": {
@@ -2919,8 +2880,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/steppedPrice"
-                        },
-                        "nullable": true
+                        }
                     },
                     "validFrom": {
                         "description": "Start date from when on the price is valid. This price remains valid until a price with a more\nrecent validFrom date is found.",
@@ -2972,21 +2932,48 @@
                     "skuCode",
                     "validFrom"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "customerPricingProfileId": {
-                                "description": "Customer Pricing Profile Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
+                "properties": {
+                    "customerPricingProfileId": {
+                        "description": "Customer Pricing Profile Id",
+                        "type": "string"
                     },
-                    {
-                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
+                    "customerId": {
+                        "description": "Customer Id",
+                        "type": "string"
+                    },
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        }
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "type": "string",
+                        "format": "date-time"
                     }
-                ]
+                },
+                "type": "object"
             },
             "customerPricingProfileCollection": {
                 "title": "customerPricingProfileCollection",
@@ -3123,12 +3110,45 @@
                     "skuCode",
                     "validFrom"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
+                "properties": {
+                    "customerId": {
+                        "description": "Customer Id",
+                        "type": "string"
+                    },
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        },
+                        "nullable": true
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "type": "string",
+                        "format": "date-time"
                     }
-                ]
+                },
+                "type": "object"
             },
             "newOrganizationPricingProfile": {
                 "required": [
@@ -3136,12 +3156,45 @@
                     "skuCode",
                     "validFrom"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
+                "properties": {
+                    "organizationId": {
+                        "description": "Organization Id",
+                        "type": "string"
+                    },
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        },
+                        "nullable": true
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "type": "string",
+                        "format": "date-time"
                     }
-                ]
+                },
+                "type": "object"
             },
             "organizationPricingProfile": {
                 "required": [
@@ -3150,21 +3203,48 @@
                     "skuCode",
                     "validFrom"
                 ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "organizationPricingProfileId": {
-                                "description": "Organization Pricing Profile Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
+                "properties": {
+                    "organizationPricingProfileId": {
+                        "description": "Organization Pricing Profile Id",
+                        "type": "string"
                     },
-                    {
-                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
+                    "organizationId": {
+                        "description": "Organization Id",
+                        "type": "string"
+                    },
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    },
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        }
+                    },
+                    "validFrom": {
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "type": "string",
+                        "format": "date-time"
                     }
-                ]
+                },
+                "type": "object"
             },
             "organizationPricingProfileCollection": {
                 "title": "organizationPricingProfileCollection",
@@ -3187,20 +3267,60 @@
                 ]
             },
             "patchCustomerPricingProfile": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/baseCustomerPricingProfile"
+                "properties": {
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        },
+                        "nullable": true
                     }
-                ]
+                },
+                "type": "object"
             },
             "patchOrganizationPricingProfile": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/baseOrganizationPricingProfile"
+                "properties": {
+                    "price": {
+                        "description": "Price",
+                        "nullable": true,
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/priceProperty"
+                            }
+                        ]
+                    },
+                    "percent": {
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues, e.g. to calculate commissions.",
+                        "type": "number",
+                        "format": "float",
+                        "nullable": true
+                    },
+                    "steppedPrices": {
+                        "description": "Stepped Prices",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/steppedPrice"
+                        },
+                        "nullable": true
                     }
-                ]
+                },
+                "type": "object"
             },
             "price": {
                 "allOf": [
@@ -3240,7 +3360,6 @@
             },
             "priceProperty": {
                 "required": [
-                    "minorMicro",
                     "currency"
                 ],
                 "properties": {
@@ -3252,8 +3371,7 @@
                     },
                     "currency": {
                         "description": "Currency",
-                        "type": "string",
-                        "nullable": true
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -3269,7 +3387,25 @@
                         "type": "integer"
                     },
                     "price": {
-                        "$ref": "#/components/schemas/priceProperty"
+                        "$ref": "#/components/schemas/steppedPricePriceProperty"
+                    }
+                },
+                "type": "object"
+            },
+            "steppedPricePriceProperty": {
+                "required": [
+                    "minorMicro",
+                    "currency"
+                ],
+                "properties": {
+                    "minorMicro": {
+                        "description": "Minor Micro",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    "currency": {
+                        "description": "Currency",
+                        "type": "string"
                     }
                 },
                 "type": "object"
