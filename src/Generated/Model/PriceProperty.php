@@ -21,7 +21,7 @@ class PriceProperty extends \ArrayObject
     /**
      * Currency
      *
-     * @var string|null
+     * @var string
      */
     protected $currency;
     /**
@@ -49,20 +49,20 @@ class PriceProperty extends \ArrayObject
     /**
      * Currency
      *
-     * @return string|null
+     * @return string
      */
-    public function getCurrency() : ?string
+    public function getCurrency() : string
     {
         return $this->currency;
     }
     /**
      * Currency
      *
-     * @param string|null $currency
+     * @param string $currency
      *
      * @return self
      */
-    public function setCurrency(?string $currency) : self
+    public function setCurrency(string $currency) : self
     {
         $this->initialized['currency'] = true;
         $this->currency = $currency;

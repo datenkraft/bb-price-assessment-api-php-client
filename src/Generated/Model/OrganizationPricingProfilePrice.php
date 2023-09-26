@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class BasePricePrice extends \ArrayObject
+class OrganizationPricingProfilePrice extends \ArrayObject
 {
     /**
      * @var array

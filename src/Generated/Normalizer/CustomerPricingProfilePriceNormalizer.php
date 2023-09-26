@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class OrganizationPricingProfileCollectionNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class CustomerPricingProfilePriceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -20,11 +20,11 @@ class OrganizationPricingProfileCollectionNormalizer implements DenormalizerInte
     use ValidatorTrait;
     public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\OrganizationPricingProfileCollection';
+        return $type === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CustomerPricingProfilePrice';
     }
     public function supportsNormalization($data, $format = null, array $context = array()) : bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\OrganizationPricingProfileCollection';
+        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CustomerPricingProfilePrice';
     }
     /**
      * @return mixed
@@ -37,25 +37,27 @@ class OrganizationPricingProfileCollectionNormalizer implements DenormalizerInte
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfileCollection();
+        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfilePrice();
+        if (\array_key_exists('minorMicro', $data) && \is_int($data['minorMicro'])) {
+            $data['minorMicro'] = (double) $data['minorMicro'];
+        }
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('pagination', $data)) {
-            $object->setPagination($this->denormalizer->denormalize($data['pagination'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CollectionPagination', 'json', $context));
-            unset($data['pagination']);
+        if (\array_key_exists('minorMicro', $data) && $data['minorMicro'] !== null) {
+            $object->setMinorMicro($data['minorMicro']);
+            unset($data['minorMicro']);
         }
-        if (\array_key_exists('data', $data)) {
-            $values = array();
-            foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\OrganizationPricingProfile', 'json', $context);
-            }
-            $object->setData($values);
-            unset($data['data']);
+        elseif (\array_key_exists('minorMicro', $data) && $data['minorMicro'] === null) {
+            $object->setMinorMicro(null);
         }
-        foreach ($data as $key => $value_1) {
+        if (\array_key_exists('currency', $data)) {
+            $object->setCurrency($data['currency']);
+            unset($data['currency']);
+        }
+        foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
+                $object[$key] = $value;
             }
         }
         return $object;
@@ -66,19 +68,13 @@ class OrganizationPricingProfileCollectionNormalizer implements DenormalizerInte
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        if ($object->isInitialized('pagination') && null !== $object->getPagination()) {
-            $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
+        if ($object->isInitialized('minorMicro') && null !== $object->getMinorMicro()) {
+            $data['minorMicro'] = $object->getMinorMicro();
         }
-        if ($object->isInitialized('data') && null !== $object->getData()) {
-            $values = array();
-            foreach ($object->getData() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['data'] = $values;
-        }
-        foreach ($object as $key => $value_1) {
+        $data['currency'] = $object->getCurrency();
+        foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $data[$key] = $value_1;
+                $data[$key] = $value;
             }
         }
         return $data;

@@ -21,7 +21,7 @@ class CustomerPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @var mixed[][]
+     * @var CustomerPricingProfile[]
      */
     protected $data;
     /**
@@ -49,7 +49,7 @@ class CustomerPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @return mixed[][]
+     * @return CustomerPricingProfile[]
      */
     public function getData() : array
     {
@@ -58,7 +58,7 @@ class CustomerPricingProfileCollection extends \ArrayObject
     /**
      * 
      *
-     * @param mixed[][] $data
+     * @param CustomerPricingProfile[] $data
      *
      * @return self
      */

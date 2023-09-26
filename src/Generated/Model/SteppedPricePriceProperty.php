@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class BasePricePrice extends \ArrayObject
+class SteppedPricePriceProperty extends \ArrayObject
 {
     /**
      * @var array
@@ -15,7 +15,7 @@ class BasePricePrice extends \ArrayObject
     /**
      * Minor Micro
      *
-     * @var float|null
+     * @var float
      */
     protected $minorMicro;
     /**
@@ -27,20 +27,20 @@ class BasePricePrice extends \ArrayObject
     /**
      * Minor Micro
      *
-     * @return float|null
+     * @return float
      */
-    public function getMinorMicro() : ?float
+    public function getMinorMicro() : float
     {
         return $this->minorMicro;
     }
     /**
      * Minor Micro
      *
-     * @param float|null $minorMicro
+     * @param float $minorMicro
      *
      * @return self
      */
-    public function setMinorMicro(?float $minorMicro) : self
+    public function setMinorMicro(float $minorMicro) : self
     {
         $this->initialized['minorMicro'] = true;
         $this->minorMicro = $minorMicro;
