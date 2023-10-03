@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class PatchCustomerPricingProfileConflictException extends ConflictException
+class PatchCustomerPricingProfileNotFoundException extends NotFoundException
 {
     /**
      * @var \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class PatchCustomerPricingProfileConflictException extends ConflictException
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Conflict');
+        parent::__construct('Not Found');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }

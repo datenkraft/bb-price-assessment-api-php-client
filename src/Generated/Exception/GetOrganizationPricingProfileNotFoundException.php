@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class PatchOrganizationPricingProfileUnprocessableEntityException extends UnprocessableEntityException
+class GetOrganizationPricingProfileNotFoundException extends NotFoundException
 {
     /**
      * @var \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class PatchOrganizationPricingProfileUnprocessableEntityException extends Unproc
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Unprocessable Entity');
+        parent::__construct('Not Found');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }
