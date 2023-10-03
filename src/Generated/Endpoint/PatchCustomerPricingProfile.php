@@ -40,11 +40,10 @@ class PatchCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAsses
     /**
      * {@inheritdoc}
      *
+     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileBadRequestException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileForbiddenException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileUnprocessableEntityException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileConflictException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileBadRequestException
+     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileNotFoundException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
      *
@@ -57,8 +56,8 @@ class PatchCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAsses
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             return $serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CustomerPricingProfile', 'json');
         }
-        if (is_null($contentType) === false && (201 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CustomerPricingProfile', 'json');
+        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileUnauthorizedException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
@@ -66,14 +65,8 @@ class PatchCustomerPricingProfile extends \Datenkraft\Backbone\Client\PriceAsses
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileUnprocessableEntityException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
-        }
-        if (is_null($contentType) === false && (409 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileConflictException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
-        }
-        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileNotFoundException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileInternalServerErrorException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);

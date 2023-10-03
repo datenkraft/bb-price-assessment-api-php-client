@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class PatchOrganizationPricingProfileConflictException extends ConflictException
+class GetReportPriceNotAcceptableException extends NotAcceptableException
 {
     /**
      * @var \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class PatchOrganizationPricingProfileConflictException extends ConflictException
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Conflict');
+        parent::__construct('Not Acceptable');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }
