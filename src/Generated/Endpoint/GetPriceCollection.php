@@ -5,14 +5,19 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint;
 class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\Endpoint
 {
     /**
-     * Get Price
-     *
-     * @param array $queryParameters {
-     *     @var string $filter[customerId] Customer Id filter
-     *     @var string $filter[skuCode] SKU Code filter
-     *     @var string $filter[validFrom] Valid From Date filter
-     * }
-     */
+    * Get Price
+    *
+    * @param array $queryParameters {
+    *     @var int $page The page to read. Default is the first page.
+    *     @var int $pageSize The maximum size per page is 100. Default is 100.
+    *     @var string $paginationMode The paginationMode to use:
+    - default: The total number of items in the collection will not be calculated.
+    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    *     @var string $filter[customerId] Customer Id filter
+    *     @var string $filter[skuCode] SKU Code filter
+    *     @var string $filter[validFrom] Valid From Date filter
+    * }
+    */
     public function __construct(array $queryParameters = array())
     {
         $this->queryParameters = $queryParameters;
@@ -37,9 +42,12 @@ class GetPriceCollection extends \Datenkraft\Backbone\Client\PriceAssessmentApi\
     protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('filter[customerId]', 'filter[skuCode]', 'filter[validFrom]'));
+        $optionsResolver->setDefined(array('page', 'pageSize', 'paginationMode', 'filter[customerId]', 'filter[skuCode]', 'filter[validFrom]'));
         $optionsResolver->setRequired(array('filter[customerId]', 'filter[skuCode]'));
-        $optionsResolver->setDefaults(array());
+        $optionsResolver->setDefaults(array('paginationMode' => 'default'));
+        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->addAllowedTypes('pageSize', array('int'));
+        $optionsResolver->addAllowedTypes('paginationMode', array('string'));
         $optionsResolver->addAllowedTypes('filter[customerId]', array('string'));
         $optionsResolver->addAllowedTypes('filter[skuCode]', array('string'));
         $optionsResolver->addAllowedTypes('filter[validFrom]', array('string'));
