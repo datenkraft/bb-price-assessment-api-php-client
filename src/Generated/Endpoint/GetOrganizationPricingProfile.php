@@ -6,13 +6,21 @@ class GetOrganizationPricingProfile extends \Datenkraft\Backbone\Client\PriceAss
 {
     protected $organizationPricingProfileId;
     /**
-     * Query Organization Pricing Profile by by its id
-     *
-     * @param string $organizationPricingProfileId Organization Pricing Profile Id
-     */
-    public function __construct(string $organizationPricingProfileId)
+    * Query Organization Pricing Profile by by its id
+    *
+    * @param string $organizationPricingProfileId Organization Pricing Profile Id
+    * @param array $queryParameters {
+    *     @var int $page The page to read. Default is the first page.
+    *     @var int $pageSize The maximum size per page is 100. Default is 100.
+    *     @var string $paginationMode The paginationMode to use:
+    - default: The total number of items in the collection will not be calculated.
+    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    * }
+    */
+    public function __construct(string $organizationPricingProfileId, array $queryParameters = array())
     {
         $this->organizationPricingProfileId = $organizationPricingProfileId;
+        $this->queryParameters = $queryParameters;
     }
     use \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Client\EndpointTrait;
     public function getMethod() : string
@@ -30,6 +38,17 @@ class GetOrganizationPricingProfile extends \Datenkraft\Backbone\Client\PriceAss
     public function getExtraHeaders() : array
     {
         return array('Accept' => array('application/json'));
+    }
+    protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('page', 'pageSize', 'paginationMode'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array('paginationMode' => 'default'));
+        $optionsResolver->addAllowedTypes('page', array('int'));
+        $optionsResolver->addAllowedTypes('pageSize', array('int'));
+        $optionsResolver->addAllowedTypes('paginationMode', array('string'));
+        return $optionsResolver;
     }
     /**
      * {@inheritdoc}
