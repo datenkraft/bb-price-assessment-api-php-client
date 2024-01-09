@@ -12,7 +12,8 @@ class GetCustomerPricingProfileCollectionEndpoint extends \Datenkraft\Backbone\C
     *     @var int $pageSize The maximum size per page is 100. Default is 100.
     *     @var string $paginationMode The paginationMode to use:
     - default: The total number of items in the collection will not be calculated.
-    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    - totalCount: The total number of items in the collection will be calculated.
+    This can mean loss of performance.
     *     @var string $filter[customerIds] Comma seperated list of customer ids (optional)
     * }
     */
@@ -52,9 +53,9 @@ class GetCustomerPricingProfileCollectionEndpoint extends \Datenkraft\Backbone\C
     /**
      * {@inheritdoc}
      *
+     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointForbiddenException
-     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
      *
@@ -67,14 +68,14 @@ class GetCustomerPricingProfileCollectionEndpoint extends \Datenkraft\Backbone\C
         if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             return $serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\CustomerPricingProfileCollection', 'json');
         }
+        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        }
         if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointUnauthorizedException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
-        }
-        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointInternalServerErrorException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\ErrorResponse', 'json'), $response);

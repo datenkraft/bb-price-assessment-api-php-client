@@ -277,13 +277,14 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     *     @var int $pageSize The maximum size per page is 100. Default is 100.
     *     @var string $paginationMode The paginationMode to use:
     - default: The total number of items in the collection will not be calculated.
-    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    - totalCount: The total number of items in the collection will be calculated.
+    This can mean loss of performance.
     *     @var string $filter[customerIds] Comma seperated list of customer ids (optional)
     * }
     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+    * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointUnauthorizedException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointForbiddenException
-    * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointBadRequestException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetCustomerPricingProfileCollectionEndpointInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
@@ -294,8 +295,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\GetCustomerPricingProfileCollectionEndpoint($queryParameters), $fetch);
     }
     /**
-    * Add a new Customer Pricing Profile. You may not use this endpoint to add stepped prices to an
-    existing pricing profile.
+    * Add a new Customer Pricing Profile. You may not use this endpoint to add stepped
+    prices to an existing pricing profile.
     *
     * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfile $requestBody 
     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -307,7 +308,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostCustomerPricingProfileInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
-    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfile|\Psr\Http\Message\ResponseInterface
+    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfile|\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
     */
     public function postCustomerPricingProfile(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfile $requestBody, string $fetch = self::FETCH_OBJECT)
     {
@@ -350,8 +351,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\GetCustomerPricingProfile($customerPricingProfileId), $fetch);
     }
     /**
-    * Update one or more fields of a Customer Pricing Profile.\
-    Please note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.
+    * Update one or more fields of a Customer Pricing Profile. Please note,
+    that existing stepped prices are replaced by the value you send via the request body, not supplemented.
     *
     * @param string $customerPricingProfileId Customer Pricing Profile Id
     * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfile $requestBody 
@@ -363,7 +364,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchCustomerPricingProfileInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
-    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfile|\Psr\Http\Message\ResponseInterface
+    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfile|\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
     */
     public function patchCustomerPricingProfile(string $customerPricingProfileId, \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfile $requestBody, string $fetch = self::FETCH_OBJECT)
     {
@@ -428,8 +429,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\GetOrganizationPricingProfileCollection($queryParameters), $fetch);
     }
     /**
-    * Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an
-    existing pricing profile.
+    * Add a new Organization Pricing Profile.
+    You may not use this endpoint to add stepped prices to an existing pricing profile.
     *
     * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile $requestBody 
     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -441,7 +442,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PostOrganizationPricingProfileInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
-    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfile|\Psr\Http\Message\ResponseInterface
+    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfile|\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
     */
     public function postOrganizationPricingProfile(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile $requestBody, string $fetch = self::FETCH_OBJECT)
     {
@@ -474,7 +475,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     *     @var int $pageSize The maximum size per page is 100. Default is 100.
     *     @var string $paginationMode The paginationMode to use:
     - default: The total number of items in the collection will not be calculated.
-    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    - totalCount: The total number of items in the collection will be calculated.
+    This can mean loss of performance.
     * }
     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetOrganizationPricingProfileBadRequestException
@@ -491,8 +493,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\GetOrganizationPricingProfile($organizationPricingProfileId, $queryParameters), $fetch);
     }
     /**
-    * Update one or more fields of a Organization Pricing Profile.\
-    Please note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.
+    * Update one or more fields of a Organization Pricing Profile. Please note,
+    that existing stepped prices are replaced by the value you send via the request body, not supplemented.
     *
     * @param string $organizationPricingProfileId Organization Pricing Profile Id
     * @param \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfile $requestBody 
@@ -504,7 +506,7 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\PatchOrganizationPricingProfileInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
-    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfile|\Psr\Http\Message\ResponseInterface
+    * @return \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfile|\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
     */
     public function patchOrganizationPricingProfile(string $organizationPricingProfileId, \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfile $requestBody, string $fetch = self::FETCH_OBJECT)
     {
@@ -518,15 +520,16 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
     *     @var int $pageSize The maximum size per page is 100. Default is 100.
     *     @var string $paginationMode The paginationMode to use:
     - default: The total number of items in the collection will not be calculated.
-    - totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.
+    - totalCount: The total number of items in the collection will be calculated.
+    This can mean loss of performance.
     *     @var string $filter[customerId] Customer Id filter
     *     @var string $filter[skuCode] SKU Code filter
     *     @var string $filter[validFrom] Valid From Date filter
     * }
     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+    * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionBadRequestException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionUnauthorizedException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionForbiddenException
-    * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionBadRequestException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\GetPriceCollectionInternalServerErrorException
     * @throws \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception\UnexpectedStatusCodeException
     *
@@ -537,8 +540,8 @@ class Client extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Ru
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Endpoint\GetPriceCollection($queryParameters), $fetch);
     }
     /**
-    * Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom,
-    steppedPrices:validFromQuantity.
+    * Get Price Table for an Organization.
+    The prices are sorted by: skuGroup:name, sku:name, validFrom, steppedPrices:validFromQuantity.
     *
     * @param array $queryParameters {
     *     @var string $filter[organizationId] Organization Id filter

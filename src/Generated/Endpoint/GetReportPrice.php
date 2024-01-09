@@ -6,8 +6,8 @@ class GetReportPrice extends \Datenkraft\Backbone\Client\PriceAssessmentApi\Gene
 {
     protected $accept;
     /**
-    * Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom,
-    steppedPrices:validFromQuantity.
+    * Get Price Table for an Organization.
+    The prices are sorted by: skuGroup:name, sku:name, validFrom, steppedPrices:validFromQuantity.
     *
     * @param array $queryParameters {
     *     @var string $filter[organizationId] Organization Id filter
