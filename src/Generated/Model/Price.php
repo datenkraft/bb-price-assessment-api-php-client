@@ -31,8 +31,8 @@ class Price extends \ArrayObject
      */
     protected $price;
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
-    values, e.g. to calculate commissions.
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
+    the transmitted values, e.g. to calculate commissions.
     *
     * @var float|null
     */
@@ -44,8 +44,8 @@ class Price extends \ArrayObject
      */
     protected $steppedPrices;
     /**
-    * Start date from when on the price is valid. This price remains valid until a price with a more
-    recent validFrom date is found.
+    * Start date from when on the price is valid.
+    This price remains valid until a price with a more recent validFrom date is found.
     *
     * @var \DateTime
     */
@@ -117,8 +117,8 @@ class Price extends \ArrayObject
         return $this;
     }
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
-    values, e.g. to calculate commissions.
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
+    the transmitted values, e.g. to calculate commissions.
     *
     * @return float|null
     */
@@ -127,8 +127,8 @@ class Price extends \ArrayObject
         return $this->percent;
     }
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted
-    values, e.g. to calculate commissions.
+    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
+    the transmitted values, e.g. to calculate commissions.
     *
     * @param float|null $percent
     *
@@ -163,8 +163,8 @@ class Price extends \ArrayObject
         return $this;
     }
     /**
-    * Start date from when on the price is valid. This price remains valid until a price with a more
-    recent validFrom date is found.
+    * Start date from when on the price is valid.
+    This price remains valid until a price with a more recent validFrom date is found.
     *
     * @return \DateTime
     */
@@ -173,8 +173,8 @@ class Price extends \ArrayObject
         return $this->validFrom;
     }
     /**
-    * Start date from when on the price is valid. This price remains valid until a price with a more
-    recent validFrom date is found.
+    * Start date from when on the price is valid.
+    This price remains valid until a price with a more recent validFrom date is found.
     *
     * @param \DateTime $validFrom
     *

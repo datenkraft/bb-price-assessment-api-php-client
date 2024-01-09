@@ -1406,7 +1406,7 @@
                     {
                         "name": "paginationMode",
                         "in": "query",
-                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.",
+                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated.\nThis can mean loss of performance.",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -1438,8 +1438,18 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1449,17 +1459,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1469,7 +1469,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1503,7 +1503,7 @@
                     "customer-pricing-profile"
                 ],
                 "summary": "Add a new Customer Pricing Profile",
-                "description": "Add a new Customer Pricing Profile. You may not use this endpoint to add stepped prices to an\nexisting pricing profile.",
+                "description": "Add a new Customer Pricing Profile. You may not use this endpoint to add stepped\nprices to an existing pricing profile.",
                 "operationId": "postCustomerPricingProfile",
                 "requestBody": {
                     "required": true,
@@ -1527,7 +1527,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1537,7 +1537,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1547,7 +1547,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1557,7 +1557,7 @@
                         }
                     },
                     "409": {
-                        "description": "Conflict",
+                        "description": "Conflict\n\nError codes:\n- DATA_ALREADY_EXISTS: A data conflict was detected.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1567,7 +1567,7 @@
                         }
                     },
                     "422": {
-                        "description": "Unprocessable Entity",
+                        "description": "Unprocessable Entity\n\nError codes:\n- DATA_NOT_PROCESSABLE: The given data is not processable.\n- DATA_NOT_UNIQUE: The given data is not unique.\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1577,7 +1577,17 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1628,7 +1638,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1638,7 +1648,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1648,7 +1658,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1658,7 +1668,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1668,7 +1678,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1720,7 +1730,7 @@
                         "description": "No Content"
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1730,7 +1740,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1740,7 +1750,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1750,7 +1760,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1760,7 +1770,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1794,7 +1804,7 @@
                     "customer-pricing-profile"
                 ],
                 "summary": "Update a Customer Pricing Profile",
-                "description": "Update one or more fields of a Customer Pricing Profile.\\\nPlease note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
+                "description": "Update one or more fields of a Customer Pricing Profile. Please note,\nthat existing stepped prices are replaced by the value you send via the request body, not supplemented.",
                 "operationId": "patchCustomerPricingProfile",
                 "parameters": [
                     {
@@ -1829,7 +1839,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1839,7 +1849,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1849,7 +1859,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1859,7 +1869,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1869,7 +1879,17 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2026,7 +2046,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2036,7 +2056,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2046,7 +2066,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2056,7 +2076,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2090,7 +2110,7 @@
                     "organization-pricing-profile"
                 ],
                 "summary": "Add a new Organization Pricing Profile",
-                "description": "Add a new Organization Pricing Profile. You may not use this endpoint to add stepped prices to an\nexisting pricing profile.",
+                "description": "Add a new Organization Pricing Profile.\nYou may not use this endpoint to add stepped prices to an existing pricing profile.",
                 "operationId": "postOrganizationPricingProfile",
                 "requestBody": {
                     "required": true,
@@ -2114,7 +2134,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2124,7 +2144,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2134,7 +2154,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2144,7 +2164,7 @@
                         }
                     },
                     "409": {
-                        "description": "Conflict",
+                        "description": "Conflict\n\nError codes:\n- DATA_ALREADY_EXISTS: A data conflict was detected.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2154,7 +2174,7 @@
                         }
                     },
                     "422": {
-                        "description": "Unprocessable Entity",
+                        "description": "Unprocessable Entity\n\nError codes:\n- DATA_NOT_PROCESSABLE: The given data is not processable.\n- DATA_NOT_UNIQUE: The given data is not unique.\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2164,7 +2184,17 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2216,7 +2246,7 @@
                     {
                         "name": "paginationMode",
                         "in": "query",
-                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.",
+                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated.\nThis can mean loss of performance.",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -2249,7 +2279,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2259,7 +2289,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2269,7 +2299,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2279,7 +2309,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2289,7 +2319,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2341,7 +2371,7 @@
                         "description": "No Content"
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2351,7 +2381,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2361,7 +2391,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2371,7 +2401,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2381,7 +2411,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2415,7 +2445,7 @@
                     "organization-pricing-profile"
                 ],
                 "summary": "Update a Organization Pricing Profile",
-                "description": "Update one or more fields of a Organization Pricing Profile.\\\nPlease note, that existing stepped prices are replaced by the value you send via the request body, not supplemented.",
+                "description": "Update one or more fields of a Organization Pricing Profile. Please note,\nthat existing stepped prices are replaced by the value you send via the request body, not supplemented.",
                 "operationId": "patchOrganizationPricingProfile",
                 "parameters": [
                     {
@@ -2450,7 +2480,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2460,7 +2490,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2470,7 +2500,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2480,7 +2510,7 @@
                         }
                     },
                     "404": {
-                        "description": "Not Found",
+                        "description": "Not Found\n\nError codes:\n- DATA_NOT_FOUND: The requested data could not be found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2490,7 +2520,17 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2542,7 +2582,7 @@
                     {
                         "name": "paginationMode",
                         "in": "query",
-                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated. This can mean loss of performance.",
+                        "description": "The paginationMode to use:\n- default: The total number of items in the collection will not be calculated.\n- totalCount: The total number of items in the collection will be calculated.\nThis can mean loss of performance.",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -2592,8 +2632,18 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2603,17 +2653,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2623,7 +2663,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2659,7 +2699,7 @@
                     "price"
                 ],
                 "summary": "Get Price Table",
-                "description": "Get Price Table for an Organization. The prices are sorted by: skuGroup:name, sku:name, validFrom,\nsteppedPrices:validFromQuantity.",
+                "description": "Get Price Table for an Organization.\nThe prices are sorted by: skuGroup:name, sku:name, validFrom, steppedPrices:validFromQuantity.",
                 "operationId": "getReportPrice",
                 "parameters": [
                     {
@@ -2690,7 +2730,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Bad Request\n\nError codes:\n- DATA_INVALID: Invalid data was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2700,7 +2740,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
+                        "description": "Unauthorized\n\nError codes:\n- AUTHORIZATION_MISSING: No valid authentication information was given.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2710,7 +2750,7 @@
                         }
                     },
                     "403": {
-                        "description": "Forbidden",
+                        "description": "Forbidden\n\nError codes:\n- PERMISSIONS_MISSING: No authorization for the called action was found.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2720,7 +2760,7 @@
                         }
                     },
                     "406": {
-                        "description": "Not Acceptable",
+                        "description": "Not Acceptable\n\nError codes:\n- ACCEPTABLE_RESPONSE_NOT_AVAILABLE: No response can be provided for the requested accept header.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2730,7 +2770,7 @@
                         }
                     },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server error\n\nError codes:\n- SERVER_ERROR_OCCURRED: An internal server error occurred. Please try again later.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2983,7 +3023,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted\nvalues, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of\nthe transmitted values, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -2996,7 +3036,7 @@
                         }
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more\nrecent validFrom date is found.",
+                        "description": "Start date from when on the price is valid.\nThis price remains valid until a price with a more recent validFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -3068,7 +3108,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted\nvalues, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -3081,7 +3121,7 @@
                         }
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent\nvalidFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -3242,7 +3282,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted\nvalues, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -3256,7 +3296,7 @@
                         "nullable": true
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent\nvalidFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -3288,7 +3328,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values,\ne.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -3302,7 +3342,7 @@
                         "nullable": true
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "description": "Start date from when on the price is valid. This price remains valid until a price with\na more recent validFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -3339,7 +3379,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmitted values, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of\nthe transmitted values, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -3352,7 +3392,7 @@
                         }
                     },
                     "validFrom": {
-                        "description": "Start date from when on the price is valid. This price remains valid until a price with a more recent validFrom date is found.",
+                        "description": "Start date from when on the price is valid.\nThis price remains valid until a price with a more recent validFrom date is found.",
                         "type": "string",
                         "format": "date-time"
                     }
@@ -3391,7 +3431,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues,\ne.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true
@@ -3419,7 +3459,7 @@
                         ]
                     },
                     "percent": {
-                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues, e.g. to calculate commissions.",
+                        "description": "Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of\nthe transmittedvalues, e.g. to calculate commissions.",
                         "type": "number",
                         "format": "float",
                         "nullable": true

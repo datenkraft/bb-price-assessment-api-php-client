@@ -14,7 +14,10 @@ class PostOrganizationPricingProfileBadRequestException extends BadRequestExcept
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Bad Request');
+        parent::__construct('Bad Request
+
+Error codes:
+- DATA_INVALID: Invalid data was given.');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }
