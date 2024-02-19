@@ -1,3 +1,6 @@
+**This package version branch is abandoned and does not receive any updates!**
+---
+
 # Backbone - Price Assessment API PHP Client
 
 ## Introduction
