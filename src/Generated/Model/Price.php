@@ -7,8 +7,8 @@ class Price extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -40,7 +40,7 @@ class Price extends \ArrayObject
     /**
      * Stepped Prices
      *
-     * @var SteppedPrice[]
+     * @var list<SteppedPrice>
      */
     protected $steppedPrices;
     /**
@@ -55,7 +55,7 @@ class Price extends \ArrayObject
      *
      * @return string
      */
-    public function getCustomerId() : string
+    public function getCustomerId(): string
     {
         return $this->customerId;
     }
@@ -66,7 +66,7 @@ class Price extends \ArrayObject
      *
      * @return self
      */
-    public function setCustomerId(string $customerId) : self
+    public function setCustomerId(string $customerId): self
     {
         $this->initialized['customerId'] = true;
         $this->customerId = $customerId;
@@ -77,7 +77,7 @@ class Price extends \ArrayObject
      *
      * @return string
      */
-    public function getSkuCode() : string
+    public function getSkuCode(): string
     {
         return $this->skuCode;
     }
@@ -88,7 +88,7 @@ class Price extends \ArrayObject
      *
      * @return self
      */
-    public function setSkuCode(string $skuCode) : self
+    public function setSkuCode(string $skuCode): self
     {
         $this->initialized['skuCode'] = true;
         $this->skuCode = $skuCode;
@@ -99,7 +99,7 @@ class Price extends \ArrayObject
      *
      * @return BasePricePrice|null
      */
-    public function getPrice() : ?BasePricePrice
+    public function getPrice(): ?BasePricePrice
     {
         return $this->price;
     }
@@ -110,7 +110,7 @@ class Price extends \ArrayObject
      *
      * @return self
      */
-    public function setPrice(?BasePricePrice $price) : self
+    public function setPrice(?BasePricePrice $price): self
     {
         $this->initialized['price'] = true;
         $this->price = $price;
@@ -122,7 +122,7 @@ class Price extends \ArrayObject
     *
     * @return float|null
     */
-    public function getPercent() : ?float
+    public function getPercent(): ?float
     {
         return $this->percent;
     }
@@ -134,7 +134,7 @@ class Price extends \ArrayObject
     *
     * @return self
     */
-    public function setPercent(?float $percent) : self
+    public function setPercent(?float $percent): self
     {
         $this->initialized['percent'] = true;
         $this->percent = $percent;
@@ -143,20 +143,20 @@ class Price extends \ArrayObject
     /**
      * Stepped Prices
      *
-     * @return SteppedPrice[]
+     * @return list<SteppedPrice>
      */
-    public function getSteppedPrices() : array
+    public function getSteppedPrices(): array
     {
         return $this->steppedPrices;
     }
     /**
      * Stepped Prices
      *
-     * @param SteppedPrice[] $steppedPrices
+     * @param list<SteppedPrice> $steppedPrices
      *
      * @return self
      */
-    public function setSteppedPrices(array $steppedPrices) : self
+    public function setSteppedPrices(array $steppedPrices): self
     {
         $this->initialized['steppedPrices'] = true;
         $this->steppedPrices = $steppedPrices;
@@ -168,7 +168,7 @@ class Price extends \ArrayObject
     *
     * @return \DateTime
     */
-    public function getValidFrom() : \DateTime
+    public function getValidFrom(): \DateTime
     {
         return $this->validFrom;
     }
@@ -180,7 +180,7 @@ class Price extends \ArrayObject
     *
     * @return self
     */
-    public function setValidFrom(\DateTime $validFrom) : self
+    public function setValidFrom(\DateTime $validFrom): self
     {
         $this->initialized['validFrom'] = true;
         $this->validFrom = $validFrom;

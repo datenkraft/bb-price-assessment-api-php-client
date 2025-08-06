@@ -7,8 +7,8 @@ class SteppedPrice extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class SteppedPrice extends \ArrayObject
      *
      * @return int
      */
-    public function getValidFromQuantity() : int
+    public function getValidFromQuantity(): int
     {
         return $this->validFromQuantity;
     }
@@ -40,7 +40,7 @@ class SteppedPrice extends \ArrayObject
      *
      * @return self
      */
-    public function setValidFromQuantity(int $validFromQuantity) : self
+    public function setValidFromQuantity(int $validFromQuantity): self
     {
         $this->initialized['validFromQuantity'] = true;
         $this->validFromQuantity = $validFromQuantity;
@@ -51,7 +51,7 @@ class SteppedPrice extends \ArrayObject
      *
      * @return SteppedPricePriceProperty
      */
-    public function getPrice() : SteppedPricePriceProperty
+    public function getPrice(): SteppedPricePriceProperty
     {
         return $this->price;
     }
@@ -62,7 +62,7 @@ class SteppedPrice extends \ArrayObject
      *
      * @return self
      */
-    public function setPrice(SteppedPricePriceProperty $price) : self
+    public function setPrice(SteppedPricePriceProperty $price): self
     {
         $this->initialized['price'] = true;
         $this->price = $price;

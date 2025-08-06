@@ -5,7 +5,6 @@ namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Normalizer\CheckArray;
 use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -18,18 +17,15 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\Price';
+        return $type === \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price::class;
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\Price';
+        return is_object($data) && get_class($data) === \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price::class;
     }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -53,7 +49,7 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             unset($data['skuCode']);
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\BasePricePrice', 'json', $context));
+            $object->setPrice($this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\BasePricePrice::class, 'json', $context));
             unset($data['price']);
         }
         elseif (\array_key_exists('price', $data) && $data['price'] === null) {
@@ -67,15 +63,15 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $object->setPercent(null);
         }
         if (\array_key_exists('steppedPrices', $data)) {
-            $values = array();
+            $values = [];
             foreach ($data['steppedPrices'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\PriceAssessmentApi\\Generated\\Model\\SteppedPrice', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPrice::class, 'json', $context);
             }
             $object->setSteppedPrices($values);
             unset($data['steppedPrices']);
         }
         if (\array_key_exists('validFrom', $data)) {
-            $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\\TH:i:sP', $data['validFrom']));
+            $object->setValidFrom(\DateTime::createFromFormat('Y-m-d\TH:i:sP', $data['validFrom']));
             unset($data['validFrom']);
         }
         foreach ($data as $key => $value_1) {
@@ -85,39 +81,40 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         }
         return $object;
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('customerId') && null !== $object->getCustomerId()) {
-            $data['customerId'] = $object->getCustomerId();
+        $dataArray = [];
+        if ($data->isInitialized('customerId') && null !== $data->getCustomerId()) {
+            $dataArray['customerId'] = $data->getCustomerId();
         }
-        if ($object->isInitialized('skuCode') && null !== $object->getSkuCode()) {
-            $data['skuCode'] = $object->getSkuCode();
+        if ($data->isInitialized('skuCode') && null !== $data->getSkuCode()) {
+            $dataArray['skuCode'] = $data->getSkuCode();
         }
-        if ($object->isInitialized('price') && null !== $object->getPrice()) {
-            $data['price'] = $this->normalizer->normalize($object->getPrice(), 'json', $context);
+        if ($data->isInitialized('price') && null !== $data->getPrice()) {
+            $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         }
-        if ($object->isInitialized('percent') && null !== $object->getPercent()) {
-            $data['percent'] = $object->getPercent();
+        if ($data->isInitialized('percent') && null !== $data->getPercent()) {
+            $dataArray['percent'] = $data->getPercent();
         }
-        if ($object->isInitialized('steppedPrices') && null !== $object->getSteppedPrices()) {
-            $values = array();
-            foreach ($object->getSteppedPrices() as $value) {
+        if ($data->isInitialized('steppedPrices') && null !== $data->getSteppedPrices()) {
+            $values = [];
+            foreach ($data->getSteppedPrices() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            $data['steppedPrices'] = $values;
+            $dataArray['steppedPrices'] = $values;
         }
-        if ($object->isInitialized('validFrom') && null !== $object->getValidFrom()) {
-            $data['validFrom'] = $object->getValidFrom()->format('Y-m-d\\TH:i:sP');
+        if ($data->isInitialized('validFrom') && null !== $data->getValidFrom()) {
+            $dataArray['validFrom'] = $data->getValidFrom()?->format('Y-m-d\TH:i:sP');
         }
-        foreach ($object as $key => $value_1) {
+        foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
-                $data[$key] = $value_1;
+                $dataArray[$key] = $value_1;
             }
         }
-        return $data;
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price::class => false];
     }
 }
