@@ -27,18 +27,18 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price();
         if (\array_key_exists('percent', $data) && \is_int($data['percent'])) {
             $data['percent'] = (double) $data['percent'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('customerId', $data)) {
             $object->setCustomerId($data['customerId']);
@@ -90,10 +90,10 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
         if ($data->isInitialized('skuCode') && null !== $data->getSkuCode()) {
             $dataArray['skuCode'] = $data->getSkuCode();
         }
-        if ($data->isInitialized('price') && null !== $data->getPrice()) {
+        if ($data->isInitialized('price')) {
             $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         }
-        if ($data->isInitialized('percent') && null !== $data->getPercent()) {
+        if ($data->isInitialized('percent')) {
             $dataArray['percent'] = $data->getPercent();
         }
         if ($data->isInitialized('steppedPrices') && null !== $data->getSteppedPrices()) {
@@ -104,7 +104,7 @@ class PriceNormalizer implements DenormalizerInterface, NormalizerInterface, Den
             $dataArray['steppedPrices'] = $values;
         }
         if ($data->isInitialized('validFrom') && null !== $data->getValidFrom()) {
-            $dataArray['validFrom'] = $data->getValidFrom()?->format('Y-m-d\TH:i:sP');
+            $dataArray['validFrom'] = $data->getValidFrom()->format('Y-m-d\TH:i:sP');
         }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {

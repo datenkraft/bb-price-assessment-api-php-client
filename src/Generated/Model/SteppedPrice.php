@@ -19,8 +19,6 @@ class SteppedPrice extends \ArrayObject
      */
     protected $validFromQuantity;
     /**
-     * 
-     *
      * @var SteppedPricePriceProperty
      */
     protected $price;
@@ -47,8 +45,6 @@ class SteppedPrice extends \ArrayObject
         return $this;
     }
     /**
-     * 
-     *
      * @return SteppedPricePriceProperty
      */
     public function getPrice(): SteppedPricePriceProperty
@@ -56,8 +52,6 @@ class SteppedPrice extends \ArrayObject
         return $this->price;
     }
     /**
-     * 
-     *
      * @param SteppedPricePriceProperty $price
      *
      * @return self

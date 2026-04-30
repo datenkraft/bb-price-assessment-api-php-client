@@ -19,11 +19,11 @@ class PatchCustomerPricingProfile extends \ArrayObject
      */
     protected $price;
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues,
-    e.g. to calculate commissions.
-    *
-    * @var float|null
-    */
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues,
+     * e.g. to calculate commissions.
+     *
+     * @var float|null
+     */
     protected $percent;
     /**
      * Stepped Prices
@@ -54,11 +54,11 @@ class PatchCustomerPricingProfile extends \ArrayObject
         return $this;
     }
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues,
-    e.g. to calculate commissions.
-    *
-    * @return float|null
-    */
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of the transmittedvalues,
+     * e.g. to calculate commissions.
+     *
+     * @return float|null
+     */
     public function getPercent(): ?float
     {
         return $this->percent;
