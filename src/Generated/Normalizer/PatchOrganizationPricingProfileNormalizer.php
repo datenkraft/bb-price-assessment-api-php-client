@@ -27,18 +27,18 @@ class PatchOrganizationPricingProfileNormalizer implements DenormalizerInterface
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfile();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfile();
         if (\array_key_exists('percent', $data) && \is_int($data['percent'])) {
             $data['percent'] = (double) $data['percent'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
             $object->setPrice($this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfilePrice::class, 'json', $context));
@@ -75,13 +75,13 @@ class PatchOrganizationPricingProfileNormalizer implements DenormalizerInterface
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('price') && null !== $data->getPrice()) {
+        if ($data->isInitialized('price')) {
             $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
         }
-        if ($data->isInitialized('percent') && null !== $data->getPercent()) {
+        if ($data->isInitialized('percent')) {
             $dataArray['percent'] = $data->getPercent();
         }
-        if ($data->isInitialized('steppedPrices') && null !== $data->getSteppedPrices()) {
+        if ($data->isInitialized('steppedPrices')) {
             $values = [];
             foreach ($data->getSteppedPrices() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);

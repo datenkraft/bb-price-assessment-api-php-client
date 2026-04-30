@@ -31,11 +31,11 @@ class Price extends \ArrayObject
      */
     protected $price;
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
-    the transmitted values, e.g. to calculate commissions.
-    *
-    * @var float|null
-    */
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
+     * the transmitted values, e.g. to calculate commissions.
+     *
+     * @var float|null
+     */
     protected $percent;
     /**
      * Stepped Prices
@@ -44,11 +44,11 @@ class Price extends \ArrayObject
      */
     protected $steppedPrices;
     /**
-    * Start date from when on the price is valid.
-    This price remains valid until a price with a more recent validFrom date is found.
-    *
-    * @var \DateTime
-    */
+     * Start date from when on the price is valid.
+     * This price remains valid until a price with a more recent validFrom date is found.
+     *
+     * @var \DateTime
+     */
     protected $validFrom;
     /**
      * Customer Id
@@ -117,11 +117,11 @@ class Price extends \ArrayObject
         return $this;
     }
     /**
-    * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
-    the transmitted values, e.g. to calculate commissions.
-    *
-    * @return float|null
-    */
+     * Percent (5 digits precision, 5 pre-decimal digits) Used to calculate percentages of
+     * the transmitted values, e.g. to calculate commissions.
+     *
+     * @return float|null
+     */
     public function getPercent(): ?float
     {
         return $this->percent;
@@ -163,11 +163,11 @@ class Price extends \ArrayObject
         return $this;
     }
     /**
-    * Start date from when on the price is valid.
-    This price remains valid until a price with a more recent validFrom date is found.
-    *
-    * @return \DateTime
-    */
+     * Start date from when on the price is valid.
+     * This price remains valid until a price with a more recent validFrom date is found.
+     *
+     * @return \DateTime
+     */
     public function getValidFrom(): \DateTime
     {
         return $this->validFrom;
