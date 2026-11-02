@@ -38,17 +38,18 @@ class PatchCustomerPricingProfilePriceNormalizer implements DenormalizerInterfac
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         if (\array_key_exists('minorMicro', $data) && \is_int($data['minorMicro'])) {
-            $data['minorMicro'] = (double) $data['minorMicro'];
+            $data['minorMicro'] = (float) $data['minorMicro'];
         }
         if (\array_key_exists('minorMicro', $data) && $data['minorMicro'] !== null) {
-            $object->setMinorMicro($data['minorMicro']);
+            $object->minorMicro = $data['minorMicro'];
             unset($data['minorMicro']);
         }
-        elseif (\array_key_exists('minorMicro', $data) && $data['minorMicro'] === null) {
-            $object->setMinorMicro(null);
+        elseif (\array_key_exists('minorMicro', $data)) {
+            $object->minorMicro = null;
+            unset($data['minorMicro']);
         }
         if (\array_key_exists('currency', $data)) {
-            $object->setCurrency($data['currency']);
+            $object->currency = $data['currency'];
             unset($data['currency']);
         }
         foreach ($data as $key => $value) {
@@ -61,11 +62,11 @@ class PatchCustomerPricingProfilePriceNormalizer implements DenormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('minorMicro')) {
-            $dataArray['minorMicro'] = $data->getMinorMicro();
+        if (array_key_exists('minorMicro', get_object_vars($data)) && null !== ($data->minorMicro ?? null)) {
+            $dataArray['minorMicro'] = $data->minorMicro;
         }
-        $dataArray['currency'] = $data->getCurrency();
-        foreach ($data as $key => $value) {
+        $dataArray['currency'] = $data->currency;
+        foreach ($data->additionalPropertyEntries() as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
             }

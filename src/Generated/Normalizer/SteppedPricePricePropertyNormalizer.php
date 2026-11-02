@@ -38,14 +38,14 @@ class SteppedPricePricePropertyNormalizer implements DenormalizerInterface, Norm
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         if (\array_key_exists('minorMicro', $data) && \is_int($data['minorMicro'])) {
-            $data['minorMicro'] = (double) $data['minorMicro'];
+            $data['minorMicro'] = (float) $data['minorMicro'];
         }
         if (\array_key_exists('minorMicro', $data)) {
-            $object->setMinorMicro($data['minorMicro']);
+            $object->minorMicro = $data['minorMicro'];
             unset($data['minorMicro']);
         }
         if (\array_key_exists('currency', $data)) {
-            $object->setCurrency($data['currency']);
+            $object->currency = $data['currency'];
             unset($data['currency']);
         }
         foreach ($data as $key => $value) {
@@ -58,9 +58,9 @@ class SteppedPricePricePropertyNormalizer implements DenormalizerInterface, Norm
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['minorMicro'] = $data->getMinorMicro();
-        $dataArray['currency'] = $data->getCurrency();
-        foreach ($data as $key => $value) {
+        $dataArray['minorMicro'] = $data->minorMicro;
+        $dataArray['currency'] = $data->currency;
+        foreach ($data->additionalPropertyEntries() as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
             }

@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class NotAcceptableException extends \RuntimeException implements ClientException
+abstract class NotAcceptableException extends \RuntimeException implements ClientException, WithResponseInterface
 {
     public function __construct(string $message)
     {

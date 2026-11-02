@@ -2,64 +2,23 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class SteppedPrice extends \ArrayObject
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalPropertiesInterface;
+class SteppedPrice implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * Valid from Quantity
      *
      * @var int
      */
-    protected $validFromQuantity;
+    public int $validFromQuantity;
     /**
      * @var SteppedPricePriceProperty
      */
-    protected $price;
-    /**
-     * Valid from Quantity
-     *
-     * @return int
-     */
-    public function getValidFromQuantity(): int
+    public SteppedPricePriceProperty $price;
+    public function definedProperties(): array
     {
-        return $this->validFromQuantity;
-    }
-    /**
-     * Valid from Quantity
-     *
-     * @param int $validFromQuantity
-     *
-     * @return self
-     */
-    public function setValidFromQuantity(int $validFromQuantity): self
-    {
-        $this->initialized['validFromQuantity'] = true;
-        $this->validFromQuantity = $validFromQuantity;
-        return $this;
-    }
-    /**
-     * @return SteppedPricePriceProperty
-     */
-    public function getPrice(): SteppedPricePriceProperty
-    {
-        return $this->price;
-    }
-    /**
-     * @param SteppedPricePriceProperty $price
-     *
-     * @return self
-     */
-    public function setPrice(SteppedPricePriceProperty $price): self
-    {
-        $this->initialized['price'] = true;
-        $this->price = $price;
-        return $this;
+        return ['validFromQuantity' => 'validFromQuantity', 'price' => 'price'];
     }
 }

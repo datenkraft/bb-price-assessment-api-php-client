@@ -124,56 +124,60 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     }
     private function initNormalizer(string $normalizerClass)
     {
-        $normalizer = new $normalizerClass();
-        $normalizer->setNormalizer($this->normalizer);
-        $normalizer->setDenormalizer($this->denormalizer);
+        $normalizer = match ($normalizerClass) {
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuditLogNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuditLogNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuditLogCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuditLogCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionResourceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionResourceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionRolePaginatedCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionRolePaginatedCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthPermissionRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleIdentityPaginatedCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleIdentityPaginatedCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleIdentityResourceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleIdentityResourceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\AuthRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\BasePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\BasePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\BasePricePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\BasePricePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CollectionPaginationNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CollectionPaginationNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfileCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\CustomerPricingProfileCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorReferencesItemNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorReferencesItemNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorResponseNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\ErrorResponseNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\GetAuthPermissionCollectionResponseNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\GetAuthPermissionCollectionResponseNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\InformationNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\InformationNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\InformationResponseNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\InformationResponseNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewAuthRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewAuthRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewCustomerPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewCustomerPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewCustomerPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewCustomerPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewOrganizationPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewOrganizationPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewOrganizationPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\NewOrganizationPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfileCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\OrganizationPricingProfileCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchCustomerPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchCustomerPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchCustomerPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchCustomerPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchOrganizationPricingProfileNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchOrganizationPricingProfileNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchOrganizationPricingProfilePriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PatchOrganizationPricingProfilePriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PriceCollectionNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PriceCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PricePropertyNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\PricePropertyNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\SteppedPriceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\SteppedPriceNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\SteppedPricePricePropertyNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Normalizer\SteppedPricePricePropertyNormalizer(),
+            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Normalizer\ReferenceNormalizer::class => new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\Normalizer\ReferenceNormalizer(),
+            default => throw new \InvalidArgumentException('Unknown normalizer class: ' . $normalizerClass),
+        };
+        if ($normalizer instanceof \Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface) {
+            $normalizer->setNormalizer($this->normalizer);
+        }
+        if ($normalizer instanceof \Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface) {
+            $normalizer->setDenormalizer($this->denormalizer);
+        }
         $this->normalizersCache[$normalizerClass] = $normalizer;
         return $normalizer;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [
-            
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuditLog::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuditLogCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthPermissionResource::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthPermissionRolePaginatedCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthPermissionRoleResource::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthRoleCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthRoleIdentityPaginatedCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthRoleIdentityResource::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\AuthRoleResource::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\BasePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\BasePricePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Collection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CollectionPagination::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\CustomerPricingProfileCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Error::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorReferencesItem::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\ErrorResponse::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\GetAuthPermissionCollectionResponse::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Information::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\InformationResponse::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewAuthRoleResource::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewCustomerPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\NewOrganizationPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\OrganizationPricingProfileCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfile::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchOrganizationPricingProfilePrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\Price::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceCollection::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PriceProperty::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPrice::class => false,
-            \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPricePriceProperty::class => false,
-            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-        ];
+        return array_combine(array_keys($this->normalizers), array_fill(0, count($this->normalizers), false));
     }
 }

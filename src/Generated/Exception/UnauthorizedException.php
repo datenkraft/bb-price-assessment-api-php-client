@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class UnauthorizedException extends \RuntimeException implements ClientException
+abstract class UnauthorizedException extends \RuntimeException implements ClientException, WithResponseInterface
 {
     public function __construct(string $message)
     {

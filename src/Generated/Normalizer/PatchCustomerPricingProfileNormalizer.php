@@ -38,32 +38,35 @@ class PatchCustomerPricingProfileNormalizer implements DenormalizerInterface, No
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         if (\array_key_exists('percent', $data) && \is_int($data['percent'])) {
-            $data['percent'] = (double) $data['percent'];
+            $data['percent'] = (float) $data['percent'];
         }
         if (\array_key_exists('price', $data) && $data['price'] !== null) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfilePrice::class, 'json', $context));
+            $object->price = $this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\PatchCustomerPricingProfilePrice::class, 'json', $context);
             unset($data['price']);
         }
-        elseif (\array_key_exists('price', $data) && $data['price'] === null) {
-            $object->setPrice(null);
+        elseif (\array_key_exists('price', $data)) {
+            $object->price = null;
+            unset($data['price']);
         }
         if (\array_key_exists('percent', $data) && $data['percent'] !== null) {
-            $object->setPercent($data['percent']);
+            $object->percent = $data['percent'];
             unset($data['percent']);
         }
-        elseif (\array_key_exists('percent', $data) && $data['percent'] === null) {
-            $object->setPercent(null);
+        elseif (\array_key_exists('percent', $data)) {
+            $object->percent = null;
+            unset($data['percent']);
         }
         if (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] !== null) {
             $values = [];
             foreach ($data['steppedPrices'] as $value) {
                 $values[] = $this->denormalizer->denormalize($value, \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPrice::class, 'json', $context);
             }
-            $object->setSteppedPrices($values);
+            $object->steppedPrices = $values;
             unset($data['steppedPrices']);
         }
-        elseif (\array_key_exists('steppedPrices', $data) && $data['steppedPrices'] === null) {
-            $object->setSteppedPrices(null);
+        elseif (\array_key_exists('steppedPrices', $data)) {
+            $object->steppedPrices = null;
+            unset($data['steppedPrices']);
         }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -75,20 +78,22 @@ class PatchCustomerPricingProfileNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('price')) {
-            $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
+        if (array_key_exists('price', get_object_vars($data)) && null !== ($data->price ?? null)) {
+            $normalized = $this->normalizer->normalize($data->price, 'json', $context);
+            $dataArray['price'] = \is_iterable($normalized) ? new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\JsonObject($normalized) : $normalized;
         }
-        if ($data->isInitialized('percent')) {
-            $dataArray['percent'] = $data->getPercent();
+        if (array_key_exists('percent', get_object_vars($data)) && null !== ($data->percent ?? null)) {
+            $dataArray['percent'] = $data->percent;
         }
-        if ($data->isInitialized('steppedPrices')) {
+        if (array_key_exists('steppedPrices', get_object_vars($data)) && null !== ($data->steppedPrices ?? null)) {
             $values = [];
-            foreach ($data->getSteppedPrices() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            foreach ($data->steppedPrices as $value) {
+                $normalized_1 = $value === null ? null : $this->normalizer->normalize($value, 'json', $context);
+                $values[] = \is_iterable($normalized_1) ? new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\JsonObject($normalized_1) : $normalized_1;
             }
             $dataArray['steppedPrices'] = $values;
         }
-        foreach ($data as $key => $value_1) {
+        foreach ($data->additionalPropertyEntries() as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value_1;
             }
