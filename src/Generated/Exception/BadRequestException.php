@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Exception;
 
-class BadRequestException extends \RuntimeException implements ClientException
+abstract class BadRequestException extends \RuntimeException implements ClientException, WithResponseInterface
 {
     public function __construct(string $message)
     {

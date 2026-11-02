@@ -38,11 +38,11 @@ class SteppedPriceNormalizer implements DenormalizerInterface, NormalizerInterfa
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         if (\array_key_exists('validFromQuantity', $data)) {
-            $object->setValidFromQuantity($data['validFromQuantity']);
+            $object->validFromQuantity = $data['validFromQuantity'];
             unset($data['validFromQuantity']);
         }
         if (\array_key_exists('price', $data)) {
-            $object->setPrice($this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPricePriceProperty::class, 'json', $context));
+            $object->price = $this->denormalizer->denormalize($data['price'], \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model\SteppedPricePriceProperty::class, 'json', $context);
             unset($data['price']);
         }
         foreach ($data as $key => $value) {
@@ -55,9 +55,10 @@ class SteppedPriceNormalizer implements DenormalizerInterface, NormalizerInterfa
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        $dataArray['validFromQuantity'] = $data->getValidFromQuantity();
-        $dataArray['price'] = $this->normalizer->normalize($data->getPrice(), 'json', $context);
-        foreach ($data as $key => $value) {
+        $dataArray['validFromQuantity'] = $data->validFromQuantity;
+        $normalized = $data->price === null ? null : $this->normalizer->normalize($data->price, 'json', $context);
+        $dataArray['price'] = \is_iterable($normalized) ? new \Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\JsonObject($normalized) : $normalized;
+        foreach ($data->additionalPropertyEntries() as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
             }

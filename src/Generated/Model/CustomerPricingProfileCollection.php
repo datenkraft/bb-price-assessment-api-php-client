@@ -2,58 +2,21 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class CustomerPricingProfileCollection extends \ArrayObject
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalPropertiesInterface;
+class CustomerPricingProfileCollection implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * @var CollectionPagination
      */
-    protected $pagination;
+    public CollectionPagination $pagination;
     /**
      * @var list<CustomerPricingProfile>
      */
-    protected $data;
-    /**
-     * @return CollectionPagination
-     */
-    public function getPagination(): CollectionPagination
+    public array $data;
+    public function definedProperties(): array
     {
-        return $this->pagination;
-    }
-    /**
-     * @param CollectionPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(CollectionPagination $pagination): self
-    {
-        $this->initialized['pagination'] = true;
-        $this->pagination = $pagination;
-        return $this;
-    }
-    /**
-     * @return list<CustomerPricingProfile>
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-    /**
-     * @param list<CustomerPricingProfile> $data
-     *
-     * @return self
-     */
-    public function setData(array $data): self
-    {
-        $this->initialized['data'] = true;
-        $this->data = $data;
-        return $this;
+        return ['pagination' => 'pagination', 'data' => 'data'];
     }
 }

@@ -2,70 +2,25 @@
 
 namespace Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Model;
 
-class BasePricePrice extends \ArrayObject
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\PriceAssessmentApi\Generated\Runtime\AdditionalPropertiesInterface;
+class BasePricePrice implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * Minor Micro
      *
      * @var float|null
      */
-    protected $minorMicro;
+    public ?float $minorMicro;
     /**
      * Currency
      *
      * @var string
      */
-    protected $currency;
-    /**
-     * Minor Micro
-     *
-     * @return float|null
-     */
-    public function getMinorMicro(): ?float
+    public string $currency;
+    public function definedProperties(): array
     {
-        return $this->minorMicro;
-    }
-    /**
-     * Minor Micro
-     *
-     * @param float|null $minorMicro
-     *
-     * @return self
-     */
-    public function setMinorMicro(?float $minorMicro): self
-    {
-        $this->initialized['minorMicro'] = true;
-        $this->minorMicro = $minorMicro;
-        return $this;
-    }
-    /**
-     * Currency
-     *
-     * @return string
-     */
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-    /**
-     * Currency
-     *
-     * @param string $currency
-     *
-     * @return self
-     */
-    public function setCurrency(string $currency): self
-    {
-        $this->initialized['currency'] = true;
-        $this->currency = $currency;
-        return $this;
+        return ['minorMicro' => 'minorMicro', 'currency' => 'currency'];
     }
 }
